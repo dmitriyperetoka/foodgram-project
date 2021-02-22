@@ -1,30 +1,25 @@
 from django.contrib import admin
 
-from .models import Favourite, Ingredient, IngredientInRecipe, Recipe, Tag
+from .models import FavouriteRecipe, Ingredient, IngredientInRecipe, Recipe, Tag
 
 
-class FavouriteAdmin(admin.ModelAdmin):
-    pass
-
-
+@admin.register(Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['id', 'title', 'dimension_unit']
+    list_display_links = ['title']
 
 
-class IngredientInRecipeAdmin(admin.ModelAdmin):
-    pass
-
-
+@admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['id', 'title', 'author']
+    list_display_links = ['title']
 
 
+@admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['id', 'title', 'slug']
+    list_display_links = ['title']
 
 
-admin.site.register(Favourite, FavouriteAdmin)
-admin.site.register(Ingredient, IngredientAdmin)
-admin.site.register(IngredientInRecipe, IngredientInRecipeAdmin)
-admin.site.register(Recipe, RecipeAdmin)
-admin.site.register(Tag, TagAdmin)
+admin.site.register(FavouriteRecipe)
+admin.site.register(IngredientInRecipe)

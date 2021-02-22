@@ -1,10 +1,5 @@
 from django.contrib import admin
 
-from .models import Follow
+from .models import Subscription
 
-
-class FollowAdmin(admin.ModelAdmin):
-    pass
-
-
-admin.site.register(Follow, FollowAdmin)
+admin.site.register(Subscription)
