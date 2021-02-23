@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def purchase_list(request, **kwargs):
+    return render(request, 'purchase_list.html')
