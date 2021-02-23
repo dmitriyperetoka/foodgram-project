@@ -13,14 +13,15 @@ class PurchasesModelsTest(ModelsTestBase):
         self.author = User.objects.create(username='some_user')
         self.recipe = Recipe.objects.create(
             author=self.author, title='Some Recipe', cooking_time_minutes=60)
-        self.purchase_list = PurchaseList.objects.create(author=self.author)
+        self.purchase_list = PurchaseList.objects.create(
+            author=self.author, title='Some Purchase List')
         self.recipe_in_purchase_list = RecipeInPurchaseList.objects.create(
             recipe=self.recipe, purchase_list=self.purchase_list, quantity=2)
 
 
 class PurchaseListModelTest(PurchasesModelsTest):
     def test_field_list(self):
-        field_names = ['id', 'author']
+        field_names = ['id', 'author', 'title']
         self.check_field_list(self.purchase_list, field_names)
 
     def test_many_to_many_field_list(self):
@@ -31,6 +32,7 @@ class PurchaseListModelTest(PurchasesModelsTest):
     def test_field_classes(self):
         field_classes = {
             'author': models.ForeignKey,
+            'title': models.CharField,
             'recipes': models.ManyToManyField,
         }
         self.check_field_classes(self.purchase_list, field_classes)
@@ -43,6 +45,10 @@ class PurchaseListModelTest(PurchasesModelsTest):
             'author': {
                 'verbose_name': 'Автор',
                 'help_text': 'Автор списка покупок'
+            },
+            'title': {
+                'verbose_name': 'Название',
+                'help_text': 'Название списка покупок'
             },
             'recipes': {
                 'verbose_name': 'Рецепты',
@@ -77,7 +83,8 @@ class PurchaseListModelTest(PurchasesModelsTest):
     def test_str(self):
         self.assertEqual(
             str(self.purchase_list),
-            f'Список покупок #{self.purchase_list.id}')
+            f'Список покупок #{self.purchase_list.id} '
+            f'"{self.purchase_list.title}"')
 
 
 class ProductSetInPurchaseListModelTest(PurchasesModelsTest):

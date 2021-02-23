@@ -12,6 +12,8 @@ class PurchaseList(models.Model):
     author = models.ForeignKey(
         User, models.CASCADE, 'purchase_lists', verbose_name='Автор',
         help_text='Автор списка покупок')
+    title = models.CharField(
+        'Название', help_text='Название списка покупок', max_length=200)
     recipes = models.ManyToManyField(
         Recipe, 'purchase_lists', through='RecipeInPurchaseList',
         through_fields=['purchase_list', 'recipe'], verbose_name='Рецепты',
@@ -22,7 +24,7 @@ class PurchaseList(models.Model):
         verbose_name_plural = 'Списки покупок'
 
     def __str__(self):
-        return f'Список покупок #{self.id}'
+        return f'Список покупок #{self.id} "{self.title}"'
 
 
 class RecipeInPurchaseList(models.Model):
