@@ -11,3 +11,7 @@ def profile(request, **kwargs):
 
 def recipe(request, **kwargs):
     return render(request, 'recipe.html')
+
+
+def favourites(request, **kwargs):
+    return render(request, 'favourites.html')
