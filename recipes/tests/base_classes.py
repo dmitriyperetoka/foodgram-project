@@ -41,3 +41,10 @@ class ModelsTestBase(TestCase):
             with self.subTest():
                 self.assertEqual(
                     instance._meta.__getattribute__(attr), attr_value)
+
+
+class URLsTestBase(TestCase):
+    def check_exists(self, urls):
+        for url in urls:
+            response = self.client.get(url)
+            self.assertEqual(response.status_code, 200)
