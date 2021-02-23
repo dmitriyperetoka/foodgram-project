@@ -100,30 +100,3 @@ class IngredientInRecipe(models.Model):
             f'{self.ingredient.title} {self.quantity} '
             f'{self.ingredient.dimension_unit} '
             f'в рецепте {self.recipe}')
-
-
-class FavouriteRecipe(models.Model):
-    """Store the records that certain recipes are in the favourite lists
-    of certain users.
-    """
-
-    user = models.ForeignKey(
-        User, models.CASCADE, 'favourite_recipes', verbose_name='Пользователь',
-        help_text='Пользователь, который добавил рецепт в список избранного')
-    recipe = models.ForeignKey(
-        Recipe, models.CASCADE, 'favourite_lists', verbose_name='Рецепт',
-        help_text='Рецепт, который пользователь добавил в список избранного')
-
-    class Meta:
-        verbose_name = 'Рецепт в списке избранного'
-        verbose_name_plural = 'Рецепты в списках избранного'
-        constraints = [
-            models.UniqueConstraint(
-                fields=['user', 'recipe'], name='unique_favourite_recipe'
-            )
-        ]
-
-    def __str__(self):
-        return (
-            f'Рецепт {self.recipe} '
-            f'в списке избранного у пользователя {self.user}')

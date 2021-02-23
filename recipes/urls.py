@@ -6,5 +6,4 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('<str:username>', views.profile, name='profile'),
     path('<str:username>/<int:recipe_id>', views.recipe, name='recipe'),
-    path('<str:username>/favourites', views.favourites, name='favourites'),
 ]

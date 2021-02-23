@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import FavouriteRecipe, Ingredient, IngredientInRecipe, Recipe, Tag
+from .models import Ingredient, IngredientInRecipe, Recipe, Tag
 
 
 @admin.register(Ingredient)
@@ -21,5 +21,4 @@ class TagAdmin(admin.ModelAdmin):
     list_display_links = ['title']
 
 
-admin.site.register(FavouriteRecipe)
 admin.site.register(IngredientInRecipe)

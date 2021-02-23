@@ -1,18 +1,97 @@
 from django.db import models, utils
 from django.contrib.auth import get_user_model
 
-from ..models import Subscription
+from ..models import FavouriteRecipe, Subscription
+from recipes.models import Recipe
 from recipes.tests.base_classes import ModelsTestBase
 
 User = get_user_model()
 
 
-class SubscriptionModelTest(ModelsTestBase):
+class UsersModelsTest(ModelsTestBase):
     def setUp(self):
-        self.subscriber = User.objects.create(username='some_user')
-        self.author = User.objects.create(username='another_user')
+        self.author = User.objects.create(username='some_user')
+        self.user = User.objects.create(username='another_user')
+
+
+class FavouriteRecipeModelTest(UsersModelsTest):
+    def setUp(self):
+        super().setUp()
+        self.recipe = Recipe.objects.create(
+            author=self.author, title='Some Recipe', cooking_time_minutes=60)
+        self.favorite_recipe = FavouriteRecipe.objects.create(
+            user=self.user, recipe=self.recipe)
+
+    def test_field_list(self):
+        field_names = ['id', 'user', 'recipe']
+        self.check_field_list(self.favorite_recipe, field_names)
+
+    def test_field_classes(self):
+        field_classes = {
+            'user': models.ForeignKey,
+            'recipe': models.ForeignKey,
+        }
+        self.check_field_classes(self.favorite_recipe, field_classes)
+
+    def test_cascade_author(self):
+        self.check_cascade(FavouriteRecipe, 'user', User, self.user)
+
+    def test_cascade_recipe(self):
+        self.check_cascade(FavouriteRecipe, 'recipe', Recipe, self.recipe)
+
+    def test_related_names(self):
+        relations = [
+            (self.user, 'favourite_recipes'),
+            (self.recipe, 'favourite_lists'),
+        ]
+        self.check_related_names(self.favorite_recipe, relations)
+
+    def test_field_attrs(self):
+        field_attr_values = {
+            'user': {
+                'related_model': User,
+                'verbose_name': 'Пользователь',
+                'help_text': 'Пользователь, '
+                             'который добавил рецепт в список избранного'
+            },
+            'recipe': {
+                'related_model': Recipe,
+                'verbose_name': 'Рецепт',
+                'help_text': 'Рецепт, '
+                             'который пользователь добавил в список избранного'
+            },
+        }
+        self.check_field_attrs(self.favorite_recipe, field_attr_values)
+
+    def test_model_attrs(self):
+        model_attr_values = {
+            'verbose_name': 'Рецепт в списке избранного',
+            'verbose_name_plural': 'Рецепты в списках избранного',
+        }
+        self.check_model_attrs(self.favorite_recipe, model_attr_values)
+
+    def test_unique_constraint(self):
+        with self.assertRaisesMessage(
+                utils.IntegrityError,
+                'UNIQUE constraint failed: '
+                'users_favouriterecipe.user_id, '
+                'users_favouriterecipe.recipe_id'
+        ):
+            FavouriteRecipe.objects.create(
+                user=self.user, recipe=self.recipe)
+
+    def test_str(self):
+        self.assertEqual(
+            str(self.favorite_recipe),
+            f'Рецепт {self.recipe} '
+            f'в списке избранного у пользователя {self.user}')
+
+
+class SubscriptionModelTest(UsersModelsTest):
+    def setUp(self):
+        super().setUp()
         self.subscription = Subscription.objects.create(
-            subscriber=self.subscriber, author=self.author)
+            subscriber=self.user, author=self.author)
 
     def test_field_list(self):
         field_names = ['id', 'subscriber', 'author']
@@ -26,14 +105,14 @@ class SubscriptionModelTest(ModelsTestBase):
         self.check_field_classes(self.subscription, field_classes)
 
     def test_cascade_subscriber(self):
-        self.check_cascade(Subscription, 'subscriber', User, self.subscriber)
+        self.check_cascade(Subscription, 'subscriber', User, self.user)
 
     def test_cascade_author(self):
         self.check_cascade(Subscription, 'author', User, self.author)
 
     def test_related_names(self):
         relations = [
-            (self.subscriber, 'favourite_authors'),
+            (self.user, 'favourite_authors'),
             (self.author, 'subscribers'),
         ]
         self.check_related_names(self.subscription, relations)
@@ -70,7 +149,7 @@ class SubscriptionModelTest(ModelsTestBase):
                 'users_subscription.author_id'
         ):
             Subscription.objects.create(
-                subscriber=self.subscriber, author=self.author)
+                subscriber=self.user, author=self.author)
 
     def test_not_self_constraint(self):
         with self.assertRaisesMessage(
@@ -78,7 +157,7 @@ class SubscriptionModelTest(ModelsTestBase):
                 'CHECK constraint failed: subscriber_not_author'
         ):
             Subscription.objects.create(
-                subscriber=self.subscriber, author=self.subscriber)
+                subscriber=self.user, author=self.user)
 
     def test_str(self):
         self.assertEqual(

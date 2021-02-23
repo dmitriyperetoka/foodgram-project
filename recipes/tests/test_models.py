@@ -1,9 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models, utils
 
-from ..models import (
-    FavouriteRecipe, Ingredient, IngredientInRecipe, Recipe, Tag,
-)
+from ..models import Ingredient, IngredientInRecipe, Recipe, Tag
 from .base_classes import ModelsTestBase
 
 User = get_user_model()
@@ -14,78 +12,6 @@ class RecipesModelsTest(ModelsTestBase):
         self.author = User.objects.create(username='some_user')
         self.recipe = Recipe.objects.create(
             author=self.author, title='Some Recipe', cooking_time_minutes=60)
-
-
-class FavouriteRecipeModelTest(RecipesModelsTest):
-    def setUp(self):
-        super().setUp()
-        self.user = User.objects.create(username='another_user')
-        self.favorite_recipe = FavouriteRecipe.objects.create(
-            user=self.user, recipe=self.recipe)
-
-    def test_field_list(self):
-        field_names = ['id', 'user', 'recipe']
-        self.check_field_list(self.favorite_recipe, field_names)
-
-    def test_field_classes(self):
-        field_classes = {
-            'user': models.ForeignKey,
-            'recipe': models.ForeignKey,
-        }
-        self.check_field_classes(self.favorite_recipe, field_classes)
-
-    def test_cascade_author(self):
-        self.check_cascade(FavouriteRecipe, 'user', User, self.user)
-
-    def test_cascade_recipe(self):
-        self.check_cascade(FavouriteRecipe, 'recipe', Recipe, self.recipe)
-
-    def test_related_names(self):
-        relations = [
-            (self.user, 'favourite_recipes'),
-            (self.recipe, 'favourite_lists'),
-        ]
-        self.check_related_names(self.favorite_recipe, relations)
-
-    def test_field_attrs(self):
-        field_attr_values = {
-            'user': {
-                'related_model': User,
-                'verbose_name': 'Пользователь',
-                'help_text': 'Пользователь, '
-                             'который добавил рецепт в список избранного'
-            },
-            'recipe': {
-                'related_model': Recipe,
-                'verbose_name': 'Рецепт',
-                'help_text': 'Рецепт, '
-                             'который пользователь добавил в список избранного'
-            },
-        }
-        self.check_field_attrs(self.favorite_recipe, field_attr_values)
-
-    def test_model_attrs(self):
-        model_attr_values = {
-            'verbose_name': 'Рецепт в списке избранного',
-            'verbose_name_plural': 'Рецепты в списках избранного',
-        }
-        self.check_model_attrs(self.favorite_recipe, model_attr_values)
-
-    def test_unique_constraint(self):
-        with self.assertRaisesMessage(
-                utils.IntegrityError,
-                'UNIQUE constraint failed: '
-                'recipes_favouriterecipe.user_id, '
-                'recipes_favouriterecipe.recipe_id'
-        ):
-            FavouriteRecipe.objects.create(
-                user=self.user, recipe=self.recipe)
-
-    def test_str(self):
-        self.assertEqual(
-            str(self.favorite_recipe),
-            f'Рецепт {self.recipe} '
-            f'в списке избранного у пользователя {self.user}')
 
 
 class IngredientInRecipeModelTest(RecipesModelsTest):
