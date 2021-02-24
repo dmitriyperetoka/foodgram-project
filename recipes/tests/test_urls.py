@@ -3,7 +3,7 @@ from .base_classes import URLsTestBase
 
 class RecipeURLsTest(URLsTestBase):
     def test_exists(self):
-        urls = ['/recipes/', '/recipes/username', '/recipes/username/1']
+        urls = ['/recipes/', '/recipes/author/username', '/recipes/id/1']
         self.check_exists(urls)
 
     def test_redirects(self):
