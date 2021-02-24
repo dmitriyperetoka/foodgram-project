@@ -46,5 +46,12 @@ class ModelsTestBase(TestCase):
 class URLsTestBase(TestCase):
     def check_exists(self, urls):
         for url in urls:
-            response = self.client.get(url)
-            self.assertEqual(response.status_code, 200)
+            with self.subTest():
+                response = self.client.get(url)
+                self.assertEqual(response.status_code, 200)
+
+    def check_redirects(self, redirects):
+        for url, redirect_url, status_code in redirects:
+            with self.subTest():
+                response = self.client.get(url)
+                self.assertRedirects(response, redirect_url, status_code)
