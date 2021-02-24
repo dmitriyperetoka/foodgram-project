@@ -55,3 +55,52 @@ class RecipeInPurchaseList(models.Model):
         return (
             f'Рецепт {self.recipe} '
             f'в списке покупок #{self.purchase_list.id}')
+
+
+class NewPurchaseList(models.Model):
+    """Store new purchase lists."""
+
+    author = models.OneToOneField(
+        User, models.CASCADE, related_name='new_purchase_list',
+        verbose_name='Автор', help_text='Автор нового списка покупок')
+    recipes = models.ManyToManyField(
+        Recipe, 'new_purchase_lists', through='RecipeInNewPurchaseList',
+        through_fields=['new_purchase_list', 'recipe'], verbose_name='Рецепты',
+        help_text='Рецепты, представленные в новом списке покупок')
+
+    class Meta:
+        verbose_name = 'Новый список покупок'
+        verbose_name_plural = 'Новые списки покупок'
+
+    def __str__(self):
+        return f'Новый список покупок пользователя {self.author}'
+
+
+class RecipeInNewPurchaseList(models.Model):
+    """Store the records of how many portions of certain recipes are included
+    in certain new purchase lists.
+    """
+
+    new_purchase_list = models.ForeignKey(
+        NewPurchaseList, models.CASCADE, verbose_name='Новый список покупок',
+        help_text='Новый список покупок, в котором представлен рецепт')
+    recipe = models.ForeignKey(
+        Recipe, models.CASCADE, verbose_name='Рецепт',
+        help_text='Рецепт, представленный в новом списке покупок')
+    quantity = models.PositiveSmallIntegerField(
+        'Количество', help_text='Количество порций рецепта в новом списке покупок')
+
+    class Meta:
+        verbose_name = 'Рецепт в новом списке покупок'
+        verbose_name_plural = 'Рецепты в новых списках покупок'
+        constraints = [
+            models.UniqueConstraint(
+                fields=['new_purchase_list', 'recipe'],
+                name='unique_new_purchase_list_recipe'
+            )
+        ]
+
+    def __str__(self):
+        return (
+            f'Рецепт {self.recipe} в новом списке покупок '
+            f'пользователя {self.new_purchase_list.author}')

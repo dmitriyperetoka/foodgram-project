@@ -21,11 +21,16 @@ class ModelsTestBase(TestCase):
         foreign_model.objects.get(id=fm_instance.id).delete()
         self.assertFalse(instance.exists())
 
-    def check_related_names(self, instance, relations):
+    def check_related_names(self, instance, relations, one_to_one=False):
         for related_instance, related_name in relations:
             with self.subTest():
-                query = related_instance.__getattribute__(related_name).all()
-                self.assertIn(instance, query)
+                if one_to_one:
+                    query = related_instance.__getattribute__(related_name)
+                    self.assertEqual(instance, query)
+                else:
+                    query = (
+                        related_instance.__getattribute__(related_name).all())
+                    self.assertIn(instance, query)
 
     def check_field_attrs(self, instance, field_attrs, remote=False):
         for field, attrs in field_attrs.items():
