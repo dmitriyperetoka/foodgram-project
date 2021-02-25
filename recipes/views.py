@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 
 def main_page(request):
-    return render(request, 'main_page.html')
+    return render(request, 'recipe_list.html')
 
 
 def profile(request, **kwargs):
@@ -10,4 +10,4 @@ def profile(request, **kwargs):
 
 
 def recipe(request, **kwargs):
-    return render(request, 'recipe.html')
+    return render(request, 'recipe_detail.html')
