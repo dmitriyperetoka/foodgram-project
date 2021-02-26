@@ -1,119 +1,27 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Рецепты</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'pages/index.css' %}">
-</head>
-<body class="body">
-  <header class="header">
-      <nav class="nav">
-          <div class="nav__container container">
-              <ul class="nav__items list">
-                  <li class="nav__item nav__item_active"><a href="/recipes/" class="nav__link link">Рецепты</a></li>
-                  <li class="nav__item"><a href="/personal/subscriptions" class="nav__link link">Мои подписки</a></li>
-                  <li class="nav__item"><a href="/recipes/new" class="nav__link link">Создать рецепт</a></li>
-                  <li class="nav__item"><a href="/personal/favourites" class="nav__link link">Избранное</a></li>
-                  <li class="nav__item"><a href="/personal/purchases/new" class="nav__link link">Список покупок</a> <span class="badge badge_style_blue nav__badge" id="counter">4</span></li>
+{% extends 'base.html' %}
 
-              </ul>
-              <ul class="nav__items list">
-                  <li class="nav__item"><a href="#" class="nav__link link">Изменить пароль</a></li>
-                  <li class="nav__item"><a href="#" class="nav__link link">Выход</a></li>
-              </ul>
-          </div>
-      </nav>
-  </header>
-    <main class="main container">
-        <div class="main__header">
-            <h1 class="main__title">Рецепты</h1>
-            <ul class="tags">
-                <li class="tags__item">
-                    <a id="breakfast" class="tags__checkbox tags__checkbox_style_orange tags__checkbox_active" href="#"></a>
-                    <span class="tags__label">Завтрак</span>
-                </li>
-                <li class="tags__item">
-                    <a id="lunch" class="tags__checkbox tags__checkbox_style_green tags__checkbox_active" href="#"></a>
-                    <span for="lunch" class="tags__label">Обед</span>
-                </li>
-                <li class="tags__item">
-                    <a id="dinner" class="tags__checkbox tags__checkbox_style_purple tags__checkbox_active" href="#"></a>
-                    <label for="dinner" class="tags__label">Ужин</label>
-                </li>
-            </ul>
-        </div>
-        <div class="card-list">
-        {% for object in page_obj %}
-        <div class="card" data-id="120">
-            <a href="/recipes/id/{{ object.id }}" class="link" target="_blank"><img src="{{ object.image.url }}" alt="{{ object.title }}" class="card__image"></a>
-            <div class="card__body">
-                <a class="card__title link" href="/recipes/id/{{ object.id }}" target="_blank">{{ object.title }}</a>
-                <ul class="card__items">
-                    <li class="card__item"><span class="badge badge_style_green">Обед</span></li>
-                    <li class="card__item"><span class="badge badge_style_orange">Завтрак</span></li>
-                    <li class="card__item"><span class="badge badge_style_purple">Ужин</span></li>
-                </ul>
-                <div class="card__items card__items_column">
-                    <p class="card__text"><span class="icon-time"></span> {{ object.cooking_time_minutes }} мин.</p>
-                    <p class="card__text"><span class="icon-user"></span> <a href="/recipes/author/{{ object.author }}" style="color: black">{{ object.author.get_full_name }}</a></p>
-                </div>
-            </div>
-            <div class="card__footer">
-                <button class="button button_style_light-blue" name="purchases" data-out><span class="icon-plus button__icon"></span>Добавить в покупки</button>
-                <button class="button button_style_none" name="favorites" data-out><span class="icon-favorite"></span></button>
-            </div>
-        </div>
-        {% empty %}
-        <div>Данный список пуст.</div>
-        {% endfor %}
-    </div>
-    {% if page_obj.has_other_pages %}
-        <nav class="pagination" aria-label="Search results pages">
-            <ul class="pagination__container">
-                {% if page_obj.has_previous %}
-                <li class="pagination__item"><a class="pagination__link link" href="?page={{ page_obj.previous_page_number }}"><span class="icon-left"></span></a></li>
-                {% else %}
-                <li class="pagination__item"><a class="pagination__link link"><span class="icon-left"></span></a></li>
-                {% endif %}
-                {% for q in paginator.page_range %}
-                {% if q == page_obj.number %}
-                <li class="pagination__item pagination__item_active"><a class="pagination__link link" href="?page={{ q }}">{{ q }}</a></li>
-                {% else %}
-                <li class="pagination__item"><a class="pagination__link link" href="?page={{ q }}">{{ q }}</a></li>
-                {% endif %}
-                {% endfor %}
-                {% if page_obj.has_next %}
-                <li class="pagination__item"><a class="pagination__link link" href="?page={{ page_obj.next_page_number }}"><span class="icon-right"></span></a></li>
-                {% else %}
-                <li class="pagination__item"><a class="pagination__link link"><span class="icon-right"></span></a></li>
-                {% endif %}
-            </ul>
-        </nav>
-    {% endif %}
-    </main>
-    <footer class="footer">
-        <div class="footer__container container">
-            <a href="#" class="footer__brand link">Продуктовый помощник</a>
-            <ul class="footer__items">
-                <li class="footer__item"><a href="#" class="footer__link link">Об авторе </a></li>
-                <li class="footer__item"><a href="#" class="footer__link link">Технологии</a></li>
-            </ul>
-        </div>
-    </footer>
+{% block title %}Рецепты{% endblock %}
+{% block stylesheet %}{% load static %}{% static 'pages/index.css' %}{% endblock %}
+{% block main_title %}Рецепты{% endblock %}
+{% block main_header %}{% include 'includes/tags.html' %}{% endblock %}
+
+{% block main_content %}
+  {% include 'includes/card_list.html' %}
+  {% include 'includes/paginator.html' %}
+{% endblock %}
+
+
+{% block sctipts %}
   <script src="{% static 'js/components/MainCards.js' %}"></script>
-
   <script src="{% static 'js/components/Purchases.js' %}"></script>
-  <script src="{% static 'js/components/Favorites.js' %}"></script>
-
   <script src="{% static 'js/config/config.js' %}"></script>
   <script src="{% static 'js/components/CardList.js' %}"></script>
   <script src="{% static 'js/components/Header.js' %}"></script>
-
   <script src="{% static 'js/api/Api.js' %}"></script>
-  <script src="{% static 'js/indexAuth.js' %}"></script>
-</body>
-</html>
+  {% if user.is_authenticated %}
+    <script src="{% static 'js/components/Favorites.js' %}"></script>
+    <script src="{% static 'js/indexAuth.js' %}"></script>
+  {% else %}
+    <script src="{% static 'js/indexNotAuth.js' %}"></script>
+  {% endif %}
+{% endblock %}

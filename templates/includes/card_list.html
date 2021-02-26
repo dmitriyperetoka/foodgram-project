@@ -1,0 +1,7 @@
+<div class="card-list">
+  {% for object in page_obj %}
+      {% include 'includes/card.html' %}
+  {% empty %}
+    <div>Данный список пуст.</div>
+  {% endfor %}
+</div>
