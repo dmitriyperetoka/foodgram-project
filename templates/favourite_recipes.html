@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Избранное{% endblock %}
+{% block stylesheet %}{% load static %}{% static 'pages/index.css' %}{% endblock %}
+{% block main_title %}Избранное{% endblock %}
+{% block main_header %}{% include 'includes/tags.html' %}{% endblock %}
+
+{% block main_content %}
+  {% include 'includes/card_list.html' %}
+  {% include 'includes/paginator.html' %}
+{% endblock %}
+
+
+{% block sctipts %}
+  <script src="{% static 'js/components/MainCards.js' %}"></script>
+  <script src="{% static 'js/components/Purchases.js' %}"></script>
+  <script src="{% static 'js/components/Favorites.js' %}"></script>
+  <script src="{% static 'js/config/config.js' %}"></script>
+  <script src="{% static 'js/components/CardList.js' %}"></script>
+  <script src="{% static 'js/components/Header.js' %}"></script>
+  <script src="{% static 'js/api/Api.js' %}"></script>
+  <script src="{% static 'js/favorite.js' %}"></script>
+{% endblock %}

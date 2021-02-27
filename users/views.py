@@ -1,9 +1,19 @@
+from django.contrib.auth import get_user_model
 from django.shortcuts import render
+from django.views.generic import ListView
 
+from recipes.models import Recipe
 
-def favourites(request, **kwargs):
-    return render(request, 'favourites.html')
+User = get_user_model()
 
 
 def subscriptions(request, **kwargs):
     return render(request, 'subscriptions.html')
+
+
+class FavouriteRecipes(ListView):
+    template_name = 'favourite_recipes.html'
+    paginate_by = 3
+
+    def get_queryset(self):
+        return Recipe.objects.filter(favourite_lists__user=self.request.user)

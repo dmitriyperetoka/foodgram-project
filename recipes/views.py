@@ -7,10 +7,6 @@ from .models import Recipe
 User = get_user_model()
 
 
-def profile(request, **kwargs):
-    return render(request, 'profile.html')
-
-
 def recipe(request, **kwargs):
     return render(request, 'recipe_detail.html')
 
