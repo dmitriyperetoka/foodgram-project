@@ -11,7 +11,7 @@ def subscriptions(request, **kwargs):
     return render(request, 'subscriptions.html')
 
 
-class FavouriteRecipes(ListView):
+class FavouriteRecipesView(ListView):
     template_name = 'favourite_recipes.html'
     paginate_by = 3
 
