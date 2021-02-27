@@ -1,15 +1,15 @@
 <div class="card">
-  <a href="/recipes/id/{{ object.id }}" class="link" target="_blank"><img src="{{ object.image.url }}" alt="{{ object.title }}" class="card__image"></a>
+  <a href="/recipes/id/{{ recipe.id }}" class="link" target="_blank"><img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="card__image"></a>
   <div class="card__body">
-    <a class="card__title link" href="/recipes/id/{{ object.id }}" target="_blank">{{ object.title }}</a>
+    <a class="card__title link" href="/recipes/id/{{ recipe.id }}" target="_blank">{{ recipe.title }}</a>
     <ul class="card__items">
       <li class="card__item"><span class="badge badge_style_green">Обед</span></li>
       <li class="card__item"><span class="badge badge_style_orange">Завтрак</span></li>
       <li class="card__item"><span class="badge badge_style_purple">Ужин</span></li>
     </ul>
     <div class="card__items card__items_column">
-      <p class="card__text"><span class="icon-time"></span> {{ object.cooking_time_minutes }} мин.</p>
-      <p class="card__text"><span class="icon-user"></span> <a href="/recipes/author/{{ object.author }}" style="color: black">{{ object.author.get_full_name }}</a></p>
+      <p class="card__text"><span class="icon-time"></span> {{ recipe.cooking_time_minutes }} мин.</p>
+      <p class="card__text"><span class="icon-user"></span> <a href="/recipes/author/{{ recipe.author }}" style="color: black">{{ recipe.author.get_full_name }}</a></p>
     </div>
   </div>
   <div class="card__footer">
