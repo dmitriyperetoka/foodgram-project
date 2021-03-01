@@ -29,7 +29,3 @@ class RegistrationView(CreateView):
     template_name = 'registration/registration.html'
     form_class = RegistrationForm
     success_url = '/recipes/'
-
-    def form_invalid(self, form):
-        print('\n' * 5, form.errors, '\n' * 5, form._meta.fields, '\n' * 5)
-        return super().form_invalid(form)
