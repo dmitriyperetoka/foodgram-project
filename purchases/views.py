@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.views.generic.base import TemplateView
+
+from .models import NewPurchaseList
 
 
-def new_purchase_list(request):
-    return render(request, 'purchase_list.html')
+class NewPurchaseListDetailView(TemplateView):
+    template_name = 'purchase_list.html'
 
-
-def purchase_list(request, **kwargs):
-    return render(request, 'purchase_list.html')
+    def get_queryset(self):
+        return NewPurchaseList.objects.get_or_create(
+            author=self.request.user).prefetch_related('recipes')
