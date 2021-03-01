@@ -1,18 +1,22 @@
 from django.contrib.auth import get_user_model
-from django.shortcuts import get_object_or_404, render
-from django.views.generic import DetailView, ListView
+from django.http.response import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
+from django.views.generic import CreateView, DetailView, ListView
 
+from .forms import RecipeCreateForm
 from .models import Recipe
 
 User = get_user_model()
 
 
-def recipe(request, **kwargs):
-    return render(request, 'recipe_detail.html')
+class RecipeCreateView(CreateView):
+    template_name = 'recipe_create.html'
+    form_class = RecipeCreateForm
+    success_url = '/recipes/'
 
-
-def new_recipe(request):
-    return render(request, 'recipe_create.html')
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 
 class RecipeListView(ListView):

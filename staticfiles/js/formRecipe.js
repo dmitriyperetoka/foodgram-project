@@ -13,7 +13,7 @@ const header = new Header(counterId);
 const defineInitialIndex = function () {
     const ingredients = ingredientsContainer.querySelectorAll('.form__field-item-ingredient')
     if (ingredients.length === 0) { return 1 }
-    const data = Array.from(ingredients).map(item => {
+    const data = Array.from(ingredients_search).map(item => {
         if (!item.getAttribute('id')) { return 0 }
         if (!item.getAttribute('id').split('_')[1]) { return 0 }
         return Number(item.getAttribute('id').split('_')[1])
@@ -44,7 +44,7 @@ function Ingredients() {
                              <input id="valueIngredient_${cur}" name="valueIngredient_${cur}" type="hidden" value="${data.value}">
                              <input id="unitsIngredient_${cur}" name="unitsIngredient_${cur}" type="hidden" value="${data.units}">`;
             cur++;
-            
+
             ingredientsContainer.appendChild(elem);
         }
     };
@@ -85,7 +85,7 @@ const cbEventInput = (elem) => {
     return api.getIngredients(elem.target.value).then( e => {
         if(e.length !== 0 ) {
             const items = e.map( elem => {
-                return `<a class="form__item-list" data-val="${elem.dimension}"">${elem.title}</a>`
+                return `<a class="form__item-list" data-val="${elem.dimension_unit}"">${elem.title}</a>`
             }).join(' ')
             formDropdownItems.style.display = 'flex';
             formDropdownItems.innerHTML = items;
@@ -105,5 +105,3 @@ const ingredients = Ingredients();
 formDropdownItems.addEventListener('click', ingredients.dropdown);
 // вешаем слушатель на кнопку
 addIng.addEventListener('click', ingredients.addIngredient);
-
-

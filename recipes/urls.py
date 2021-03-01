@@ -7,6 +7,6 @@ urlpatterns = [
          name='profile'),
     path('id/<int:pk>', views.RecipeDetailView.as_view(),
          name='recipe_detail'),
-    path('new', views.new_recipe, name='recipe_create'),
+    path('new', views.RecipeCreateView.as_view(), name='recipe_create'),
     path('', views.RecipeListView.as_view(), name='recipe_list'),
 ]
