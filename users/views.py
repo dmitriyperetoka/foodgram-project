@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
-from django.views.generic import ListView
+from django.views.generic import CreateView, ListView
 
+from .forms import RegistrationForm
 from recipes.models import Recipe
 
 User = get_user_model()
@@ -22,3 +23,13 @@ class SubscriptionsView(ListView):
         return User.objects.filter(
             subscribers__subscriber=self.request.user).prefetch_related(
             'recipes')
+
+
+class RegistrationView(CreateView):
+    template_name = 'registration/registration.html'
+    form_class = RegistrationForm
+    success_url = '/recipes/'
+
+    def form_invalid(self, form):
+        print('\n' * 5, form.errors, '\n' * 5, form._meta.fields, '\n' * 5)
+        return super().form_invalid(form)
