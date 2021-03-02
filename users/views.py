@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, ListView
+from django.utils.decorators import method_decorator
 
 from .forms import RegistrationForm
 from recipes.models import Recipe
@@ -7,6 +9,7 @@ from recipes.models import Recipe
 User = get_user_model()
 
 
+@method_decorator(login_required, 'dispatch')
 class FavouriteRecipesView(ListView):
     template_name = 'favourite_recipes.html'
     paginate_by = 3
@@ -15,6 +18,7 @@ class FavouriteRecipesView(ListView):
         return Recipe.objects.filter(favourite_lists__user=self.request.user)
 
 
+@method_decorator(login_required, 'dispatch')
 class SubscriptionsView(ListView):
     template_name = 'subscriptions.html'
 
