@@ -63,3 +63,15 @@ class UrlsTestBase(TestCase):
             with self.subTest():
                 response = self.client.get(url)
                 self.assertRedirects(response, redirect_url)
+
+
+class ViewsTestBase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create(username='someuser')
+        self.client.force_login(self.user)
+
+    def check_template_used(self, reverse_names_templates):
+        for reverse_name, template in reverse_names_templates:
+            with self.subTest():
+                response = self.client.get(reverse_name)
+                self.assertTemplateUsed(response, template)
