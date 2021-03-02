@@ -11,7 +11,7 @@ User = get_user_model()
 
 @method_decorator(login_required, 'dispatch')
 class FavouriteRecipesView(ListView):
-    template_name = 'favourite_recipes.html'
+    template_name = 'favourites.html'
     paginate_by = 3
 
     def get_queryset(self):
