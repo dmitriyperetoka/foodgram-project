@@ -1,4 +1,7 @@
+from django.contrib.auth import get_user_model
 from django.test import TestCase
+
+User = get_user_model()
 
 
 class ModelsTestBase(TestCase):
@@ -48,7 +51,7 @@ class ModelsTestBase(TestCase):
                     instance._meta.__getattribute__(attr), attr_value)
 
 
-class URLsTestBase(TestCase):
+class UrlsTestBase(TestCase):
     def check_exists(self, urls):
         for url in urls:
             with self.subTest():
@@ -56,7 +59,7 @@ class URLsTestBase(TestCase):
                 self.assertEqual(response.status_code, 200)
 
     def check_redirects(self, redirects):
-        for url, redirect_url, status_code in redirects:
+        for url, redirect_url in redirects.items():
             with self.subTest():
                 response = self.client.get(url)
-                self.assertRedirects(response, redirect_url, status_code)
+                self.assertRedirects(response, redirect_url)
