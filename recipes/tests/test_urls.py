@@ -27,6 +27,7 @@ class RecipesUrlsTest(UrlsTestBase):
         ]
 
         self.check_exists(urls)
+        recipe.delete()
         os.close(fd)
         os.remove(path)
 
