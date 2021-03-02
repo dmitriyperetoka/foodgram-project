@@ -17,7 +17,6 @@ class FavouriteRecipesView(ListView):
 
 class SubscriptionsView(ListView):
     template_name = 'subscriptions.html'
-    paginate_by = 3
 
     def get_queryset(self):
         return User.objects.filter(
