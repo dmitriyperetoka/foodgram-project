@@ -10,5 +10,13 @@ class PurchasesViewsTest(ViewsTestBase):
             (reverse('registration'), 'registration/registration.html'),
             (reverse('favourites'), 'favourites.html'),
             (reverse('subscriptions'), 'subscriptions.html'),
+            (
+                reverse('password_change'),
+                'registration/password_change_form.html',
+            ),
+            (
+                reverse('password_change_done'),
+                'registration/password_change_done.html',
+            ),
         ]
         self.check_template_used(reverse_names_templates)

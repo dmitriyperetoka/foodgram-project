@@ -24,11 +24,11 @@ class RecipesViewsTest(ViewsTestBase):
             (reverse('recipe_list'), 'recipe_list.html'),
             (
                 reverse('recipe_detail', kwargs={'pk': recipe.id}),
-                'recipe_detail.html'
+                'recipe_detail.html',
             ),
             (
                 reverse('profile', kwargs={'username': self.user.username}),
-                'profile.html'
+                'profile.html',
             ),
         ]
         self.check_template_used(reverse_names_templates)

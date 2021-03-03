@@ -12,7 +12,12 @@ class UsersUrlsTest(UrlsTestBase):
 
         user = User.objects.create(username='someuser')
         self.client.force_login(user)
-        urls = ['/personal/favourites', '/personal/subscriptions']
+        urls = [
+            '/personal/favourites',
+            '/personal/subscriptions',
+            '/personal/auth/password_change/',
+            '/personal/auth/password_change/done/',
+        ]
         self.check_exists(urls)
 
     def test_redirects(self):
