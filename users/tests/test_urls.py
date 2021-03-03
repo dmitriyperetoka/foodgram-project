@@ -7,7 +7,14 @@ User = get_user_model()
 
 class UsersUrlsTest(UrlsTestBase):
     def test_exists(self):
-        urls = ['/personal/registration', '/personal/auth/login/']
+        urls = [
+            '/personal/registration',
+            '/personal/auth/login/',
+            '/personal/auth/password_reset/',
+            '/personal/auth/password_reset/done/',
+            '/personal/auth/reset/MQ/set-password/',
+            '/personal/auth/reset/done/',
+        ]
         self.check_exists(urls)
 
         user = User.objects.create(username='someuser')
@@ -17,6 +24,7 @@ class UsersUrlsTest(UrlsTestBase):
             '/personal/subscriptions',
             '/personal/auth/password_change/',
             '/personal/auth/password_change/done/',
+
         ]
         self.check_exists(urls)
 
