@@ -1,7 +1,7 @@
 <ul class="tags">
   {% for tag, color in tags_and_colors.items %}
   <li class="tags__item">
-    <input id="{{ tag.slug }}" class="tags__checkbox tags__checkbox_style_{{ color }} tags__checkbox_active" href="#">
+      <a id="{{ tag.slug }}" class="tags__checkbox tags__checkbox_style_{{ color }} tags__checkbox_active" href="#"></a>
     <label for="{{ tag.slug }}" class="tags__label">{{ tag.title }}</label>
   </li>
   {% endfor %}
