@@ -1,8 +1,9 @@
+{% load recipes_custom_filters %}
 {% if page_obj.has_other_pages %}
   <nav class="pagination" aria-label="Search results pages">
     <ul class="pagination__container">
       {% if page_obj.has_previous %}
-        <li class="pagination__item"><a class="pagination__link link" href="?page={{ page_obj.previous_page_number }}"><span class="icon-left"></span></a></li>
+        <li class="pagination__item"><a class="pagination__link link" href="?{% if request.GET.tags %}{% for slug in request|parse_url_tags_query %}tags={{ slug }}&{% endfor %}{% endif %}page={{ page_obj.previous_page_number }}"><span class="icon-left"></span></a></li>
       {% else %}
         <li class="pagination__item"><a class="pagination__link link"><span class="icon-left"></span></a></li>
       {% endif %}
@@ -10,11 +11,11 @@
         {% if q == page_obj.number %}
           <li class="pagination__item pagination__item_active"><a class="pagination__link link" href="#">{{ q }}</a></li>
         {% else %}
-          <li class="pagination__item"><a class="pagination__link link" href="?page={{ q }}">{{ q }}</a></li>
+          <li class="pagination__item"><a class="pagination__link link" href="?{% if request.GET.tags %}{% for slug in request|parse_url_tags_query %}tags={{ slug }}&{% endfor %}{% endif %}page={{ q }}">{{ q }}</a></li>
         {% endif %}
       {% endfor %}
       {% if page_obj.has_next %}
-        <li class="pagination__item"><a class="pagination__link link" href="?page={{ page_obj.next_page_number }}"><span class="icon-right"></span></a></li>
+        <li class="pagination__item"><a class="pagination__link link" href="?{% if request.GET.tags %}{% for slug in request|parse_url_tags_query %}tags={{ slug }}&{% endfor %}{% endif %}page={{ page_obj.next_page_number }}"><span class="icon-right"></span></a></li>
       {% else %}
         <li class="pagination__item"><a class="pagination__link link"><span class="icon-right"></span></a></li>
       {% endif %}

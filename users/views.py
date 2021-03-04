@@ -15,7 +15,14 @@ class FavouriteRecipesView(ListView):
     paginate_by = 3
 
     def get_queryset(self):
-        return Recipe.objects.filter(favourite_lists__user=self.request.user)
+        queryset = Recipe.objects.filter(
+            favourite_lists__user=self.request.user)
+        tags = self.request.GET.getlist('tags')
+
+        if tags:
+            return queryset.filter(tags__slug__in=tags)
+
+        return queryset
 
 
 @method_decorator(login_required, 'dispatch')

@@ -1,8 +1,10 @@
+{% load recipes_custom_filters %}
 <ul class="tags">
-  {% load recipes_custom_filters %}
   {% for tag, color in tags_and_colors.items %}
   <li class="tags__item">
-      <a id="{{ tag.slug }}" class="tags__checkbox tags__checkbox_style_{{ tags_and_colors|dict_lookup:tag }} tags__checkbox_active" href="#"></a>
+      <a id="{{ tag.slug }}" class="tags__checkbox
+      tags__checkbox_style_{{ tags_and_colors|dict_lookup:tag }} {% if tag.slug in request|parse_url_tags_query %}
+      tags__checkbox_active{% endif %}" href="?{{ request|make_url_tags_query:tag.slug }}"></a>
     <label for="{{ tag.slug }}" class="tags__label">{{ tag.title }}</label>
   </li>
   {% endfor %}

@@ -26,6 +26,12 @@ class RecipeListView(ListView):
     model = Recipe
     paginate_by = 3
 
+    def get_queryset(self):
+        tags = self.request.GET.getlist('tags')
+        if tags:
+            return Recipe.objects.filter(tags__slug__in=tags)
+        return super().get_queryset()
+
 
 class AuthorRecipeListView(ListView):
     template_name = 'profile.html'
@@ -34,7 +40,13 @@ class AuthorRecipeListView(ListView):
 
     def get_queryset(self):
         self.author = get_object_or_404(User, username=self.kwargs['username'])
-        return Recipe.objects.filter(author=self.author)
+        queryset = Recipe.objects.filter(author=self.author)
+        tags = self.request.GET.getlist('tags')
+
+        if tags:
+            return queryset.filter(tags__slug__in=tags)
+
+        return queryset
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
