@@ -14,7 +14,6 @@
 @import "../blocks/tags/__checkbox/_style/tags__checkbox_style_purple.css";
 @import "../blocks/tags/__checkbox/_active/tags__checkbox_active.css";
 
-
 @import "../blocks/button/button.css";
 @import "../blocks/button/_style/button_style_blue.css";
 @import "../blocks/button/_style/button_style_light-blue.css";
@@ -40,7 +39,6 @@
 @import "../blocks/main/__header/main__header.css";
 @import "../blocks/main/__title/main__title.css";
 
-
 @import "../blocks/card-list/card-list.css";
 
 @import "../blocks/card/card.css";
@@ -52,8 +50,6 @@
 @import "../blocks/card/__body/card__body.css";
 @import "../blocks/card/__text/card__text.css";
 @import "../blocks/card/__footer/card__foter.css";
-
-
 
 @import "../blocks/pagination/pagination.css";
 @import "../blocks/pagination/__container/pagination__container.css";
@@ -74,12 +70,13 @@
 @import "../blocks/badge/_style/badge_style_purple.css";
 @import "../blocks/badge/_style/badge_style_blue.css";
 
-
 @import "../blocks/icon-time/icon-time.css";
 @import "../blocks/icon-user/icon-user.css";
 @import "../blocks/icon-plus/icon-plus.css";
-@import "../blocks/icon-left/icon-left.css";
-@import "../blocks/icon-right/icon-right.css";
+@import "../blocks/icon-left-active/icon-left-active.css";
+@import "../blocks/icon-left-inactive/icon-left-inactive.css";
+@import "../blocks/icon-right-active/icon-right-active.css";
+@import "../blocks/icon-right-inactive/icon-right-inactive.css";
 
 @import "../blocks/icon-favorite/icon-favorite.css";
 @import "../blocks/icon-favorite/_active/icon-favorite_active.css";
@@ -88,7 +85,7 @@
 * {
     box-sizing: border-box;
 }
-html,
-body {
+
+html, body {
     min-height: 100%;
 }

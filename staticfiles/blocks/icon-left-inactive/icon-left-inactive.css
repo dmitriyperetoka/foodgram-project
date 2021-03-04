@@ -1,0 +1,8 @@
+.icon-left-inactive {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    width: 16px;
+    height: 16px;
+    background-image: url("../../images/leftInactive.svg");
+}
