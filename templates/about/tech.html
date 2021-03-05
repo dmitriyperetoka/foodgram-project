@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Технологии{% endblock %}
+{% block stylesheet %}{% load static %}{% static 'pages/index.css' %}{% endblock %}
+{% block main_title %}Технологии{% endblock %}
+
+{% block main_content %}
+  <ul>
+    <li>
+      <a href="https://www.python.org/" target="_blank" class="nav__link link">Python</a>
+      <span style="color: lightgrey"> версия 3.9.1</span>
+    </li>
+    <li>
+      <a href="https://www.djangoproject.com/" target="_blank" class="nav__link link">Django Framework</a>
+      <span style="color: lightgrey"> версия 3.1.6</span>
+    </li>
+    <li>
+      <a href="https://www.django-rest-framework.org/" target="_blank" class="nav__link link">Django REST Framework</a>
+      <span style="color: lightgrey"> версия 3.12.2</span>
+    </li>
+  </ul>
+{% endblock %}

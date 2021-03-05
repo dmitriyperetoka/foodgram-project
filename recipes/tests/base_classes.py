@@ -58,11 +58,13 @@ class UrlsTestBase(TestCase):
                 response = self.client.get(url)
                 self.assertEqual(response.status_code, 200)
 
-    def check_redirects(self, redirects):
+    def check_redirects(self, redirects, remote=False):
         for url, redirect_url in redirects.items():
             with self.subTest():
                 response = self.client.get(url)
-                self.assertRedirects(response, redirect_url)
+                self.assertRedirects(
+                    response, redirect_url,
+                    fetch_redirect_response=False if remote else True)
 
 
 class ViewsTestBase(TestCase):

@@ -10,6 +10,7 @@ urlpatterns = [
     path('personal/purchases/', include('purchases.urls')),
     path('personal/', include('users.urls')),
     path('recipes/', include('recipes.urls')),
+    path('about/', include('about.urls', namespace='about')),
     path('api/', include('api.urls')),
     path('', RedirectView.as_view(url='/recipes/'), name='main_page')
 ]
