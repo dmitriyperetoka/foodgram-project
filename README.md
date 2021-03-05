@@ -89,9 +89,9 @@
   * Добавлять/удалять/редактировать ингредиенты.
 
 ## Технологии:
-* Python
-* Django Framework
-* Django REST Framework
+* [Python](https://www.python.org/) версия 3.9.1
+* [Django Framework](https://www.djangoproject.com/) версия 3.1.6
+* [Django REST Framework](https://www.django-rest-framework.org/) версия 3.12.2
 * Gunicorn
 * PostgreSQL
 * Nginx
