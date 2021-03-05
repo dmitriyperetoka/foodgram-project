@@ -3,7 +3,6 @@ from django.urls import include, path
 from . import views
 
 urlpatterns = [
-    path('auth/', include('django.contrib.auth.urls')),
     path('registration', views.RegistrationView.as_view(),
          name='registration'),
     path('favourites', views.FavouriteRecipesView.as_view(),
