@@ -6,13 +6,21 @@ class Header {
         this.plusCounter = this.plusCounter.bind(this);
         this.minusCounter = this.minusCounter.bind(this);
     }
-
-    plusCounter  ()  {
+    adjustCounterVisibility() {
+        if (this.counterNum === 0) {
+            this.counter.style.visibility = "hidden";
+        } else {
+            this.counter.style.visibility = "visible";
+        }
+    }
+    plusCounter() {
         this.counterNum = ++this.counterNum;
         this.counter.textContent = this.counterNum;
+        this.adjustCounterVisibility();
     }
-    minusCounter ()  {
+    minusCounter() {
         this.counterNum = --this.counterNum;
         this.counter.textContent = this.counterNum;
+        this.adjustCounterVisibility();
     }
 }

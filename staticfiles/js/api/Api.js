@@ -1,8 +1,7 @@
-
 class Api {
-    constructor(apiUrl) {
-        this.apiUrl =  apiUrl;
-    }
+  constructor(apiUrl) {
+    this.apiUrl =  apiUrl;
+  }
   getPurchases () {
     return fetch(`${this.apiUrl}/purchases`, {
       headers: {
@@ -18,14 +17,14 @@ class Api {
       })
   }
   addPurchases (id) {
-    return fetch(`${this.apiUrl}/purchases`, {
+    return fetch(`${this.apiUrl}/purchases/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'X-CSRFToken': document.getElementsByName('csrfmiddlewaretoken')[0].value
       },
       body: JSON.stringify({
-        id: id
+        recipe: id
       })
     })
       .then( e => {
@@ -45,7 +44,7 @@ class Api {
     })
       .then( e => {
           if(e.ok) {
-              return e.json()
+              return e.statusText
           }
           return Promise.reject(e.statusText)
       })

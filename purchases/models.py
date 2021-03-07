@@ -88,7 +88,9 @@ class RecipeInNewPurchaseList(models.Model):
         Recipe, models.CASCADE, verbose_name='Рецепт',
         help_text='Рецепт, представленный в новом списке покупок')
     quantity = models.PositiveSmallIntegerField(
-        'Количество', help_text='Количество порций рецепта в новом списке покупок')
+        'Количество',
+        help_text='Количество порций рецепта в новом списке покупок',
+        default=1)
 
     class Meta:
         verbose_name = 'Рецепт в новом списке покупок'

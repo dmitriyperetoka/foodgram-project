@@ -69,3 +69,9 @@ def tags_and_colors(request):  # noqa
 @register.filter('request_user_favorites')
 def request_user_favorites(request, recipe):
     return recipe in Recipe.objects.filter(favorite_lists__user=request.user)
+
+
+@register.filter('request_user_purchases')
+def request_user_purchases(request, recipe):
+    return recipe in Recipe.objects.filter(
+        new_purchase_lists__author=request.user)
