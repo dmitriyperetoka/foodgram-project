@@ -2,9 +2,9 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from rest_framework import mixins, permissions, viewsets
 
-from .serializers import FavouriteRecipeSerializer, IngredientSerializer
+from .serializers import FavoriteRecipeSerializer, IngredientSerializer
 from recipes.models import Recipe, Ingredient
-from users.models import FavouriteRecipe
+from users.models import FavoriteRecipe
 
 
 class IngredientListViewSet(viewsets.ReadOnlyModelViewSet):
@@ -15,12 +15,12 @@ class IngredientListViewSet(viewsets.ReadOnlyModelViewSet):
         return Ingredient.objects.filter(title__icontains=query)
 
 
-class FavouriteRecipeViewSet(
+class FavoriteRecipeViewSet(
     mixins.CreateModelMixin,
     mixins.DestroyModelMixin,
     viewsets.GenericViewSet
 ):
-    serializer_class = FavouriteRecipeSerializer
+    serializer_class = FavoriteRecipeSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
@@ -29,4 +29,4 @@ class FavouriteRecipeViewSet(
 
     def get_object(self):
         return get_object_or_404(
-            FavouriteRecipe, user=self.request.user, recipe=self.kwargs.get('pk'))
+            FavoriteRecipe, user=self.request.user, recipe=self.kwargs.get('pk'))

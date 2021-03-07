@@ -8,7 +8,7 @@ class PurchasesViewsTest(ViewsTestBase):
         reverse_names_templates = [
             (reverse('login'), 'registration/login.html'),
             (reverse('registration'), 'registration/registration.html'),
-            (reverse('favourites'), 'favourites.html'),
+            (reverse('favorites'), 'favorites.html'),
             (reverse('subscriptions'), 'subscriptions.html'),
             (
                 reverse('password_change'),

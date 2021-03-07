@@ -66,6 +66,6 @@ def tags_and_colors(request):  # noqa
     return {tag: colors[index % len(colors)] for index, tag in enumerate(tags)}
 
 
-@register.filter('request_user_favourites')
-def request_user_favourites(request, recipe):
-    return recipe in Recipe.objects.filter(favourite_lists__user=request.user)
+@register.filter('request_user_favorites')
+def request_user_favorites(request, recipe):
+    return recipe in Recipe.objects.filter(favorite_lists__user=request.user)

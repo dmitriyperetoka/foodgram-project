@@ -10,13 +10,13 @@ User = get_user_model()
 
 
 @method_decorator(login_required, 'dispatch')
-class FavouriteRecipesView(ListView):
-    template_name = 'favourites.html'
+class FavoriteRecipesView(ListView):
+    template_name = 'favorites.html'
     paginate_by = 3
 
     def get_queryset(self):
         queryset = Recipe.objects.filter(
-            favourite_lists__user=self.request.user)
+            favorite_lists__user=self.request.user)
         tags = self.request.GET.getlist('tags')
 
         if tags:

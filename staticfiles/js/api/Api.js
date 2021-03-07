@@ -84,7 +84,7 @@ class Api {
       })
   }
   addFavorites (id)  {
-    return fetch(`${this.apiUrl}/favourites/`, {
+    return fetch(`${this.apiUrl}/favorites/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ class Api {
         })
   }
   removeFavorites (id) {
-    return fetch(`${this.apiUrl}/favourites/${id}/`, {
+    return fetch(`${this.apiUrl}/favorites/${id}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

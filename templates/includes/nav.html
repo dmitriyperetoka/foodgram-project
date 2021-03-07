@@ -11,8 +11,8 @@
         <li class="nav__item {% if request.resolver_match.url_name == 'recipe_create' %} nav__item_active{% endif %}">
           <a href="{% url 'recipe_create' %}" class="nav__link link">Создать рецепт</a>
         </li>
-        <li class="nav__item {% if request.resolver_match.url_name == 'favourites' %} nav__item_active{% endif %}">
-          <a href="{% url 'favourites' %}" class="nav__link link">Избранное</a>
+        <li class="nav__item {% if request.resolver_match.url_name == 'favorites' %} nav__item_active{% endif %}">
+          <a href="{% url 'favorites' %}" class="nav__link link">Избранное</a>
         </li>
         <li class="nav__item {% if request.resolver_match.url_name == 'new_purchase_list' %} nav__item_active{% endif %}">
           <a href="{% url 'new_purchase_list' %}" class="nav__link link">Список покупок</a>

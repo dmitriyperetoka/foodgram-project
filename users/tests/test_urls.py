@@ -20,7 +20,7 @@ class UsersUrlsTest(UrlsTestBase):
         user = User.objects.create(username='someuser')
         self.client.force_login(user)
         urls = [
-            '/personal/favourites',
+            '/personal/favorites',
             '/personal/subscriptions',
             '/personal/auth/password_change/',
             '/personal/auth/password_change/done/',

@@ -1,7 +1,7 @@
 from django.db import models, utils
 from django.contrib.auth import get_user_model
 
-from ..models import FavouriteRecipe, Subscription
+from ..models import FavoriteRecipe, Subscription
 from recipes.models import Recipe
 from recipes.tests.base_classes import ModelsTestBase
 
@@ -14,12 +14,12 @@ class UsersModelsTest(ModelsTestBase):
         self.user = User.objects.create(username='another_user')
 
 
-class FavouriteRecipeModelTest(UsersModelsTest):
+class FavoriteRecipeModelTest(UsersModelsTest):
     def setUp(self):
         super().setUp()
         self.recipe = Recipe.objects.create(
             author=self.author, title='Some Recipe', cooking_time_minutes=60)
-        self.favorite_recipe = FavouriteRecipe.objects.create(
+        self.favorite_recipe = FavoriteRecipe.objects.create(
             user=self.user, recipe=self.recipe)
 
     def test_field_list(self):
@@ -34,15 +34,15 @@ class FavouriteRecipeModelTest(UsersModelsTest):
         self.check_field_classes(self.favorite_recipe, field_classes)
 
     def test_cascade_author(self):
-        self.check_cascade(FavouriteRecipe, 'user', User, self.user)
+        self.check_cascade(FavoriteRecipe, 'user', User, self.user)
 
     def test_cascade_recipe(self):
-        self.check_cascade(FavouriteRecipe, 'recipe', Recipe, self.recipe)
+        self.check_cascade(FavoriteRecipe, 'recipe', Recipe, self.recipe)
 
     def test_related_names(self):
         relations = [
-            (self.user, 'favourite_recipes'),
-            (self.recipe, 'favourite_lists'),
+            (self.user, 'favorite_recipes'),
+            (self.recipe, 'favorite_lists'),
         ]
         self.check_related_names(self.favorite_recipe, relations)
 
@@ -74,10 +74,10 @@ class FavouriteRecipeModelTest(UsersModelsTest):
         with self.assertRaisesMessage(
                 utils.IntegrityError,
                 'UNIQUE constraint failed: '
-                'users_favouriterecipe.user_id, '
-                'users_favouriterecipe.recipe_id'
+                'users_favoriterecipe.user_id, '
+                'users_favoriterecipe.recipe_id'
         ):
-            FavouriteRecipe.objects.create(
+            FavoriteRecipe.objects.create(
                 user=self.user, recipe=self.recipe)
 
     def test_str(self):
@@ -112,7 +112,7 @@ class SubscriptionModelTest(UsersModelsTest):
 
     def test_related_names(self):
         relations = [
-            (self.user, 'favourite_authors'),
+            (self.user, 'favorite_authors'),
             (self.author, 'subscribers'),
         ]
         self.check_related_names(self.subscription, relations)

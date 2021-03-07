@@ -6,16 +6,16 @@ from recipes.models import Recipe
 User = get_user_model()
 
 
-class FavouriteRecipe(models.Model):
+class FavoriteRecipe(models.Model):
     """Store the records that certain recipes are in the favourite lists
     of certain users.
     """
 
     user = models.ForeignKey(
-        User, models.CASCADE, 'favourite_recipes', verbose_name='Пользователь',
+        User, models.CASCADE, 'favorite_recipes', verbose_name='Пользователь',
         help_text='Пользователь, который добавил рецепт в список избранного')
     recipe = models.ForeignKey(
-        Recipe, models.CASCADE, 'favourite_lists', verbose_name='Рецепт',
+        Recipe, models.CASCADE, 'favorite_lists', verbose_name='Рецепт',
         help_text='Рецепт, который пользователь добавил в список избранного')
 
     class Meta:
@@ -23,7 +23,7 @@ class FavouriteRecipe(models.Model):
         verbose_name_plural = 'Рецепты в списках избранного'
         constraints = [
             models.UniqueConstraint(
-                fields=['user', 'recipe'], name='unique_favourite_recipe'
+                fields=['user', 'recipe'], name='unique_favorite_recipe'
             )
         ]
 
@@ -37,7 +37,7 @@ class Subscription(models.Model):
     """Store the records that certain users follow certain users."""
 
     subscriber = models.ForeignKey(
-        User, models.CASCADE, 'favourite_authors', verbose_name='Подписчик',
+        User, models.CASCADE, 'favorite_authors', verbose_name='Подписчик',
         help_text='Пользователь, который подписан на автора публикаций')
     author = models.ForeignKey(
         User, models.CASCADE, 'subscribers', verbose_name='Автор',
