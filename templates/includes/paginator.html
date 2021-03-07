@@ -8,16 +8,16 @@
         <li class="pagination__item"><a class="pagination__link link"><span class="icon-left-inactive"></span></a></li>
       {% endif %}
 
-      {% if page_obj.number > 3 %}
-          {% include 'includes/pagination_item.html' with slice_range=":1" %}
-          <li class="pagination__item"><p>...</p></li>
+      {% if paginator.num_pages > 9 and page_obj.number > 5 %}
+        {% include 'includes/pagination_item.html' with slice_range=":1" %}
+        <li class="pagination__item"><p>...</p></li>
       {% endif %}
 
       {% include 'includes/pagination_item.html' with slice_range=paginator.num_pages|get_slice_range:page_obj.number %}
 
-      {% if page_obj.number < paginator.page_range|list_lookup:-3 %}
-          <li class="pagination__item"><p>...</p></li>
-          {% include 'includes/pagination_item.html' with slice_range="-1:" %}
+      {% if paginator.num_pages > 9 and page_obj.number < paginator.page_range|list_lookup:-5 %}
+        <li class="pagination__item"><p>...</p></li>
+        {% include 'includes/pagination_item.html' with slice_range="-1:" %}
       {% endif %}
 
       {% if page_obj.has_next %}

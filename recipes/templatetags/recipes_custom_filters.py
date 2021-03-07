@@ -39,10 +39,13 @@ def parse_url_tags_query(request):
 
 @register.filter('get_slice_range')
 def get_slice_range(num_pages, page_number):
-    if page_number <= 3:
-        return ':5'
+    if num_pages <= 9:
+        return ':9'
 
-    if page_number > num_pages - 3:
-        return '-5:'
+    if page_number <= 5:
+        return ':7'
+
+    if page_number > num_pages - 5:
+        return '-7:'
 
     return f'{page_number - 3}:{page_number + 2}'
