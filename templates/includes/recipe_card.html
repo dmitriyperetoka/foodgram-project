@@ -1,3 +1,4 @@
+{% load recipes_custom_filters %}
 <div class="card" data-id="{{ recipe.id }}">{% csrf_token %}
   <a href="/recipes/id/{{ recipe.id }}" class="link" target="_blank"><img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="card__image"></a>
   <div class="card__body">
@@ -13,8 +14,8 @@
   <div class="card__footer">
     <button class="button button_style_light-blue" name="purchases" data-out><span class="icon-plus button__icon"></span>Добавить в покупки</button>
     {% if user.is_authenticated %}
-      <button class="button button_style_none" name="favorites" {% if recipe not in request_user_favourites %}data-out{% endif %}>
-      <span class="icon-favorite {% if recipe in request_user_favourites %}icon-favorite_active{% endif %}"></span></button>
+      <button class="button button_style_none" name="favorites" {% if not request|request_user_favourites:recipe %}data-out{% endif %}>
+      <span class="icon-favorite {% if request|request_user_favourites:recipe %}icon-favorite_active{% endif %}"></span></button>
     {% endif %}
   </div>
 </div>

@@ -1,5 +1,7 @@
 from django import template
 
+from ..models import Recipe, Tag
+
 register = template.Library()
 
 
@@ -7,6 +9,12 @@ register = template.Library()
 def dict_lookup(dict_, key):
     """Lookup a value in a dictionary by key."""
     return dict_[key]
+
+
+@register.filter('dict_items')
+def dict_items(dict_):
+    """Lookup a value in a dictionary by key."""
+    return dict_.items()
 
 
 @register.filter('list_lookup')
@@ -49,3 +57,15 @@ def get_slice_range(num_pages, page_number):
         return '-7:'
 
     return f'{page_number - 3}:{page_number + 2}'
+
+
+@register.filter('tags_and_colors')
+def tags_and_colors(request):  # noqa
+    colors = ['orange', 'green', 'purple']
+    tags = Tag.objects.all()
+    return {tag: colors[index % len(colors)] for index, tag in enumerate(tags)}
+
+
+@register.filter('request_user_favourites')
+def request_user_favourites(request, recipe):
+    return recipe in Recipe.objects.filter(favourite_lists__user=request.user)
