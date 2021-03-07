@@ -7,7 +7,7 @@ User = get_user_model()
 
 
 class FavoriteRecipe(models.Model):
-    """Store the records that certain recipes are in the favourite lists
+    """Store the records that certain recipes are in the favorite lists
     of certain users.
     """
 
