@@ -21,7 +21,7 @@
             {% load recipes_custom_filters %}
             {% for tag, title in form.tags.field.choices %}
               <div class="tags__item">
-                <input type="checkbox" name="tags" id="id_{{ tag.instance.slug }}" class="tags__checkbox tags__checkbox_style_{{ tags_and_colors|dict_lookup:tag.instance }}" value="{{ tag.instance.slug }}">
+                <input type="checkbox" name="tags" id="id_{{ tag.instance.slug }}" class="tags__checkbox tags__checkbox_style_{{ request|tags_and_colors|dict_lookup:tag.instance }}" value="{{ tag.instance.slug }}">
                 <label for="id_{{ tag.instance.slug }}" class="tags__label">{{ tag.instance.title }}</label>
               </div>
             {% endfor %}
