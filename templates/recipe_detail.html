@@ -4,13 +4,13 @@
 {% block stylesheet %}{% load static %}{% static 'pages/single.css' %}{% endblock %}
 
 {% block main_content %}
-<div class="single-card" data-id="371" data-author="12">
+<div class="single-card" data-id="{{ recipe.id }}" data-author="{{ recipe.author.id }}">{% csrf_token %}
   <img src="{{ object.image.url }}" alt="{{ object.title }}" class="single-card__image">
   <div class="single-card__info">
     <div class="single-card__header-info">
       <h1 class="single-card__title">{{ object.title }}</h1>
       <div class="single-card__favorite">
-        <button class="button button_style_none" name="favorites" data-out><span class="icon-favorite icon-favorite_big"></span></button>
+        {% include 'includes/favorite_button.html' %}
         <div class="single-card__favorite-tooltip tooltip">Добавить в избранное</div>
       </div>
     </div>
@@ -25,8 +25,8 @@
       </ul>
     </div>
     <ul class="single-card__items">
-      <li class="single-card__item"><button class="button button_style_blue" name="purchases" data-out><span class="icon-plus"></span> Добавить в покупки</button></li>
-      <li class="single-card__item"><button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>Подписаться на автора</button></li>
+      <li class="single-card__item">{% include 'includes/purchase_button_single.html' %}</li>
+      <li class="single-card__item">{% include 'includes/subscription_button.html' %}</li>
     </ul>
     <div class="single-card__section">
       <h3 class="single-card__section-title">Ингридиенты:</h3>
@@ -57,5 +57,4 @@
   <script src="{% static 'js/components/Header.js' %}"></script>
   <script src="{% static 'js/api/Api.js' %}"></script>
   <script src="{% static 'js/singlePage.js' %}"></script>
-  <script src="{% static 'js/favorite.js' %}"></script>
 {% endblock %}

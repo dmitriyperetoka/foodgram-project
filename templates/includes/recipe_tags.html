@@ -1,4 +1,4 @@
 {% load recipes_custom_filters %}
 {% for tag in recipe.tags.all %}
-  <li class="card__item"><span class="badge badge_style_{{ request|tags_and_colors|dict_lookup:tag }}">{{ tag.title }}</span></li>
+  <li class="{% if request.resolver_match.url_name == 'recipe_detail' %}single-{% endif %}card__item"><span class="badge badge_style_{{ request|tags_and_colors|dict_lookup:tag }}">{{ tag.title }}</span></li>
 {% endfor %}

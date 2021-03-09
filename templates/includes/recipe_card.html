@@ -1,23 +1,20 @@
 {% load recipes_custom_filters %}
 <div class="card" data-id="{{ recipe.id }}">{% csrf_token %}
-  <a href="/recipes/id/{{ recipe.id }}" class="link" target="_blank"><img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="card__image"></a>
+  <a href="{% url 'recipe_detail' recipe.id %}" class="link" target="_blank"><img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="card__image"></a>
   <div class="card__body">
-    <a class="card__title link" href="/recipes/id/{{ recipe.id }}" target="_blank">{{ recipe.title }}</a>
+    <a class="card__title link" href="{% url 'recipe_detail' recipe.id %}" target="_blank">{{ recipe.title }}</a>
     <ul class="card__items">
       {% include 'includes/recipe_tags.html' %}
     </ul>
     <div class="card__items card__items_column">
       <p class="card__text"><span class="icon-time"></span> {{ recipe.cooking_time_minutes }} мин.</p>
-      <p class="card__text"><span class="icon-user"></span> <a href="/recipes/author/{{ recipe.author }}" style="color: black">{{ recipe.author.get_full_name }}</a></p>
+      <p class="card__text"><span class="icon-user"></span> <a href="{% url 'profile' recipe.author.username %}" style="color: black">{{ recipe.author.get_full_name }}</a></p>
     </div>
   </div>
   <div class="card__footer">
     {% if user.is_authenticated %}
-      <button class="button button_style_light-blue{% if request|request_user_purchases:recipe %}-outline{% endif %}" name="purchases" {% if not request|request_user_purchases:recipe %}data-out{% endif %}>
-        {% if request|request_user_purchases:recipe %}<span class="icon-check button__icon"></span>Рецепт добавлен{% else %}<span class="icon-plus button__icon"></span>Добавить в покупки{% endif %}
-      </button>
-      <button class="button button_style_none" name="favorites" {% if not request|request_user_favorites:recipe %}data-out{% endif %}>
-      <span class="icon-favorite {% if request|request_user_favorites:recipe %}icon-favorite_active{% endif %}"></span></button>
+      {% include 'includes/purchase_button.html' %}
+      {% include 'includes/favorite_button.html' %}
     {% endif %}
   </div>
 </div>

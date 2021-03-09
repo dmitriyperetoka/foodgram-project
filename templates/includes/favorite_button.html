@@ -1,0 +1,4 @@
+{% load recipes_custom_filters %}{% csrf_token %}
+<button class="button button_style_none" name="favorites" {% if not request|request_user_favorites:recipe %}data-out{% endif %}>
+  <span class="icon-favorite {% if request.resolver_match.url_name == 'recipe_detail' %}icon-favorite_big{% endif %} {% if request|request_user_favorites:recipe %}icon-favorite_active{% endif %}"></span>
+</button>
