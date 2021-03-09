@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from recipes.models import Ingredient
-from users.models import FavoriteRecipe
+from users.models import FavoriteRecipe, Subscription
 from purchases.models import RecipeInNewPurchaseList
 
 
@@ -21,3 +21,9 @@ class RecipeInNewPurchaseListSerializer(serializers.ModelSerializer):
     class Meta:
         model = RecipeInNewPurchaseList
         fields = ['recipe']
+
+
+class SubscriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subscription
+        fields = ['author']

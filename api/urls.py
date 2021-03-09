@@ -10,6 +10,7 @@ router_v1.register(
     'favorites', views.FavoriteRecipeViewSet, basename='favorites')
 router_v1.register(
     'purchases', views.RecipeInNewPurchaseListViewSet, basename='purchases')
+router_v1.register('subscriptions', views.SubscriptionsViewSet, basename='subscriptions')
 
 urlpatterns = [
     path('v1/', include(router_v1.urls)),

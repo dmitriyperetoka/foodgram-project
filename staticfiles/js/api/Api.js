@@ -50,14 +50,14 @@ class Api {
       })
   }
   addSubscriptions(id) {
-    return fetch(`${this.apiUrl}/subscriptions`, {
+    return fetch(`${this.apiUrl}/subscriptions/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'X-CSRFToken': document.getElementsByName('csrfmiddlewaretoken')[0].value
       },
       body: JSON.stringify({
-        id: id
+        author: id
       })
     })
       .then( e => {
@@ -77,7 +77,7 @@ class Api {
     })
       .then( e => {
           if(e.ok) {
-              return e.json()
+              return e.statusText
           }
           return Promise.reject(e.statusText)
       })
@@ -101,7 +101,7 @@ class Api {
         })
   }
   removeFavorites (id) {
-    return fetch(`${this.apiUrl}/favorites/${id}/`, {
+    return fetch(`${this.apiUrl}/favorites/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

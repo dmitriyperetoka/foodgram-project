@@ -1,13 +1,16 @@
+from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from rest_framework import mixins, permissions, viewsets
 
 from .serializers import (
     FavoriteRecipeSerializer, IngredientSerializer,
-    RecipeInNewPurchaseListSerializer,
+    RecipeInNewPurchaseListSerializer, SubscriptionSerializer
 )
 from purchases.models import NewPurchaseList, RecipeInNewPurchaseList
 from recipes.models import Recipe, Ingredient
-from users.models import FavoriteRecipe
+from users.models import FavoriteRecipe, Subscription
+
+User = get_user_model()
 
 
 class IngredientListViewSet(viewsets.ReadOnlyModelViewSet):
@@ -57,3 +60,19 @@ class RecipeInNewPurchaseListViewSet(
             RecipeInNewPurchaseList,
             new_purchase_list=self.get_new_purchase_list(),
             recipe=self.kwargs.get('pk'))
+
+
+class SubscriptionsViewSet(
+    mixins.CreateModelMixin,
+    mixins.DestroyModelMixin,
+    viewsets.GenericViewSet,
+):
+    serializer_class = SubscriptionSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        author = get_object_or_404(User, id=self.request.data.get('author'))
+        serializer.save(subscriber=self.request.user, author=author)
+
+    def get_object(self):
+        return get_object_or_404(Subscription, author=self.kwargs.get('pk'))

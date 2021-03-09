@@ -1,6 +1,9 @@
 from django import template
+from django.contrib.auth import get_user_model
 
 from ..models import Recipe, Tag
+
+User = get_user_model()
 
 register = template.Library()
 
@@ -75,3 +78,8 @@ def request_user_favorites(request, recipe):
 def request_user_purchases(request, recipe):
     return recipe in Recipe.objects.filter(
         new_purchase_lists__author=request.user)
+
+
+@register.filter('request_user_subscriptions')
+def request_user_subscriptions(request, author):
+    return author in User.objects.filter(subscribers__subscriber=request.user)
