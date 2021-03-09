@@ -8,7 +8,7 @@ User = get_user_model()
 
 class PurchasesUrlsTest(UrlsTestBase):
     def test_exists(self):
-        user = User.objects.create()
+        user = User.objects.create(username='someuser')
         self.client.force_login(user)
         urls = ['/personal/purchases/new']
         self.check_exists(urls)
