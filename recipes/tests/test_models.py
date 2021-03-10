@@ -162,8 +162,8 @@ class RecipeModelTest(RecipesModelsTest):
                 'help_text': 'Тэги рецепта',
             },
             'cooking_time_minutes': {
-                'verbose_name': 'Время готовки',
-                'help_text': 'Время готовки в минутах',
+                'verbose_name': 'Время приготовления',
+                'help_text': 'Время приготовления в минутах',
             },
             'pub_date': {
                 'verbose_name': 'Дата публикации',
