@@ -1,4 +1,5 @@
 from django import forms
+from django.db import transaction
 
 from .models import Ingredient, IngredientInRecipe, Recipe, Tag
 
@@ -34,6 +35,7 @@ class RecipeForm(forms.ModelForm):
             self.quantities = self.get_quantities(data)
         super().__init__(data=data, **kwargs)
 
+    @transaction.atomic
     def save(self, commit=True):
         recipe = super().save(commit=False)
         recipe.save()
