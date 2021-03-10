@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.shortcuts import reverse
 
 User = get_user_model()
 
@@ -56,7 +57,7 @@ class Recipe(models.Model):
     tags = models.ManyToManyField(
         Tag, 'recipes', verbose_name='Тэги', help_text='Тэги рецепта')
     cooking_time_minutes = models.PositiveSmallIntegerField(
-        'Время готовки', help_text='Время готовки в минутах')
+        'Время приготовления', help_text='Время приготовления в минутах')
     pub_date = models.DateTimeField(
         'Дата публикации', help_text='Определяется автоматически',
         auto_now_add=True, db_index=True)
@@ -68,6 +69,9 @@ class Recipe(models.Model):
 
     def __str__(self):
         return f'#{self.id} "{self.title}"'
+
+    def get_absolute_url(self):
+        return reverse('recipe_detail', kwargs={'pk': self.id})
 
 
 class IngredientInRecipe(models.Model):
