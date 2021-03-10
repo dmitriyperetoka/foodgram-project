@@ -8,25 +8,25 @@ User = get_user_model()
 register = template.Library()
 
 
-@register.filter('dict_lookup')
+@register.filter
 def dict_lookup(dict_, key):
     """Lookup a value in a dictionary by key."""
     return dict_[key]
 
 
-@register.filter('dict_items')
+@register.filter
 def dict_items(dict_):
     """Lookup a value in a dictionary by key."""
     return dict_.items()
 
 
-@register.filter('list_lookup')
+@register.filter
 def list_lookup(list_, index):
     """Lookup a value in a list by index."""
     return list_[index]
 
 
-@register.filter('make_url_tags_query')
+@register.filter
 def make_url_tags_query(request, slug):
     """Make url for filtering by tags."""
     get = request.GET.copy()
@@ -42,13 +42,13 @@ def make_url_tags_query(request, slug):
     return get.urlencode()
 
 
-@register.filter('parse_url_tags_query')
+@register.filter
 def parse_url_tags_query(request):
     """Parse url to get tags for filtering."""
     return request.GET.getlist('tags')
 
 
-@register.filter('get_slice_range')
+@register.filter
 def get_slice_range(num_pages, page_number):
     if num_pages <= 9:
         return ':9'
@@ -62,24 +62,24 @@ def get_slice_range(num_pages, page_number):
     return f'{page_number - 3}:{page_number + 2}'
 
 
-@register.filter('tags_and_colors')
+@register.filter
 def tags_and_colors(request):  # noqa
     colors = ['orange', 'green', 'purple']
     tags = Tag.objects.all()
     return {tag: colors[index % len(colors)] for index, tag in enumerate(tags)}
 
 
-@register.filter('request_user_favorites')
+@register.filter
 def request_user_favorites(request, recipe):
     return recipe in Recipe.objects.filter(favorite_lists__user=request.user)
 
 
-@register.filter('request_user_purchases')
+@register.filter
 def request_user_purchases(request, recipe):
     return recipe in Recipe.objects.filter(
         new_purchase_lists__author=request.user)
 
 
-@register.filter('request_user_subscriptions')
+@register.filter
 def request_user_subscriptions(request, author):
     return author in User.objects.filter(subscribers__subscriber=request.user)
