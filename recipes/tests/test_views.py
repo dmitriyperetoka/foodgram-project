@@ -20,7 +20,7 @@ class RecipesViewsTest(ViewsTestBase):
             author=self.user, image=path, cooking_time_minutes=60)
 
         reverse_names_templates = [
-            (reverse('recipe_create'), 'recipe_create.html'),
+            (reverse('recipe_create'), 'recipe_form.html'),
             (reverse('recipe_list'), 'recipe_list.html'),
             (
                 reverse('recipe_detail', kwargs={'pk': recipe.id}),

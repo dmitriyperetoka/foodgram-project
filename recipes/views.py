@@ -1,10 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django.utils.decorators import method_decorator
 
-from .forms import RecipeCreateForm
+from .forms import RecipeForm
 from .models import Recipe
 
 User = get_user_model()
@@ -12,13 +12,20 @@ User = get_user_model()
 
 @method_decorator(login_required, 'dispatch')
 class RecipeCreateView(CreateView):
-    template_name = 'recipe_create.html'
-    form_class = RecipeCreateForm
+    template_name = 'recipe_form.html'
     success_url = '/recipes/'
+    form_class = RecipeForm
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+
+@method_decorator(login_required, 'dispatch')
+class RecipeUpdateView(UpdateView):
+    template_name = 'recipe_form.html'
+    form_class = RecipeForm
+    model = Recipe
 
 
 class RecipeListView(ListView):

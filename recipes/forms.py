@@ -3,17 +3,29 @@ from django import forms
 from .models import Ingredient, IngredientInRecipe, Recipe, Tag
 
 
-class RecipeCreateForm(forms.ModelForm):
+class RecipeForm(forms.ModelForm):
     """Prompt input date for creating recipes."""
 
     tags = forms.ModelMultipleChoiceField(
-        Tag.objects.all(), to_field_name='slug')
+        Tag.objects.all(), to_field_name='slug', label='Тэги',
+        widget=forms.CheckboxSelectMultiple)
+    cooking_time_minutes = forms.fields.IntegerField(
+        widget=forms.NumberInput(attrs={'class': 'form__input'}), min_value=1)
 
     class Meta:
         model = Recipe
         fields = [
-            'title', 'tags', 'cooking_time_minutes',
-            'description', 'image']
+            'title', 'tags', 'cooking_time_minutes', 'description', 'image'
+        ]
+        widgets = {
+            'title': forms.TextInput(
+                attrs={'class': 'form__input'}
+            ),
+            'description': forms.Textarea(
+                attrs={'class': 'form__textarea', 'rows': 8}
+            ),
+            'image': forms.FileInput(attrs={'class': 'form__file'}),
+        }
 
     def __init__(self, data=None, **kwargs):
         if data is not None:
@@ -32,6 +44,7 @@ class RecipeCreateForm(forms.ModelForm):
                 IngredientInRecipe(
                     recipe=recipe, ingredient=ingredient, quantity=quantity))
 
+        IngredientInRecipe.objects.filter(recipe=recipe).delete()
         IngredientInRecipe.objects.bulk_create(ingredients_in_recipes)
         self.save_m2m()
         return recipe
