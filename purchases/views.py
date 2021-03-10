@@ -7,7 +7,7 @@ from .models import NewPurchaseList
 
 @method_decorator(login_required, 'dispatch')
 class NewPurchaseListView(TemplateView):
-    template_name = 'purchase_list.html'
+    template_name = 'purchases/purchase_list.html'
 
     def get_queryset(self):
         return NewPurchaseList.objects.get_or_create(

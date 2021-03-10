@@ -12,9 +12,9 @@ User = get_user_model()
 
 @method_decorator(login_required, 'dispatch')
 class RecipeCreateView(CreateView):
-    template_name = 'recipe_form.html'
     success_url = '/recipes/'
     form_class = RecipeForm
+    model = Recipe
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -23,13 +23,11 @@ class RecipeCreateView(CreateView):
 
 @method_decorator(login_required, 'dispatch')
 class RecipeUpdateView(UpdateView):
-    template_name = 'recipe_form.html'
     form_class = RecipeForm
     model = Recipe
 
 
 class RecipeListView(ListView):
-    template_name = 'recipe_list.html'
     model = Recipe
     paginate_by = 3
 
@@ -41,7 +39,6 @@ class RecipeListView(ListView):
 
 
 class AuthorRecipeListView(ListView):
-    template_name = 'profile.html'
     paginate_by = 3
     author = None
 
@@ -62,5 +59,4 @@ class AuthorRecipeListView(ListView):
 
 
 class RecipeDetailView(DetailView):
-    template_name = 'recipe_detail.html'
     model = Recipe

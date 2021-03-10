@@ -11,7 +11,7 @@ User = get_user_model()
 
 @method_decorator(login_required, 'dispatch')
 class FavoriteRecipesView(ListView):
-    template_name = 'favorites.html'
+    template_name = 'users/favorites.html'
     paginate_by = 3
 
     def get_queryset(self):
@@ -27,7 +27,7 @@ class FavoriteRecipesView(ListView):
 
 @method_decorator(login_required, 'dispatch')
 class SubscriptionsView(ListView):
-    template_name = 'subscriptions.html'
+    template_name = 'users/subscriptions.html'
 
     def get_queryset(self):
         return User.objects.filter(

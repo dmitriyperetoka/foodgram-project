@@ -3,13 +3,13 @@ from django.shortcuts import reverse
 from recipes.tests.base_classes import ViewsTestBase
 
 
-class PurchasesViewsTest(ViewsTestBase):
+class UsersViewsTest(ViewsTestBase):
     def test_template_used(self):
         reverse_names_templates = [
             (reverse('login'), 'registration/login.html'),
             (reverse('registration'), 'registration/registration.html'),
-            (reverse('favorites'), 'favorites.html'),
-            (reverse('subscriptions'), 'subscriptions.html'),
+            (reverse('favorites'), 'users/favorites.html'),
+            (reverse('subscriptions'), 'users/subscriptions.html'),
             (
                 reverse('password_change'),
                 'registration/password_change_form.html',
