@@ -1,7 +1,9 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.views.generic import (
+    CreateView, DeleteView, DetailView, ListView, UpdateView,
+)
 from django.utils.decorators import method_decorator
 
 from .forms import RecipeForm
@@ -24,6 +26,12 @@ class RecipeCreateView(CreateView):
 @method_decorator(login_required, 'dispatch')
 class RecipeUpdateView(UpdateView):
     form_class = RecipeForm
+    model = Recipe
+
+
+@method_decorator(login_required, 'dispatch')
+class RecipeDeleteView(DeleteView):
+    success_url = '/recipes/'
     model = Recipe
 
 
