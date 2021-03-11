@@ -4,11 +4,10 @@ from rest_framework import mixins, permissions, viewsets
 
 from .serializers import (
     FavoriteRecipeSerializer, IngredientSerializer,
-    RecipeInNewPurchaseListSerializer, SubscriptionSerializer
+    RecipeInPurchaseListSerializer, SubscriptionSerializer,
 )
-from purchases.models import NewPurchaseList, RecipeInNewPurchaseList
 from recipes.models import Recipe, Ingredient
-from users.models import FavoriteRecipe, Subscription
+from users.models import FavoriteRecipe, RecipeInPurchaseList, Subscription
 
 User = get_user_model()
 
@@ -21,58 +20,49 @@ class IngredientListViewSet(viewsets.ReadOnlyModelViewSet):
         return Ingredient.objects.filter(title__icontains=query)
 
 
-class FavoriteRecipeViewSet(
+class CustomCreateDestroyViewSet(
     mixins.CreateModelMixin,
     mixins.DestroyModelMixin,
     viewsets.GenericViewSet,
 ):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_recipe(self):
+        return get_object_or_404(Recipe, id=self.request.data.get('recipe'))
+
+
+class FavoriteRecipeViewSet(CustomCreateDestroyViewSet):
     serializer_class = FavoriteRecipeSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
-        recipe = get_object_or_404(Recipe, id=self.request.data.get('recipe'))
-        serializer.save(user=self.request.user, recipe=recipe)
+        serializer.save(user=self.request.user, recipe=self.get_recipe())
 
     def get_object(self):
         return get_object_or_404(
-            FavoriteRecipe, user=self.request.user, recipe=self.kwargs.get('pk'))
-
-
-class RecipeInNewPurchaseListViewSet(
-    mixins.CreateModelMixin,
-    mixins.DestroyModelMixin,
-    viewsets.GenericViewSet,
-):
-    serializer_class = RecipeInNewPurchaseListSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_new_purchase_list(self):
-        return NewPurchaseList.objects.get_or_create(
-            author=self.request.user)[0]
-
-    def perform_create(self, serializer):
-        recipe = get_object_or_404(Recipe, id=self.request.data.get('recipe'))
-        serializer.save(
-            new_purchase_list=self.get_new_purchase_list(), recipe=recipe)
-
-    def get_object(self):
-        return get_object_or_404(
-            RecipeInNewPurchaseList,
-            new_purchase_list=self.get_new_purchase_list(),
+            FavoriteRecipe, user=self.request.user,
             recipe=self.kwargs.get('pk'))
 
 
-class SubscriptionsViewSet(
-    mixins.CreateModelMixin,
-    mixins.DestroyModelMixin,
-    viewsets.GenericViewSet,
-):
+class RecipeInPurchaseListViewSet(CustomCreateDestroyViewSet):
+    serializer_class = RecipeInPurchaseListSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user, recipe=self.get_recipe())
+
+    def get_object(self):
+        return get_object_or_404(
+            RecipeInPurchaseList, user=self.request.user,
+            recipe=self.kwargs.get('pk'))
+
+
+class SubscriptionsViewSet(CustomCreateDestroyViewSet):
     serializer_class = SubscriptionSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         author = get_object_or_404(User, id=self.request.data.get('author'))
         serializer.save(subscriber=self.request.user, author=author)
 
     def get_object(self):
-        return get_object_or_404(Subscription, author=self.kwargs.get('pk'))
+        return get_object_or_404(
+            Subscription, subscriber=self.request.user,
+            author=self.kwargs.get('pk'))

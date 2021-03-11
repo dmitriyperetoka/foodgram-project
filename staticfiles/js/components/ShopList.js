@@ -1,5 +1,5 @@
 class ShopList {
-    constructor(container, counter,api) {
+    constructor(container, counter, api) {
         this.container = container;
         this.counter = counter;
         this.api = api;

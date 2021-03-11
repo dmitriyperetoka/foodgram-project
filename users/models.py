@@ -6,6 +6,36 @@ from recipes.models import Recipe
 User = get_user_model()
 
 
+class RecipeInPurchaseList(models.Model):
+    """Store the records that certain recipes are in the purchase lists
+    of certain users.
+    """
+
+    user = models.ForeignKey(
+        User, models.CASCADE,
+        'recipes_in_purchase_list', verbose_name='Пользователь',
+        help_text='Пользователь, который добавил рецепт в список покупок')
+    recipe = models.ForeignKey(
+        Recipe, models.CASCADE,
+        'purchase_lists', verbose_name='Рецепт',
+        help_text='Рецепт, представленный в списке покупок пользователя')
+
+    class Meta:
+        verbose_name = 'Рецепт в списке покупок'
+        verbose_name_plural = 'Рецепты в списках покупок'
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'recipe'],
+                name='unique_recipe_in_purchase_list'
+            )
+        ]
+
+    def __str__(self):
+        return (
+            f'Рецепт {self.recipe} '
+            f'в списке покупок у пользователя {self.user}')
+
+
 class FavoriteRecipe(models.Model):
     """Store the records that certain recipes are in the favorite lists
     of certain users.

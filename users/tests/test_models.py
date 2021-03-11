@@ -1,7 +1,7 @@
 from django.db import models, utils
 from django.contrib.auth import get_user_model
 
-from ..models import FavoriteRecipe, Subscription
+from ..models import FavoriteRecipe, RecipeInPurchaseList, Subscription
 from recipes.models import Recipe
 from recipes.tests.base_classes import ModelsTestBase
 
@@ -13,12 +13,87 @@ class UsersModelsTest(ModelsTestBase):
         self.author = User.objects.create(username='some_user')
         self.user = User.objects.create(username='another_user')
 
+    def get_recipe(self):
+        return Recipe.objects.create(
+            author=self.author, title='Some Recipe', cooking_time_minutes=60)
+
+
+class RecipeInPurchaseListModelTest(UsersModelsTest):
+    def setUp(self):
+        super().setUp()
+        self.recipe = self.get_recipe()
+        self.recipe_in_purchase_list = RecipeInPurchaseList.objects.create(
+            user=self.user, recipe=self.recipe)
+
+    def test_field_list(self):
+        field_names = ['id', 'user', 'recipe']
+        self.check_field_list(self.recipe_in_purchase_list, field_names)
+
+    def test_field_classes(self):
+        field_classes = {
+            'user': models.ForeignKey,
+            'recipe': models.ForeignKey,
+        }
+        self.check_field_classes(self.recipe_in_purchase_list, field_classes)
+
+    def test_cascade_author(self):
+        self.check_cascade(RecipeInPurchaseList, 'user', User, self.user)
+
+    def test_cascade_recipe(self):
+        self.check_cascade(RecipeInPurchaseList, 'recipe', Recipe, self.recipe)
+
+    def test_related_names(self):
+        relations = [
+            (self.user, 'recipes_in_purchase_list'),
+            (self.recipe, 'purchase_lists'),
+        ]
+        self.check_related_names(self.recipe_in_purchase_list, relations)
+
+    def test_field_attrs(self):
+        field_attr_values = {
+            'user': {
+                'related_model': User,
+                'verbose_name': 'Пользователь',
+                'help_text': 'Пользователь, '
+                             'который добавил рецепт в список покупок'
+            },
+            'recipe': {
+                'related_model': Recipe,
+                'verbose_name': 'Рецепт',
+                'help_text': 'Рецепт, '
+                             'представленный в списке покупок пользователя',
+            },
+        }
+        self.check_field_attrs(self.recipe_in_purchase_list, field_attr_values)
+
+    def test_model_attrs(self):
+        model_attr_values = {
+            'verbose_name': 'Рецепт в списке покупок',
+            'verbose_name_plural': 'Рецепты в списках покупок',
+        }
+        self.check_model_attrs(self.recipe_in_purchase_list, model_attr_values)
+
+    def test_unique_constraint(self):
+        with self.assertRaisesMessage(
+                utils.IntegrityError,
+                'UNIQUE constraint failed: '
+                'users_recipeinpurchaselist.user_id, '
+                'users_recipeinpurchaselist.recipe_id'
+        ):
+            RecipeInPurchaseList.objects.create(
+                user=self.user, recipe=self.recipe)
+
+    def test_str(self):
+        self.assertEqual(
+            str(self.recipe_in_purchase_list),
+            f'Рецепт {self.recipe} '
+            f'в списке покупок у пользователя {self.user}')
+
 
 class FavoriteRecipeModelTest(UsersModelsTest):
     def setUp(self):
         super().setUp()
-        self.recipe = Recipe.objects.create(
-            author=self.author, title='Some Recipe', cooking_time_minutes=60)
+        self.recipe = self.get_recipe()
         self.favorite_recipe = FavoriteRecipe.objects.create(
             user=self.user, recipe=self.recipe)
 

@@ -14,12 +14,11 @@
         <li class="nav__item {% if request.resolver_match.url_name == 'favorites' %} nav__item_active{% endif %}">
           <a href="{% url 'favorites' %}" class="nav__link link">Избранное</a>
         </li>
-        <li class="nav__item {% if request.resolver_match.url_name == 'new_purchase_list' %} nav__item_active{% endif %}">
-          <a href="{% url 'new_purchase_list' %}" class="nav__link link">Список покупок</a>
+        <li class="nav__item {% if request.resolver_match.url_name == 'purchases' %} nav__item_active{% endif %}">
+          <a href="{% url 'purchases' %}" class="nav__link link">Список покупок</a>
             <span
                 class="badge badge_style_blue nav__badge" id="counter"
-                style="visibility: {% if user.new_purchase_list.recipes.count %}visible{% else %}hidden{% endif %}"
-            >{{ user.new_purchase_list.recipes.count }}</span>
+            >{% if user.recipes_in_purchase_list.count %}{{ user.recipes_in_purchase_list.count }}{% endif %}</span>
         </li>
       </ul>
       <ul class="nav__items list">
@@ -32,7 +31,7 @@
         <li class="nav__item {% if request.resolver_match.url_name == 'recipe_list' %} nav__item_active{% endif %}">
           <a href="{% url 'recipe_list' %}" class="nav__link link">Рецепты</a>
         </li>
-        <li class="nav__item nav__item_disabled"><a href="{% url 'new_purchase_list' %}" class="nav__link link">Список покупок</a></li>
+        <li class="nav__item nav__item_disabled"><a href="{% url 'purchases' %}" class="nav__link link">Список покупок</a></li>
       </ul>
       <ul class="nav__items list">
         <li class="nav__item"><a href="{% url 'login' %}" class="nav__link link">Войти</a></li>

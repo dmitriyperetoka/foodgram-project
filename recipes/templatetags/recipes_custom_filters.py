@@ -77,7 +77,7 @@ def request_user_favorites(request, recipe):
 @register.filter
 def request_user_purchases(request, recipe):
     return recipe in Recipe.objects.filter(
-        new_purchase_lists__author=request.user)
+        purchase_lists__user=request.user)
 
 
 @register.filter

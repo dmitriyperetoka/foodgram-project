@@ -7,7 +7,6 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('personal/auth/', include('django.contrib.auth.urls')),
-    path('personal/purchases/', include('purchases.urls')),
     path('personal/', include('users.urls')),
     path('recipes/', include('recipes.urls')),
     path('about/', include('about.urls', namespace='about')),

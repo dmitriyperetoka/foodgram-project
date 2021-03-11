@@ -10,6 +10,14 @@ User = get_user_model()
 
 
 @method_decorator(login_required, 'dispatch')
+class PurchaseListView(ListView):
+    template_name = 'users/purchases.html'
+
+    def get_queryset(self):
+        return self.request.user.recipes_in_purchase_list.all()
+
+
+@method_decorator(login_required, 'dispatch')
 class FavoriteRecipesView(ListView):
     template_name = 'users/favorites.html'
     paginate_by = 3
