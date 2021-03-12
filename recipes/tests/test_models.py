@@ -62,6 +62,7 @@ class IngredientInRecipeModelTest(RecipesModelsTest):
 
     def test_model_attrs(self):
         model_attr_values = {
+            'ordering': ['ingredient__title'],
             'verbose_name': 'Ингредиент в рецепте',
             'verbose_name_plural': 'Ингредиенты в рецептах',
         }
@@ -280,6 +281,7 @@ class IngredientModelTest(RecipesModelsTest):
 
     def test_model_attrs(self):
         model_attr_values = {
+            'ordering': ['title'],
             'verbose_name': 'Ингредиент',
             'verbose_name_plural': 'Ингредиенты',
         }

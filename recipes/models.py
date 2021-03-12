@@ -31,6 +31,7 @@ class Ingredient(models.Model):
         max_length=20)
 
     class Meta:
+        ordering = ['title']
         verbose_name = 'Ингредиент'
         verbose_name_plural = 'Ингредиенты'
 
@@ -90,6 +91,7 @@ class IngredientInRecipe(models.Model):
         help_text='Количество ингредиента в рецепте')
 
     class Meta:
+        ordering = ['ingredient__title']
         verbose_name = 'Ингредиент в рецепте'
         verbose_name_plural = 'Ингредиенты в рецептах'
         constraints = [
