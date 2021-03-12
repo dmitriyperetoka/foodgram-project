@@ -7,7 +7,7 @@
 {% block main_content %}{% csrf_token %}
   <div class="card-list card-list_column">
     <ul class="shopping-list">
-      {% for purchase in user.recipes_in_purchase_list.all %}
+      {% for purchase in object_list %}
         <li class="shopping-list__item" data-id="{{ purchase.recipe.id }}">
           <div class="recipe recipe_reverse">
             <a href="{% url 'recipe_detail' purchase.recipe.id %}" style="grid-area: image"><img href="{% url 'recipe_detail' purchase.recipe.id %}" src="{{ purchase.recipe.image.url }}" alt="{{ purchase.recipe.title }}" class="recipe__image recipe__image_big"></a>
