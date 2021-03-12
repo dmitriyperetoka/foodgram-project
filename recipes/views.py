@@ -1,10 +1,9 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.views.generic import (
     CreateView, DeleteView, DetailView, ListView, UpdateView,
 )
-from django.utils.decorators import method_decorator
 
 from .forms import RecipeForm
 from .models import Recipe
@@ -12,8 +11,7 @@ from .models import Recipe
 User = get_user_model()
 
 
-@method_decorator(login_required, 'dispatch')
-class RecipeCreateView(CreateView):
+class RecipeCreateView(LoginRequiredMixin, CreateView):
     success_url = '/recipes/'
     form_class = RecipeForm
     model = Recipe
@@ -23,14 +21,12 @@ class RecipeCreateView(CreateView):
         return super().form_valid(form)
 
 
-@method_decorator(login_required, 'dispatch')
-class RecipeUpdateView(UpdateView):
+class RecipeUpdateView(LoginRequiredMixin, UpdateView):
     form_class = RecipeForm
     model = Recipe
 
 
-@method_decorator(login_required, 'dispatch')
-class RecipeDeleteView(DeleteView):
+class RecipeDeleteView(LoginRequiredMixin, DeleteView):
     success_url = '/recipes/'
     model = Recipe
 
