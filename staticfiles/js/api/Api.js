@@ -6,7 +6,6 @@ class Api {
     return fetch(`${this.apiUrl}/purchases`, {
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': document.getElementsByName('csrfmiddlewaretoken')[0].value
       }
     })
       .then( e => {
