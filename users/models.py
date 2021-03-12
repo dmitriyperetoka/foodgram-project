@@ -13,7 +13,7 @@ class RecipeInPurchaseList(models.Model):
 
     user = models.ForeignKey(
         User, models.CASCADE,
-        'recipes_in_purchase_list', verbose_name='Пользователь',
+        'purchases', verbose_name='Пользователь',
         help_text='Пользователь, который добавил рецепт в список покупок')
     recipe = models.ForeignKey(
         Recipe, models.CASCADE,
@@ -42,7 +42,7 @@ class FavoriteRecipe(models.Model):
     """
 
     user = models.ForeignKey(
-        User, models.CASCADE, 'favorite_recipes', verbose_name='Пользователь',
+        User, models.CASCADE, 'favorites', verbose_name='Пользователь',
         help_text='Пользователь, который добавил рецепт в список избранного')
     recipe = models.ForeignKey(
         Recipe, models.CASCADE, 'favorite_lists', verbose_name='Рецепт',
@@ -67,7 +67,7 @@ class Subscription(models.Model):
     """Store the records that certain users follow certain users."""
 
     subscriber = models.ForeignKey(
-        User, models.CASCADE, 'favorite_authors', verbose_name='Подписчик',
+        User, models.CASCADE, 'subscriptions', verbose_name='Подписчик',
         help_text='Пользователь, который подписан на автора публикаций')
     author = models.ForeignKey(
         User, models.CASCADE, 'subscribers', verbose_name='Автор',
@@ -79,7 +79,7 @@ class Subscription(models.Model):
         constraints = [
             models.UniqueConstraint(
                 fields=['subscriber', 'author'],
-                name='unique_subscriber_author'
+                name='unique_subscription'
             ),
             models.CheckConstraint(
                 check=~models.Q(subscriber=models.F('author')),

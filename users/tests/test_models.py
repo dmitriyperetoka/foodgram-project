@@ -22,19 +22,19 @@ class RecipeInPurchaseListModelTest(UsersModelsTest):
     def setUp(self):
         super().setUp()
         self.recipe = self.get_recipe()
-        self.recipe_in_purchase_list = RecipeInPurchaseList.objects.create(
+        self.purchase = RecipeInPurchaseList.objects.create(
             user=self.user, recipe=self.recipe)
 
     def test_field_list(self):
         field_names = ['id', 'user', 'recipe']
-        self.check_field_list(self.recipe_in_purchase_list, field_names)
+        self.check_field_list(self.purchase, field_names)
 
     def test_field_classes(self):
         field_classes = {
             'user': models.ForeignKey,
             'recipe': models.ForeignKey,
         }
-        self.check_field_classes(self.recipe_in_purchase_list, field_classes)
+        self.check_field_classes(self.purchase, field_classes)
 
     def test_cascade_author(self):
         self.check_cascade(RecipeInPurchaseList, 'user', User, self.user)
@@ -44,10 +44,10 @@ class RecipeInPurchaseListModelTest(UsersModelsTest):
 
     def test_related_names(self):
         relations = [
-            (self.user, 'recipes_in_purchase_list'),
+            (self.user, 'purchases'),
             (self.recipe, 'purchase_lists'),
         ]
-        self.check_related_names(self.recipe_in_purchase_list, relations)
+        self.check_related_names(self.purchase, relations)
 
     def test_field_attrs(self):
         field_attr_values = {
@@ -64,14 +64,14 @@ class RecipeInPurchaseListModelTest(UsersModelsTest):
                              'представленный в списке покупок пользователя',
             },
         }
-        self.check_field_attrs(self.recipe_in_purchase_list, field_attr_values)
+        self.check_field_attrs(self.purchase, field_attr_values)
 
     def test_model_attrs(self):
         model_attr_values = {
             'verbose_name': 'Рецепт в списке покупок',
             'verbose_name_plural': 'Рецепты в списках покупок',
         }
-        self.check_model_attrs(self.recipe_in_purchase_list, model_attr_values)
+        self.check_model_attrs(self.purchase, model_attr_values)
 
     def test_unique_constraint(self):
         with self.assertRaisesMessage(
@@ -85,7 +85,7 @@ class RecipeInPurchaseListModelTest(UsersModelsTest):
 
     def test_str(self):
         self.assertEqual(
-            str(self.recipe_in_purchase_list),
+            str(self.purchase),
             f'Рецепт {self.recipe} '
             f'в списке покупок у пользователя {self.user}')
 
@@ -116,7 +116,7 @@ class FavoriteRecipeModelTest(UsersModelsTest):
 
     def test_related_names(self):
         relations = [
-            (self.user, 'favorite_recipes'),
+            (self.user, 'favorites'),
             (self.recipe, 'favorite_lists'),
         ]
         self.check_related_names(self.favorite_recipe, relations)
@@ -187,7 +187,7 @@ class SubscriptionModelTest(UsersModelsTest):
 
     def test_related_names(self):
         relations = [
-            (self.user, 'favorite_authors'),
+            (self.user, 'subscriptions'),
             (self.author, 'subscribers'),
         ]
         self.check_related_names(self.subscription, relations)
