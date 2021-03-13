@@ -12,7 +12,7 @@ class PurchaseListView(LoginRequiredMixin, ListView):
     template_name = 'users/purchases.html'
 
     def get_queryset(self):
-        return self.request.user.recipes_in_purchase_list.all()
+        return self.request.user.purchases.select_related('recipe')
 
 
 class FavoriteRecipesView(LoginRequiredMixin, ListView):
