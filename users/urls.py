@@ -9,6 +9,8 @@ urlpatterns = [
          name='favorites'),
     path('subscriptions', views.SubscriptionsView.as_view(),
          name='subscriptions'),
+    path('purchases/download', views.PurchaseListDownloadView.as_view(),
+         name='download_purchases'),
     path('purchases', views.PurchaseListView.as_view(),
          name='purchases'),
 ]

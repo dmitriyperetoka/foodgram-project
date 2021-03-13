@@ -22,6 +22,7 @@ class UsersUrlsTest(UrlsTestBase):
         self.client.force_login(user)
         urls = [
             '/personal/purchases',
+            '/personal/purchases/download',
             '/personal/favorites',
             '/personal/subscriptions',
             '/personal/auth/password_change/',
