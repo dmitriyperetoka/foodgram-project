@@ -34,6 +34,8 @@ class UsersUrlsTest(UrlsTestBase):
     def test_redirects(self):
         redirects = {
             '/personal/auth/logout/': '/recipes/',
+            '/personal/purchases/download': f'{settings.LOGIN_URL}?next='
+                                            f'/personal/purchases/download',
             '/personal/purchases': f'{settings.LOGIN_URL}?next='
                                    f'/personal/purchases',
         }
