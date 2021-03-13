@@ -35,7 +35,7 @@ class SubscriptionsView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return User.objects.filter(
-            subscribers__subscriber=self.request.user
+            subscribers__user=self.request.user
         ).prefetch_related('recipes')
 
 

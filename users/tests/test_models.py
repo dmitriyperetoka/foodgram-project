@@ -166,21 +166,21 @@ class SubscriptionModelTest(UsersModelsTest):
     def setUp(self):
         super().setUp()
         self.subscription = Subscription.objects.create(
-            subscriber=self.user, author=self.author)
+            user=self.user, author=self.author)
 
     def test_field_list(self):
-        field_names = ['id', 'subscriber', 'author']
+        field_names = ['id', 'user', 'author']
         self.check_field_list(self.subscription, field_names)
 
     def test_field_classes(self):
         field_classes = {
-            'subscriber': models.ForeignKey,
+            'user': models.ForeignKey,
             'author': models.ForeignKey,
         }
         self.check_field_classes(self.subscription, field_classes)
 
-    def test_cascade_subscriber(self):
-        self.check_cascade(Subscription, 'subscriber', User, self.user)
+    def test_cascade_user(self):
+        self.check_cascade(Subscription, 'user', User, self.user)
 
     def test_cascade_author(self):
         self.check_cascade(Subscription, 'author', User, self.author)
@@ -194,7 +194,7 @@ class SubscriptionModelTest(UsersModelsTest):
 
     def test_field_attrs(self):
         field_attrs = {
-            'subscriber': {
+            'user': {
                 'related_model': User,
                 'verbose_name': 'Подписчик',
                 'help_text': 'Пользователь, который подписан '
@@ -220,22 +220,22 @@ class SubscriptionModelTest(UsersModelsTest):
         with self.assertRaisesMessage(
                 utils.IntegrityError,
                 'UNIQUE constraint failed: '
-                'users_subscription.subscriber_id, '
+                'users_subscription.user_id, '
                 'users_subscription.author_id'
         ):
             Subscription.objects.create(
-                subscriber=self.user, author=self.author)
+                user=self.user, author=self.author)
 
     def test_not_self_constraint(self):
         with self.assertRaisesMessage(
                 utils.IntegrityError,
-                'CHECK constraint failed: subscriber_not_author'
+                'CHECK constraint failed: user_not_author'
         ):
             Subscription.objects.create(
-                subscriber=self.user, author=self.user)
+                user=self.user, author=self.user)
 
     def test_str(self):
         self.assertEqual(
             str(self.subscription),
-            f'{self.subscription.subscriber} '
+            f'{self.subscription.user} '
             f'подписан(а) на {self.subscription.author}')

@@ -82,4 +82,4 @@ def request_user_purchases(request, recipe):
 
 @register.filter
 def request_user_subscriptions(request, author):
-    return author in User.objects.filter(subscribers__subscriber=request.user)
+    return author in User.objects.filter(subscribers__user=request.user)

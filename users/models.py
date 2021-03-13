@@ -66,7 +66,7 @@ class FavoriteRecipe(models.Model):
 class Subscription(models.Model):
     """Store the records that certain users follow certain users."""
 
-    subscriber = models.ForeignKey(
+    user = models.ForeignKey(
         User, models.CASCADE, 'subscriptions', verbose_name='Подписчик',
         help_text='Пользователь, который подписан на автора публикаций')
     author = models.ForeignKey(
@@ -78,14 +78,14 @@ class Subscription(models.Model):
         verbose_name_plural = 'Подписки'
         constraints = [
             models.UniqueConstraint(
-                fields=['subscriber', 'author'],
+                fields=['user', 'author'],
                 name='unique_subscription'
             ),
             models.CheckConstraint(
-                check=~models.Q(subscriber=models.F('author')),
-                name='subscriber_not_author'
+                check=~models.Q(user=models.F('author')),
+                name='user_not_author'
             )
         ]
 
     def __str__(self):
-        return f'{self.subscriber} подписан(а) на {self.author}'
+        return f'{self.user} подписан(а) на {self.author}'
