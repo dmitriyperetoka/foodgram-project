@@ -6,9 +6,9 @@ from recipes.tests.base_classes import ViewsTestBase
 class UsersViewsTest(ViewsTestBase):
     def test_template_used(self):
         reverse_names_templates = [
-            (reverse('favorites'), 'users/favorites.html'),
-            (reverse('subscriptions'), 'users/subscriptions.html'),
-            (reverse('purchases'), 'users/purchases.html'),
+            (reverse('favorites'), 'users/favorite_list.html'),
+            (reverse('subscriptions'), 'users/subscription_list.html'),
+            (reverse('purchases'), 'users/purchase_list.html'),
             (reverse('registration'), 'registration/registration.html'),
             (reverse('login'), 'registration/login.html'),
             (

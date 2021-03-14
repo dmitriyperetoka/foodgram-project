@@ -5,9 +5,9 @@ from . import views
 urlpatterns = [
     path('registration', views.RegistrationView.as_view(),
          name='registration'),
-    path('favorites', views.FavoriteRecipesView.as_view(),
+    path('favorites', views.FavoriteListView.as_view(),
          name='favorites'),
-    path('subscriptions', views.SubscriptionsView.as_view(),
+    path('subscriptions', views.SubscriptionListView.as_view(),
          name='subscriptions'),
     path('purchases/download', views.PurchaseListDownloadView.as_view(),
          name='download_purchases'),

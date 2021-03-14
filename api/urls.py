@@ -5,13 +5,13 @@ from . import views
 
 router_v1 = DefaultRouter()
 router_v1.register(
-    'ingredients', views.IngredientListViewSet, basename='ingredients')
+    'ingredients', views.IngredientViewSet, basename='ingredients')
 router_v1.register(
-    'favorites', views.FavoriteRecipeViewSet, basename='favorites')
+    'favorites', views.FavoriteViewSet, basename='favorites')
 router_v1.register(
-    'purchases', views.RecipeInPurchaseListViewSet, basename='purchases')
+    'purchases', views.PurchaseViewSet, basename='purchases')
 router_v1.register(
-    'subscriptions', views.SubscriptionsViewSet, basename='subscriptions')
+    'subscriptions', views.SubscriptionViewSet, basename='subscriptions')
 
 urlpatterns = [
     path('v1/', include(router_v1.urls)),

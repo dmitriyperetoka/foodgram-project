@@ -6,7 +6,7 @@ from recipes.models import Recipe
 User = get_user_model()
 
 
-class RecipeInPurchaseList(models.Model):
+class Purchase(models.Model):
     """Store the records that certain recipes are in the purchase lists
     of certain users.
     """
@@ -36,7 +36,7 @@ class RecipeInPurchaseList(models.Model):
             f'в списке покупок у пользователя {self.user}')
 
 
-class FavoriteRecipe(models.Model):
+class Favorite(models.Model):
     """Store the records that certain recipes are in the favorite lists
     of certain users.
     """
@@ -53,7 +53,7 @@ class FavoriteRecipe(models.Model):
         verbose_name_plural = 'Рецепты в списках избранного'
         constraints = [
             models.UniqueConstraint(
-                fields=['user', 'recipe'], name='unique_favorite_recipe'
+                fields=['user', 'recipe'], name='unique_favorite'
             )
         ]
 

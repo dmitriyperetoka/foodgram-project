@@ -3,16 +3,16 @@ from django.shortcuts import get_object_or_404
 from rest_framework import mixins, permissions, viewsets
 
 from .serializers import (
-    FavoriteRecipeSerializer, IngredientSerializer,
-    RecipeInPurchaseListSerializer, SubscriptionSerializer,
+    FavoriteSerializer, IngredientSerializer,
+    PurchaseSerializer, SubscriptionSerializer,
 )
 from recipes.models import Recipe, Ingredient
-from users.models import FavoriteRecipe, RecipeInPurchaseList, Subscription
+from users.models import Favorite, Purchase, Subscription
 
 User = get_user_model()
 
 
-class IngredientListViewSet(viewsets.ReadOnlyModelViewSet):
+class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientSerializer
 
     def get_queryset(self):
@@ -31,31 +31,31 @@ class CustomCreateDestroyViewSet(
         return get_object_or_404(Recipe, id=self.request.data.get('recipe'))
 
 
-class FavoriteRecipeViewSet(CustomCreateDestroyViewSet):
-    serializer_class = FavoriteRecipeSerializer
+class FavoriteViewSet(CustomCreateDestroyViewSet):
+    serializer_class = FavoriteSerializer
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user, recipe=self.get_recipe())
 
     def get_object(self):
         return get_object_or_404(
-            FavoriteRecipe, user=self.request.user,
+            Favorite, user=self.request.user,
             recipe=self.kwargs.get('pk'))
 
 
-class RecipeInPurchaseListViewSet(CustomCreateDestroyViewSet):
-    serializer_class = RecipeInPurchaseListSerializer
+class PurchaseViewSet(CustomCreateDestroyViewSet):
+    serializer_class = PurchaseSerializer
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user, recipe=self.get_recipe())
 
     def get_object(self):
         return get_object_or_404(
-            RecipeInPurchaseList, user=self.request.user,
+            Purchase, user=self.request.user,
             recipe=self.kwargs.get('pk'))
 
 
-class SubscriptionsViewSet(CustomCreateDestroyViewSet):
+class SubscriptionViewSet(CustomCreateDestroyViewSet):
     serializer_class = SubscriptionSerializer
 
     def perform_create(self, serializer):

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from .models import FavoriteRecipe, RecipeInPurchaseList, Subscription
+from .models import Favorite, Purchase, Subscription
 
-admin.site.register(RecipeInPurchaseList)
-admin.site.register(FavoriteRecipe)
+admin.site.register(Favorite)
+admin.site.register(Purchase)
 admin.site.register(Subscription)

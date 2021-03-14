@@ -10,9 +10,13 @@ from recipes.models import Recipe
 User = get_user_model()
 
 
-class PurchaseListView(LoginRequiredMixin, ListView):
-    template_name = 'users/purchases.html'
+class SubscriptionListView(LoginRequiredMixin, ListView):
+    def get_queryset(self):
+        return self.request.user.subscriptions.select_related(
+            'author').prefetch_related('author__recipes')
 
+
+class PurchaseListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return self.request.user.purchases.select_related('recipe')
 
@@ -26,28 +30,19 @@ class PurchaseListDownloadView(LoginRequiredMixin, View):
         return response
 
 
-class FavoriteRecipesView(LoginRequiredMixin, ListView):
-    template_name = 'users/favorites.html'
+class FavoriteListView(LoginRequiredMixin, ListView):
+    template_name = 'users/favorite_list.html'
     paginate_by = 3
 
     def get_queryset(self):
         queryset = Recipe.objects.filter(
-            favorite_lists__user=self.request.user)
+            favorite_lists__user=self.request.user).select_related('author')
         tags = self.request.GET.getlist('tags')
 
         if tags:
             return queryset.filter(tags__slug__in=tags)
 
         return queryset
-
-
-class SubscriptionsView(LoginRequiredMixin, ListView):
-    template_name = 'users/subscriptions.html'
-
-    def get_queryset(self):
-        return User.objects.filter(
-            subscribers__user=self.request.user
-        ).prefetch_related('recipes')
 
 
 class RegistrationView(CreateView):
