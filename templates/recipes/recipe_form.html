@@ -84,7 +84,7 @@
         {% if request.resolver_match.url_name == 'recipe_create' %}
           <button class="button button_style_blue">Создать рецепт</button>
         {% else %}
-          <button class="button button_style_blue">Сохранить</button><a style="margin-left: 2.5em" href="{% url 'recipe_delete' recipe.id %}" class="form__ingredient-link">Удалить</a>
+          <button class="button button_style_blue">Сохранить</button><a style="margin-left: 2.5em" href="{% url 'recipes:recipe_delete' recipe.id %}" class="form__ingredient-link">Удалить</a>
         {% endif %}
       </div>
     </form>

@@ -2,15 +2,17 @@ from django.urls import path
 
 from . import views
 
+app_name = 'users'
+
 urlpatterns = [
     path('registration', views.RegistrationView.as_view(),
          name='registration'),
     path('favorites', views.FavoriteListView.as_view(),
-         name='favorites'),
+         name='favorite_list'),
     path('subscriptions', views.SubscriptionListView.as_view(),
-         name='subscriptions'),
+         name='subscription_list'),
     path('purchases/download', views.PurchaseListDownloadView.as_view(),
-         name='download_purchases'),
+         name='purchase_list_download'),
     path('purchases', views.PurchaseListView.as_view(),
-         name='purchases'),
+         name='purchase_list'),
 ]

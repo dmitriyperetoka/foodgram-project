@@ -2,9 +2,11 @@ from django.urls import path
 
 from . import views
 
+app_name = 'recipes'
+
 urlpatterns = [
     path('author/<str:username>', views.AuthorRecipeListView.as_view(),
-         name='profile'),
+         name='author_recipe_list'),
     path('id/<int:pk>/edit', views.RecipeUpdateView.as_view(),
          name='recipe_update'),
     path('id/<int:pk>/delete', views.RecipeDeleteView.as_view(),

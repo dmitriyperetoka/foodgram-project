@@ -20,15 +20,25 @@ class RecipesViewsTest(ViewsTestBase):
             author=self.user, image=path, cooking_time_minutes=60)
 
         reverse_names_templates = [
-            (reverse('recipe_create'), 'recipes/recipe_form.html'),
-            (reverse('recipe_list'), 'recipes/recipe_list.html'),
+            (reverse('recipes:recipe_create'), 'recipes/recipe_form.html'),
+            (reverse('recipes:recipe_list'), 'recipes/recipe_list.html'),
             (
-                reverse('recipe_detail', kwargs={'pk': recipe.id}),
+                reverse(
+                    'recipes:author_recipe_list',
+                    kwargs={'username': self.user.username}),
+                'recipes/recipe_list.html',
+            ),
+            (
+                reverse('recipes:recipe_detail', kwargs={'pk': recipe.id}),
                 'recipes/recipe_detail.html',
             ),
             (
-                reverse('profile', kwargs={'username': self.user.username}),
-                'recipes/recipe_list.html',
+                reverse('recipes:recipe_update', kwargs={'pk': recipe.id}),
+                'recipes/recipe_form.html'
+            ),
+            (
+                reverse('recipes:recipe_delete', kwargs={'pk': recipe.id}),
+                'recipes/recipe_confirm_delete.html'
             ),
         ]
         self.check_template_used(reverse_names_templates)

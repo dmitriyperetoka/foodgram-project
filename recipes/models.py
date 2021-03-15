@@ -9,8 +9,7 @@ class Tag(models.Model):
     """Store tags that recipes can be filtered by."""
 
     title = models.CharField(
-        'Название', help_text='Название тэга',
-        max_length=60, unique=True)
+        'Название', help_text='Название тэга', max_length=60, unique=True)
     slug = models.SlugField('Slug', help_text='Slug тэга', unique=True)
 
     class Meta:
@@ -25,7 +24,8 @@ class Ingredient(models.Model):
     """Store ingredients that can be included in recipes."""
 
     title = models.CharField(
-        'Название', help_text='Название ингредиента', max_length=200)
+        'Название', help_text='Название ингредиента', max_length=200,
+        unique=True)
     dimension_unit = models.CharField(
         'Единица измерения', help_text='Единица измерения ингредиента',
         max_length=20)

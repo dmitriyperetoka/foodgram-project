@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http.response import HttpResponse
+from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, View
 
 from .forms import RegistrationForm
@@ -47,5 +48,5 @@ class FavoriteListView(LoginRequiredMixin, ListView):
 
 class RegistrationView(CreateView):
     template_name = 'registration/registration.html'
+    success_url = reverse_lazy('main_page')
     form_class = RegistrationForm
-    success_url = '/recipes/'

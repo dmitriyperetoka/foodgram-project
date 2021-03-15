@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView, DeleteView, DetailView, ListView, UpdateView,
 )
@@ -12,7 +13,7 @@ User = get_user_model()
 
 
 class RecipeCreateView(LoginRequiredMixin, CreateView):
-    success_url = '/recipes/'
+    success_url = reverse_lazy('recipes:recipe_list')
     form_class = RecipeForm
     model = Recipe
 
@@ -27,7 +28,7 @@ class RecipeUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class RecipeDeleteView(LoginRequiredMixin, DeleteView):
-    success_url = '/recipes/'
+    success_url = reverse_lazy('recipes:recipe_list')
     model = Recipe
 
 

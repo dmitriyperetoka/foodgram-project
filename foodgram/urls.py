@@ -7,11 +7,11 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('personal/auth/', include('django.contrib.auth.urls')),
-    path('personal/', include('users.urls')),
-    path('recipes/', include('recipes.urls')),
+    path('personal/', include('users.urls', namespace='users')),
+    path('recipes/', include('recipes.urls', namespace='recipes')),
     path('about/', include('about.urls', namespace='about')),
-    path('api/', include('api.urls')),
-    path('', RedirectView.as_view(url='/recipes/'), name='main_page')
+    path('api/', include('api.urls', namespace='api')),
+    path('', RedirectView.as_view(url='/recipes/'), name='main_page'),
 ]
 
 if settings.DEBUG:

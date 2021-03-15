@@ -196,7 +196,7 @@ class SubscriptionModelTest(UsersModelsTest):
         field_attrs = {
             'user': {
                 'related_model': User,
-                'verbose_name': 'Подписчик',
+                'verbose_name': 'Пользователь',
                 'help_text': 'Пользователь, который подписан '
                              'на автора публикаций',
             },

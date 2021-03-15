@@ -21,7 +21,7 @@
       <p class="single-card__text"><span class="icon-time"></span> {{ object.cooking_time_minutes }} мин.</p>
       <ul class="single-card__items">
         <li class="single-card__item"><p class="single-card__text"><span class="icon-user"></span>{{ object.author.get_full_name }}</p></li>
-        <li class="single-card__item">  <a style="margin-left: 2.5em" href="/recipes/id/{{ object.id }}/edit" class="single-card__text">Редактировать рецепт</a></li>
+        <li class="single-card__item">  <a style="margin-left: 2.5em" href="{% url 'recipes:recipe_update' object.id %}" class="single-card__text">Редактировать рецепт</a></li>
       </ul>
     </div>
     <ul class="single-card__items">

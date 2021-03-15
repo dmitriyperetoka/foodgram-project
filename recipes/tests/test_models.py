@@ -270,6 +270,7 @@ class IngredientModelTest(RecipesModelsTest):
                 'verbose_name': 'Название',
                 'help_text': 'Название ингредиента',
                 'max_length': 200,
+                'unique': True,
             },
             'dimension_unit': {
                 'verbose_name': 'Единица измерения',

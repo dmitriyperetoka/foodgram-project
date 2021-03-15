@@ -67,7 +67,7 @@ class Subscription(models.Model):
     """Store the records that certain users follow certain users."""
 
     user = models.ForeignKey(
-        User, models.CASCADE, 'subscriptions', verbose_name='Подписчик',
+        User, models.CASCADE, 'subscriptions', verbose_name='Пользователь',
         help_text='Пользователь, который подписан на автора публикаций')
     author = models.ForeignKey(
         User, models.CASCADE, 'subscribers', verbose_name='Автор',
