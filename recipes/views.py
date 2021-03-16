@@ -6,7 +6,9 @@ from django.views.generic import (
     CreateView, DeleteView, DetailView, ListView, UpdateView,
 )
 
+
 from .forms import RecipeForm
+from .mixins import IsAuthorPermissionMixin
 from .models import Recipe
 
 User = get_user_model()
@@ -22,12 +24,12 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class RecipeUpdateView(LoginRequiredMixin, UpdateView):
+class RecipeUpdateView(IsAuthorPermissionMixin, UpdateView):
     form_class = RecipeForm
     model = Recipe
 
 
-class RecipeDeleteView(LoginRequiredMixin, DeleteView):
+class RecipeDeleteView(IsAuthorPermissionMixin, DeleteView):
     success_url = reverse_lazy('recipes:recipe_list')
     model = Recipe
 
