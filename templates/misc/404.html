@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Страница не найдена{% endblock %}
+{% block stylesheet %}{% load static %}{% static 'pages/index.css' %}{% endblock %}
+
+{% block main_content %}
+  <div class="custom-center-block">
+    <p class="custom-text-block">Страница {{ request.path }} не найдена.</p>
+    <div class="custom-button-block">
+      <a href="{% url 'main_page' %}" class="button button_style_blue">Перейти на главную</a>
+    </div>
+  </div>
+{% endblock %}
