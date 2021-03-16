@@ -41,6 +41,7 @@ class Ingredient(models.Model):
 
 class Recipe(models.Model):
     """Store recipes."""
+
     author = models.ForeignKey(
         User, models.CASCADE,
         'recipes', verbose_name='Автор', help_text='Автор рецепта')
