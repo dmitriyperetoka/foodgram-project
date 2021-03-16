@@ -26,7 +26,7 @@ class Purchase(models.Model):
         constraints = [
             models.UniqueConstraint(
                 fields=['user', 'recipe'],
-                name='unique_recipe_in_purchase_list'
+                name='unique_purchase'
             )
         ]
 
