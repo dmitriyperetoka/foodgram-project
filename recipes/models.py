@@ -9,12 +9,12 @@ class Tag(models.Model):
     """Store tags that recipes can be filtered by."""
 
     title = models.CharField(
-        'Название', help_text='Название тэга', max_length=60, unique=True)
-    slug = models.SlugField('Slug', help_text='Slug тэга', unique=True)
+        'Название', help_text='Название тега', max_length=60, unique=True)
+    slug = models.SlugField('Slug', help_text='Slug тега', unique=True)
 
     class Meta:
-        verbose_name = 'Тэг'
-        verbose_name_plural = 'Тэги'
+        verbose_name = 'Тег'
+        verbose_name_plural = 'Теги'
 
     def __str__(self):
         return self.title
