@@ -214,20 +214,20 @@ class TagModelTest(RecipesModelsTest):
         field_attrs = {
             'title': {
                 'verbose_name': 'Название',
-                'help_text': 'Название тэга',
+                'help_text': 'Название тега',
                 'max_length': 60,
                 'unique': True,
             },
             'slug': {
                 'verbose_name': 'Slug',
-                'help_text': 'Slug тэга',
+                'help_text': 'Slug тега',
                 'unique': True,
             }
         }
         self.check_field_attrs(self.tag, field_attrs)
 
     def test_model_attrs(self):
-        model_attrs = {'verbose_name': 'Тэг', 'verbose_name_plural': 'Тэги'}
+        model_attrs = {'verbose_name': 'Тег', 'verbose_name_plural': 'Теги'}
         self.check_model_attrs(self.tag, model_attrs)
 
     def test_title_unique_constraint(self):
