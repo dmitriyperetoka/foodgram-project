@@ -73,10 +73,10 @@
 @import "../blocks/icon-time/icon-time.css";
 @import "../blocks/icon-user/icon-user.css";
 @import "../blocks/icon-plus/icon-plus.css";
-@import "../blocks/icon-left-active/icon-left-active.css";
-@import "../blocks/icon-left-inactive/icon-left-inactive.css";
-@import "../blocks/icon-right-active/icon-right-active.css";
-@import "../blocks/icon-right-inactive/icon-right-inactive.css";
+@import "../blocks/icon-left/icon-left-active.css";
+@import "../blocks/icon-left/icon-left-inactive.css";
+@import "../blocks/icon-right/icon-right-active.css";
+@import "../blocks/icon-right/icon-right-inactive.css";
 
 @import "../blocks/icon-favorite/icon-favorite.css";
 @import "../blocks/icon-favorite/_active/icon-favorite_active.css";
