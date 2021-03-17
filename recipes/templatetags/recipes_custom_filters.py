@@ -7,6 +7,36 @@ User = get_user_model()
 
 register = template.Library()
 
+RECIPE_WORD_FORMS = {'one': 'рецепт', 'few': 'рецепта', 'many': 'рецептов'}
+RECIPES_PER_CARD = 3
+
+
+def select_word_form(quantity, forms):
+    ten_remainder = quantity % 10
+    hundred_remainder = quantity % 100
+
+    if (
+            ten_remainder == 0
+            or ten_remainder >= 5
+            or hundred_remainder in range(11, 15)
+    ):
+        return forms['many']
+
+    if ten_remainder == 1:
+        return forms['one']
+
+    return forms['few']
+
+
+@register.filter
+def get_extra_recipes_message(quantity):
+    if quantity <= RECIPES_PER_CARD:
+        return
+
+    extra_quantity = quantity - RECIPES_PER_CARD
+    word_form = select_word_form(extra_quantity, RECIPE_WORD_FORMS)
+    return f'Ещё {extra_quantity} {word_form}...'
+
 
 @register.filter
 def dict_lookup(dict_, key):

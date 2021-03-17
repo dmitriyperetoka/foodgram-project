@@ -1,3 +1,4 @@
+{% load recipes_custom_filters %}
 <div class="card-user" data-author="{{ subscription.author.id }}">{% csrf_token %}
   <div class="card-user__header">
     <h1 class="card-user__title"><a href="{% url 'recipes:author_recipe_list' subscription.author.username %}" class="card__title link" style="color: black">{{ subscription.author.get_full_name }}</a></h1>
@@ -14,8 +15,8 @@
         </li>
       {% endfor %}
         <li class="card-user__item">
-          {% if subscription.author.recipes.all|length > 3 %}
-            <a href="{% url 'recipes:author_recipe_list' subscription.author.username %}" class="card-user__link link">Еще {{ subscription.author.recipes.all|slice:"3:"|length }} рецептов...</a>
+          {% if subscription.author.recipes.count > 3 %}
+            <a href="{% url 'recipes:author_recipe_list' subscription.author.username %}" class="card-user__link link">{{ subscription.author.recipes.count|get_extra_recipes_message }}</a>
           {% endif %}
         </li>
     </ul>
