@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ object.title }}{% endblock %}
+{% block title %}{{ recipe.title }}{% endblock %}
 {% block stylesheet %}{% load static %}{% static 'pages/single.css' %}{% endblock %}
 
 {% block main_content %}
 <div class="single-card" data-id="{{ recipe.id }}" data-author="{{ recipe.author.id }}">{% csrf_token %}
-  <img src="{{ object.image.url }}" alt="{{ object.title }}" class="single-card__image">
+  <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="single-card__image">
   <div class="single-card__info">
     <div class="single-card__header-info">
-      <h1 class="single-card__title">{{ object.title }}</h1>
+      <h1 class="single-card__title">{{ recipe.title }}</h1>
       <div class="single-card__favorite">
         {% include 'includes/favorite_button.html' %}
         <div class="single-card__favorite-tooltip tooltip">Добавить в избранное</div>
@@ -18,10 +18,12 @@
       {% include 'includes/recipe_tags.html' %}
     </ul>
     <div class="single-card__items single-card__items_column">
-      <p class="single-card__text"><span class="icon-time"></span> {{ object.cooking_time_minutes }} мин.</p>
+      <p class="single-card__text"><span class="icon-time"></span> {{ recipe.cooking_time_minutes }} мин.</p>
       <ul class="single-card__items">
-        <li class="single-card__item"><p class="single-card__text"><span class="icon-user"></span>{{ object.author.get_full_name }}</p></li>
-        <li class="single-card__item">  <a style="margin-left: 2.5em" href="{% url 'recipes:recipe_update' object.id %}" class="single-card__text">Редактировать рецепт</a></li>
+        <li class="single-card__item"><p class="single-card__text"><span class="icon-user"></span>{{ recipe.author.get_full_name }}</p></li>
+        {% if user == recipe.author %}
+          <li class="single-card__item">  <a style="margin-left: 2.5em" href="{% url 'recipes:recipe_update' recipe.id %}" class="single-card__text">Редактировать рецепт</a></li>
+        {% endif %}
       </ul>
     </div>
     <ul class="single-card__items">
@@ -38,7 +40,7 @@
     </div>
     <div class="single-card__section">
       <h3 class="single-card__section-title">Описание:</h3>
-      {% for section in object.description.splitlines %}
+      {% for section in recipe.description.splitlines %}
         <p class=" single-card__section-text">{{ section }}</p>
       {% endfor %}
     </div>
