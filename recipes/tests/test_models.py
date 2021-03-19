@@ -18,7 +18,7 @@ class IngredientInRecipeModelTest(RecipesModelsTest):
     def setUp(self):
         super().setUp()
         self.ingredient = Ingredient.objects.create(
-            title='Some Ingredient', dimension_unit='g')
+            title='Some Ingredient', dimension='g')
         self.ingredient_in_recipe = IngredientInRecipe.objects.create(
             ingredient=self.ingredient, recipe=self.recipe, quantity=3)
 
@@ -84,7 +84,7 @@ class IngredientInRecipeModelTest(RecipesModelsTest):
             str(self.ingredient_in_recipe),
             f'{self.ingredient_in_recipe.ingredient.title} '
             f'{self.ingredient_in_recipe.quantity} '
-            f'{self.ingredient_in_recipe.ingredient.dimension_unit} '
+            f'{self.ingredient_in_recipe.ingredient.dimension} '
             f'в рецепте {self.ingredient_in_recipe.recipe}')
 
 
@@ -92,7 +92,7 @@ class RecipeModelTest(RecipesModelsTest):
     def setUp(self):
         super().setUp()
         self.ingredient = Ingredient.objects.create(
-            title='Some Ingredient', dimension_unit='g')
+            title='Some Ingredient', dimension='g')
         self.ingredient_in_recipe = IngredientInRecipe.objects.create(
             ingredient=self.ingredient, recipe=self.recipe, quantity=3)
         self.tag = Tag.objects.create(title='Tag')
@@ -251,16 +251,16 @@ class TagModelTest(RecipesModelsTest):
 class IngredientModelTest(RecipesModelsTest):
     def setUp(self):
         self.ingredient = Ingredient.objects.create(
-            title='Some Ingredient', dimension_unit='g')
+            title='Some Ingredient', dimension='g')
 
     def test_field_list(self):
-        field_names = ['id', 'title', 'dimension_unit']
+        field_names = ['id', 'title', 'dimension']
         self.check_field_list(self.ingredient, field_names)
 
     def test_field_classes(self):
         field_classes = {
             'title': models.CharField,
-            'dimension_unit': models.CharField,
+            'dimension': models.CharField,
         }
         self.check_field_classes(self.ingredient, field_classes)
 
@@ -272,7 +272,7 @@ class IngredientModelTest(RecipesModelsTest):
                 'max_length': 200,
                 'unique': True,
             },
-            'dimension_unit': {
+            'dimension': {
                 'verbose_name': 'Единица измерения',
                 'help_text': 'Единица измерения ингредиента',
                 'max_length': 20,
@@ -289,6 +289,4 @@ class IngredientModelTest(RecipesModelsTest):
         self.check_model_attrs(self.ingredient, model_attr_values)
 
     def test_str(self):
-        self.assertEqual(
-            str(self.ingredient),
-            f'{self.ingredient.title}, {self.ingredient.dimension_unit}')
+        self.assertEqual(str(self.ingredient), self.ingredient.title)

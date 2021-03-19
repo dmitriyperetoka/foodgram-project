@@ -26,7 +26,7 @@ class Ingredient(models.Model):
     title = models.CharField(
         'Название', help_text='Название ингредиента', max_length=200,
         unique=True)
-    dimension_unit = models.CharField(
+    dimension = models.CharField(
         'Единица измерения', help_text='Единица измерения ингредиента',
         max_length=20)
 
@@ -36,7 +36,7 @@ class Ingredient(models.Model):
         verbose_name_plural = 'Ингредиенты'
 
     def __str__(self):
-        return f'{self.title}, {self.dimension_unit}'
+        return self.title
 
 
 class Recipe(models.Model):
@@ -105,5 +105,5 @@ class IngredientInRecipe(models.Model):
     def __str__(self):
         return (
             f'{self.ingredient.title} {self.quantity} '
-            f'{self.ingredient.dimension_unit} '
+            f'{self.ingredient.dimension} '
             f'в рецепте {self.recipe}')

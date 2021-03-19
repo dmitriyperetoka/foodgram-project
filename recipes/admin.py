@@ -6,7 +6,7 @@ from .models import Ingredient, IngredientInRecipe, Recipe, Tag
 
 @admin.register(Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'dimension_unit']
+    list_display = ['id', 'title', 'dimension']
     list_display_links = ['title']
     list_filter = ['title']
     search_fields = ['title']
@@ -19,6 +19,7 @@ class RecipeAdmin(admin.ModelAdmin):
     list_filter = ['author', 'title', 'tags']
     readonly_fields = ['favorite_lists_count']
     search_fields = ['title', 'description']
+    autocomplete_fields = ['author']
 
     def get_queryset(self, request):
         return super().get_queryset(request).annotate(
