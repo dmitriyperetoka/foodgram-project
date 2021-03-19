@@ -107,6 +107,6 @@ LOGIN_REDIRECT_URL = '/recipes/'
 LOGOUT_REDIRECT_URL = '/recipes/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sentemails')
 
 AUTHOR_PAGE_URL = 'https://github.com/dmitriyperetoka'
