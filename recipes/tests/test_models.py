@@ -159,8 +159,8 @@ class RecipeModelTest(RecipesModelsTest):
             },
             'tags': {
                 'related_model': Tag,
-                'verbose_name': 'Тэги',
-                'help_text': 'Тэги рецепта',
+                'verbose_name': 'Теги',
+                'help_text': 'Теги рецепта',
             },
             'cooking_time_minutes': {
                 'verbose_name': 'Время приготовления',

@@ -57,7 +57,7 @@ class Recipe(models.Model):
         help_text='Список ингредиентов, представленных в рецепте',
         through='IngredientInRecipe', through_fields=['recipe', 'ingredient'])
     tags = models.ManyToManyField(
-        Tag, 'recipes', verbose_name='Тэги', help_text='Тэги рецепта')
+        Tag, 'recipes', verbose_name='Теги', help_text='Теги рецепта')
     cooking_time_minutes = models.PositiveSmallIntegerField(
         'Время приготовления', help_text='Время приготовления в минутах')
     pub_date = models.DateTimeField(
