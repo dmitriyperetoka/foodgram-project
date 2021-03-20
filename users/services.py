@@ -4,7 +4,7 @@ from django.db.models import Sum
 def make_file_content(user):
     ing = ('recipe__ingredients__title', 'Ингредиент')
     qty = ('recipe__ingredientinrecipe__quantity', 'Количество')
-    unit = ('recipe__ingredients__dimension_unit', 'Единица')
+    unit = ('recipe__ingredients__dimension', 'Единица')
 
     items = user.purchases.select_related(
         'recipe').values(ing[0], unit[0]).annotate(**{qty[0]: Sum(qty[0])})
