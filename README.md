@@ -86,10 +86,10 @@
   * Добавлять/удалять/редактировать ингредиенты.
 
 ## Технологии:
-* [Python](https://www.python.org/) версия 3.9.2
-* [Django Framework](https://www.djangoproject.com/) версия 3.1.6
-* [Django REST Framework](https://www.django-rest-framework.org/) версия 3.12.2
-* [Pillow](https://python-pillow.org/) версия 8.1.1
+* [Python](https://www.python.org) версия 3.9.2
+* [Django Framework](https://www.djangoproject.com) версия 3.1.6
+* [Django REST Framework](https://www.django-rest-framework.org) версия 3.12.2
+* [Pillow](https://python-pillow.org) версия 8.1.1
 * Gunicorn
 * PostgreSQL
 * Nginx
