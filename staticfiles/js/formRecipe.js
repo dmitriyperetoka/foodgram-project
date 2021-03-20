@@ -1,5 +1,3 @@
-const counterId = document.querySelector('#counter');
-
 const ingredientsContainer = document.querySelector('.form__field-group-ingredientes-container');
 const nameIngredient = document.querySelector('#nameIngredient');
 const formDropdownItems = document.querySelector('.form__dropdown-items');
@@ -8,7 +6,6 @@ const cantidad = document.querySelector('#cantidad')
 const addIng = document.querySelector('#addIng');
 
 const api = new Api(apiUrl);
-const header = new Header(counterId);
 
 const defineInitialIndex = function () {
     const ingredients = ingredientsContainer.querySelectorAll('.form__field-item-ingredient')
@@ -96,10 +93,8 @@ const cbEventInput = (elem) => {
     })
 };
 
-const eventInput = debouncing(cbEventInput, 1000);
-
 // вешаем апи
-nameIngredient.addEventListener('input', eventInput);
+nameIngredient.addEventListener('input', cbEventInput);
 const ingredients = Ingredients();
 // вешаем слушатель на элементы с апи
 formDropdownItems.addEventListener('click', ingredients.dropdown);

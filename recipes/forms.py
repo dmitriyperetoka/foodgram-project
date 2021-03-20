@@ -1,3 +1,5 @@
+import pickle
+
 from django import forms
 from django.core.exceptions import ValidationError
 from django.db import transaction
@@ -13,7 +15,8 @@ class RecipeForm(forms.ModelForm):
         Tag.objects.all(), to_field_name='slug', label='Тэги',
         widget=forms.CheckboxSelectMultiple)
     cooking_time_minutes = forms.fields.IntegerField(
-        widget=forms.NumberInput(attrs={'class': 'form__input'}), min_value=1)
+        min_value=1, widget=forms.NumberInput(
+            attrs={'class': 'form__input', 'value': 1, 'autocomplete': 'off'}))
 
     class Meta:
         model = Recipe
@@ -22,7 +25,7 @@ class RecipeForm(forms.ModelForm):
         ]
         widgets = {
             'title': forms.TextInput(
-                attrs={'class': 'form__input'}
+                attrs={'class': 'form__input', 'autocomplete': 'off'}
             ),
             'description': forms.Textarea(
                 attrs={'class': 'form__textarea', 'rows': 8}
@@ -43,6 +46,13 @@ class RecipeForm(forms.ModelForm):
     def clean(self):
         if not self.ingredientes:
             raise ValidationError('Не выбраны ингредиенты')
+
+        unique_titles = set()
+        for title, quantity in self.ingredientes:
+            if title in unique_titles:
+                raise ValidationError('Ингредиенты не должны повторяться')
+            unique_titles.add(title)
+
         return super().clean()
 
     @transaction.atomic

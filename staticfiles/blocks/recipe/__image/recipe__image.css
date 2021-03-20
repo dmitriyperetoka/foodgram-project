@@ -3,4 +3,5 @@
     height: 72px;
     grid-area: image;
     border-radius: 50%;
+    object-fit: cover;
 }
