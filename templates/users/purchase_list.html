@@ -10,7 +10,7 @@
       {% for purchase in object_list %}
         <li class="shopping-list__item" data-id="{{ purchase.recipe.id }}">
           <div class="recipe recipe_reverse">
-            <a href="{% url 'recipes:recipe_detail' purchase.recipe.id %}" style="grid-area: image"><img href="{% url 'recipes:recipe_detail' purchase.recipe.id %}" src="{{ purchase.recipe.image.url }}" alt="{{ purchase.recipe.title }}" class="recipe__image recipe__image_big"></a>
+            <a href="{% url 'recipes:recipe_detail' purchase.recipe.id %}" style="grid-area: image"><img src="{{ purchase.recipe.image.url }}" alt="{{ purchase.recipe.title }}" class="recipe__image recipe__image_big"></a>
             <h3 class="recipe__title"><a href="{% url 'recipes:recipe_detail' purchase.recipe.id %}" class="nav__link link">{{ purchase.recipe.title }}</a></h3>
             <p class="recipe__text"><span class="icon-time"></span> {{ purchase.recipe.cooking_time_minutes }} мин.</p>
           </div>
