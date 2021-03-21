@@ -33,10 +33,16 @@ class UsersUrlsTest(UrlsTestBase):
 
     def test_redirects(self):
         redirects = {
-            '/personal/auth/logout/': '/recipes/',
             '/personal/purchases/download': f'{settings.LOGIN_URL}?next='
                                             f'/personal/purchases/download',
             '/personal/purchases': f'{settings.LOGIN_URL}?next='
                                    f'/personal/purchases',
         }
         self.check_redirects(redirects)
+
+    def test_redirect_chains(self):
+        redirect_chains = {
+            '/personal/registration/success': [('/', 302), ('/recipes/', 302)],
+            '/personal/auth/logout/': [('/', 302), ('/recipes/', 302)],
+        }
+        self.check_redirect_chains(redirect_chains)
