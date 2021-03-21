@@ -66,6 +66,12 @@ class UrlsTestBase(TestCase):
                     response, redirect_url,
                     fetch_redirect_response=False if remote else True)
 
+    def check_redirect_chains(self, redirect_chains):
+        for url, chain in redirect_chains.items():
+            with self.subTest():
+                response = self.client.get(url, follow=True)
+                self.assertEqual(response.redirect_chain, chain)
+
 
 class ViewsTestBase(TestCase):
     def setUp(self):
