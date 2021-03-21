@@ -48,5 +48,5 @@ class FavoriteListView(LoginRequiredMixin, ListView):
 
 class RegistrationView(CreateView):
     template_name = 'registration/registration.html'
-    success_url = reverse_lazy('main_page')
+    success_url = reverse_lazy('login')
     form_class = RegistrationForm

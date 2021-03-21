@@ -7,6 +7,14 @@ from .models import Subscription
 User = get_user_model()
 
 
+class RegistrationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = [
+            'first_name', 'last_name', 'username', 'email',
+            'password1', 'password2']
+
+
 class SubscriptionForm(ModelForm):
     class Meta:
         model = Subscription
@@ -20,11 +28,3 @@ class SubscriptionForm(ModelForm):
             raise ValidationError('Нельзя подписываться на себя')
 
         return super().clean()
-
-
-class RegistrationForm(UserCreationForm):
-    class Meta:
-        model = User
-        fields = [
-            'first_name', 'last_name', 'username', 'email',
-            'password1', 'password2']
