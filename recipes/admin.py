@@ -20,6 +20,7 @@ class RecipeAdmin(admin.ModelAdmin):
     readonly_fields = ['favorite_lists_count']
     search_fields = ['title', 'description']
     autocomplete_fields = ['author']
+    formfield_overrides = {models.PositiveSmallIntegerField: {'min_value': 1}}
 
     def get_queryset(self, request):
         return super().get_queryset(request).annotate(
@@ -39,4 +40,6 @@ class TagAdmin(admin.ModelAdmin):
     search_fields = ['title']
 
 
-admin.site.register(IngredientInRecipe)
+@admin.register(IngredientInRecipe)
+class IngredientInRecipeAdmin(admin.ModelAdmin):
+    formfield_overrides = {models.PositiveSmallIntegerField: {'min_value': 1}}

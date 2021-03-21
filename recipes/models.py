@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core import validators
 from django.db import models
 from django.shortcuts import reverse
 
@@ -59,7 +60,8 @@ class Recipe(models.Model):
     tags = models.ManyToManyField(
         Tag, 'recipes', verbose_name='Теги', help_text='Теги рецепта')
     cooking_time_minutes = models.PositiveSmallIntegerField(
-        'Время приготовления', help_text='Время приготовления в минутах')
+        'Время приготовления', help_text='Время приготовления в минутах',
+        validators=[validators.MinValueValidator(1)])
     pub_date = models.DateTimeField(
         'Дата публикации', help_text='Определяется автоматически',
         auto_now_add=True, db_index=True)
@@ -88,8 +90,8 @@ class IngredientInRecipe(models.Model):
         Ingredient, models.CASCADE, verbose_name='Ингредиент',
         help_text='Ингредиент, представленный в рецепте')
     quantity = models.PositiveSmallIntegerField(
-        verbose_name='Количество',
-        help_text='Количество ингредиента в рецепте')
+        'Количество', help_text='Количество ингредиента в рецепте',
+        validators=[validators.MinValueValidator(1)])
 
     class Meta:
         ordering = ['ingredient__title']

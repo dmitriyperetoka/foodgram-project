@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core import validators
 from django.db import models, utils
 
 from ..models import Ingredient, IngredientInRecipe, Recipe, Tag
@@ -56,6 +57,7 @@ class IngredientInRecipeModelTest(RecipesModelsTest):
             'quantity': {
                 'verbose_name': 'Количество',
                 'help_text': 'Количество ингредиента в рецепте',
+                'validators': [validators.MinValueValidator(1)],
             },
         }
         self.check_field_attrs(self.ingredient_in_recipe, field_attr_values)
@@ -165,6 +167,7 @@ class RecipeModelTest(RecipesModelsTest):
             'cooking_time_minutes': {
                 'verbose_name': 'Время приготовления',
                 'help_text': 'Время приготовления в минутах',
+                'validators': [validators.MinValueValidator(1)],
             },
             'pub_date': {
                 'verbose_name': 'Дата публикации',
