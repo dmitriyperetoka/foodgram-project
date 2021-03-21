@@ -5,6 +5,8 @@ from . import views
 app_name = 'users'
 
 urlpatterns = [
+    path('registration/success', views.RegistrationSuccessView.as_view(),
+         name='registration_success'),
     path('registration', views.RegistrationView.as_view(),
          name='registration'),
     path('favorites', views.FavoriteListView.as_view(),
