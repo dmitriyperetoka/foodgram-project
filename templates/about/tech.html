@@ -6,37 +6,11 @@
 
 {% block main_content %}
   <ul>
-    <li>
-      <a href="https://www.python.org/" target="_blank" class="nav__link link">Python</a>
-      <span style="color: lightgrey"> версия 3.9.2</span>
-    </li>
-    <li>
-      <a href="https://www.djangoproject.com/" target="_blank" class="nav__link link">Django Framework</a>
-      <span style="color: lightgrey"> версия 3.1.6</span>
-    </li>
-    <li>
-      <a href="https://www.django-rest-framework.org/" target="_blank" class="nav__link link">Django REST Framework</a>
-      <span style="color: lightgrey"> версия 3.12.2</span>
-    </li>
-    <li>
-      <a href="https://python-pillow.org/" target="_blank" class="nav__link link">Pillow</a>
-      <span style="color: lightgrey"> версия 8.1.1</span>
-    </li>
-    <li>
-      <a href="#" target="_blank" class="nav__link link">Gunicorn</a>
-      <span style="color: lightgrey"></span>
-    </li>
-    <li>
-      <a href="#" target="_blank" class="nav__link link">PostgreSQL</a>
-      <span style="color: lightgrey"></span>
-    </li>
-    <li>
-      <a href="#" target="_blank" class="nav__link link">Nginx</a>
-      <span style="color: lightgrey"></span>
-    </li>
-    <li>
-      <a href="#" target="_blank" class="nav__link link">Docker</a>
-      <span style="color: lightgrey"></span>
-    </li>
+    {% for title, version, href in tech %}
+      <li>
+        <a href="{{ href }}" target="_blank" class="nav__link link">{{ title }}</a>
+        {% if version %}<span style="color: lightgrey"> версия {{ version }}</span>{% endif %}
+      </li>
+    {% endfor %}
   </ul>
 {% endblock %}
