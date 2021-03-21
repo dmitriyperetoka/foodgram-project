@@ -60,9 +60,9 @@ class SubscriptionViewSet(CustomCreateDestroyViewSet):
 
     def perform_create(self, serializer):
         author = get_object_or_404(User, id=self.request.data.get('author'))
-        serializer.save(subscriber=self.request.user, author=author)
+        serializer.save(user=self.request.user, author=author)
 
     def get_object(self):
         return get_object_or_404(
-            Subscription, subscriber=self.request.user,
+            Subscription, user=self.request.user,
             author=self.kwargs.get('pk'))
