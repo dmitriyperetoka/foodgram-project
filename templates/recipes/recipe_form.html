@@ -5,7 +5,7 @@
 {% block main_title %}{% if request.resolver_match.url_name == 'recipe_create' %}Создание рецепта{% else %}Редактирование рецепта{% endif %}{% endblock %}
 
 {% block main_content %}
-  {% load recipes_custom_filters %}
+  {% load recipes_filters %}
   <div class="form-container">
     <form class="form" method="post" enctype="multipart/form-data">{% csrf_token %}
       <div class="form__group">

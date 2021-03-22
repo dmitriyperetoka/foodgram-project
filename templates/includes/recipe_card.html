@@ -1,4 +1,4 @@
-{% load recipes_custom_filters %}
+{% load recipes_filters %}
 <div class="card" data-id="{{ recipe.id }}">{% csrf_token %}
   <a href="{% url 'recipes:recipe_detail' recipe.id %}" class="link"><img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="card__image"></a>
   <div class="card__body">

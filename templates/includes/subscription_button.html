@@ -1,6 +1,6 @@
 {% if user.is_authenticated %}
   {% if user != author %}
-    {% load recipes_custom_filters %}{% csrf_token %}
+    {% load users_filters %}{% csrf_token %}
     {% if request|request_user_subscriptions:author %}
       <button class="button button_style_light-blue button_size_auto" name="subscribe">Отписаться от автора</button>
     {% else %}

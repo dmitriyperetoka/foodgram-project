@@ -39,24 +39,6 @@ def get_extra_recipes_message(quantity):
 
 
 @register.filter
-def dict_lookup(dict_, key):
-    """Lookup a value in a dictionary by key."""
-    return dict_[key]
-
-
-@register.filter
-def dict_items(dict_):
-    """Lookup a value in a dictionary by key."""
-    return dict_.items()
-
-
-@register.filter
-def list_lookup(list_, index):
-    """Lookup a value in a list by index."""
-    return list_[index]
-
-
-@register.filter
 def make_url_tags_query(request, slug):
     """Make url for filtering by tags."""
     get = request.GET.copy()
@@ -100,16 +82,24 @@ def tags_and_colors(request):  # noqa
 
 
 @register.filter
-def request_user_favorites(request, recipe):
-    return recipe in Recipe.objects.filter(favorite_lists__user=request.user)
+def dict_items(dict_):
+    """Get dictionary items."""
+    return dict_.items()
 
 
 @register.filter
-def request_user_purchases(request, recipe):
-    return recipe in Recipe.objects.filter(
-        purchase_lists__user=request.user)
+def dict_lookup(dict_, key):
+    """Lookup a value in a dictionary by key."""
+    return dict_[key]
 
 
 @register.filter
-def request_user_subscriptions(request, author):
-    return author in User.objects.filter(subscribers__user=request.user)
+def list_lookup(list_, index):
+    """Lookup a value in a list by index."""
+    return list_[index]
+
+
+@register.filter()
+def add_class(field, class_):
+    """Add class to a form field."""
+    return field.as_widget(attrs={'class': class_})

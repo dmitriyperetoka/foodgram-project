@@ -1,4 +1,4 @@
-{% load recipes_custom_filters %}
+{% load recipes_filters %}
 <div class="card-user" data-author="{{ subscription.author.id }}">{% csrf_token %}
   <div class="card-user__header">
     <h1 class="card-user__title"><a href="{% url 'recipes:author_recipe_list' subscription.author.username %}" class="card__title link" style="color: black">{{ subscription.author.get_full_name }}</a></h1>

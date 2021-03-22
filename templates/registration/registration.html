@@ -5,7 +5,7 @@
 {% block main_title %}Регистрация{% endblock %}
 
 {% block main_content %}
-  {% load users_custom_filters %}
+  {% load recipes_filters %}
   <div class="form-container">
     <form class="form" method="post">{% csrf_token %}
 

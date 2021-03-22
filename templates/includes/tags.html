@@ -1,4 +1,4 @@
-{% load recipes_custom_filters %}
+{% load recipes_filters %}
 <ul class="tags">
   {% for tag, color in request|tags_and_colors|dict_items %}
   <li class="tags__item">
