@@ -1,7 +1,7 @@
 from django import template
 from django.contrib.auth import get_user_model
 
-from ..models import Recipe, Tag
+from ..models import Tag
 
 User = get_user_model()
 
@@ -99,7 +99,7 @@ def list_lookup(list_, index):
     return list_[index]
 
 
-@register.filter()
+@register.filter
 def add_class(field, class_):
     """Add class to a form field."""
     return field.as_widget(attrs={'class': class_})

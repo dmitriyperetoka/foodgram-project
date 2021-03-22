@@ -9,16 +9,16 @@ register = template.Library()
 
 
 @register.filter
-def request_user_favorites(request, recipe):
-    return recipe in Recipe.objects.filter(favorite_lists__user=request.user)
+def favorites(user, recipe):
+    return recipe in Recipe.objects.filter(favorite_lists__user=user)
 
 
 @register.filter
-def request_user_purchases(request, recipe):
+def purchases(user, recipe):
     return recipe in Recipe.objects.filter(
-        purchase_lists__user=request.user)
+        purchase_lists__user=user)
 
 
 @register.filter
-def request_user_subscriptions(request, author):
-    return author in User.objects.filter(subscribers__user=request.user)
+def subscriptions(user, author):
+    return author in User.objects.filter(subscribers__user=user)

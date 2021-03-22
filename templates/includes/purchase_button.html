@@ -1,6 +1,6 @@
 {% if user.is_authenticated %}
   {% load users_filters %}
-  <button class="button button_style_light-blue{% if request|request_user_purchases:recipe %}-outline{% endif %}" name="purchases" {% if not request|request_user_purchases:recipe %}data-out{% endif %}>
-    {% if request|request_user_purchases:recipe %}<span class="icon-check button__icon"></span> Рецепт добавлен{% else %}<span class="icon-plus button__icon"></span> Добавить в покупки{% endif %}
+  <button class="button button_style_light-blue{% if user|purchases:recipe %}-outline{% endif %}" name="purchases" {% if not user|purchases:recipe %}data-out{% endif %}>
+    {% if user|purchases:recipe %}<span class="icon-check button__icon"></span> Рецепт добавлен{% else %}<span class="icon-plus button__icon"></span> Добавить в покупки{% endif %}
   </button>
 {% endif %}
