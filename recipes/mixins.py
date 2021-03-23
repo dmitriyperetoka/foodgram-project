@@ -1,4 +1,6 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin, PermissionRequiredMixin,
+)
 
 
 class IsAuthorPermissionMixin(LoginRequiredMixin, PermissionRequiredMixin):

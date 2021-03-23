@@ -42,7 +42,8 @@ class ModelsTestBase(TestCase):
                     instance_field = (
                         instance._meta.get_field(field).remote_field
                         if remote else instance._meta.get_field(field))
-                    self.assertEqual(instance_field.__getattribute__(attr), value)
+                    self.assertEqual(
+                        instance_field.__getattribute__(attr), value)
 
     def check_model_attrs(self, instance, model_attrs):
         for attr, attr_value in model_attrs.items():
