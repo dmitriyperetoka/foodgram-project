@@ -17,7 +17,7 @@
           <a href="#" class="shopping-list__button link">Удалить</a>
         </li>
       {% empty %}
-        <div>Данный список пуст.</div>
+        <p style="font-family: 'Montserrat', sans-serif;">Данный список пуст.</p>
       {% endfor %}
     </ul>
     <a href="{% url 'users:purchase_list_download' %}"><button class="button button_style_blue">Скачать список</button></a>
