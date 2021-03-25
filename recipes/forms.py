@@ -7,7 +7,7 @@ from .models import Ingredient, IngredientInRecipe, Recipe, Tag
 
 
 class RecipeForm(forms.ModelForm):
-    """Prompt input data for creating recipes."""
+    """Prompt input data for creating and editing recipes."""
 
     tags = forms.ModelMultipleChoiceField(
         Tag.objects.all(), to_field_name='slug', label='Тэги',
