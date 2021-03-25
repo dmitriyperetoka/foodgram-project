@@ -20,7 +20,7 @@
     <div class="single-card__items single-card__items_column">
       <p class="single-card__text"><span class="icon-time"></span> {{ recipe.cooking_time_minutes }} мин.</p>
       <ul class="single-card__items">
-        <li class="single-card__item"><p class="single-card__text"><span class="icon-user"></span> <a href="{% url 'recipes:author_recipe_list' recipe.author.username %}">{{ recipe.author.get_full_name }}</a></p></li>
+        <li class="single-card__item"><p class="single-card__text"><span class="icon-user"></span> <a href="{% url 'recipes:author_recipe_list' recipe.author.username %}" style="color: black">{{ recipe.author.get_full_name }}</a></p></li>
         {% if user == recipe.author %}
           <li class="single-card__item">  <a style="margin-left: 2.5em" href="{% url 'recipes:recipe_update' recipe.id %}" class="single-card__text">Редактировать рецепт</a></li>
         {% endif %}
