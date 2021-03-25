@@ -13,6 +13,8 @@ User = get_user_model()
 
 
 class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
+    """Return filtered ingredients list."""
+
     serializer_class = IngredientSerializer
 
     def get_queryset(self):
@@ -25,6 +27,8 @@ class CustomCreateDestroyViewSet(
     mixins.DestroyModelMixin,
     viewsets.GenericViewSet,
 ):
+    """Implement common methods for creating and destroying views."""
+
     permission_classes = [permissions.IsAuthenticated]
 
     def get_recipe(self):
@@ -32,6 +36,8 @@ class CustomCreateDestroyViewSet(
 
 
 class FavoriteViewSet(CustomCreateDestroyViewSet):
+    """Create and destroy records of adding recipe to favorite list."""
+
     serializer_class = FavoriteSerializer
 
     def perform_create(self, serializer):
@@ -44,6 +50,8 @@ class FavoriteViewSet(CustomCreateDestroyViewSet):
 
 
 class PurchaseViewSet(CustomCreateDestroyViewSet):
+    """Create and destroy records of adding recipe to purchase list."""
+
     serializer_class = PurchaseSerializer
 
     def perform_create(self, serializer):
@@ -56,6 +64,8 @@ class PurchaseViewSet(CustomCreateDestroyViewSet):
 
 
 class SubscriptionViewSet(CustomCreateDestroyViewSet):
+    """Create and destroy records of subscription to an author."""
+
     serializer_class = SubscriptionSerializer
 
     def perform_create(self, serializer):

@@ -2,10 +2,14 @@ from django.views.generic.base import TemplateView
 
 
 class AboutProjectView(TemplateView):
+    """Display about project page."""
+
     template_name = 'about/project.html'
 
 
 class AboutTechView(TemplateView):
+    """Display about technologies page."""
+
     template_name = 'about/tech.html'
     extra_context = {
         'tech': [

@@ -15,6 +15,8 @@ User = get_user_model()
 
 
 class RecipeCreateView(LoginRequiredMixin, CreateView):
+    """Create a single recipe."""
+
     success_url = reverse_lazy('recipes:recipe_list')
     form_class = RecipeForm
     model = Recipe
@@ -25,16 +27,20 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
 
 
 class RecipeUpdateView(IsAuthorPermissionMixin, UpdateView):
+    """Update a single recipe."""
     form_class = RecipeForm
     model = Recipe
 
 
 class RecipeDeleteView(IsAuthorPermissionMixin, DeleteView):
+    """Delete a single recipe."""
     success_url = reverse_lazy('recipes:recipe_list')
     model = Recipe
 
 
 class RecipeListView(ListView):
+    """Display recipe list."""
+
     model = Recipe
     paginate_by = 3
 
@@ -46,6 +52,8 @@ class RecipeListView(ListView):
 
 
 class AuthorRecipeListView(ListView):
+    """Display recipe list of a particular author."""
+
     paginate_by = 3
     author = None
 
@@ -66,4 +74,5 @@ class AuthorRecipeListView(ListView):
 
 
 class RecipeDetailView(DetailView):
+    """Display a single recipe."""
     model = Recipe

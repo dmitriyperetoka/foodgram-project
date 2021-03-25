@@ -14,17 +14,23 @@ User = get_user_model()
 
 
 class SubscriptionListView(LoginRequiredMixin, ListView):
+    """Display list of authors that the user is subscribed to."""
+
     def get_queryset(self):
         return self.request.user.subscriptions.select_related(
             'author').prefetch_related('author__recipes')
 
 
 class PurchaseListView(LoginRequiredMixin, ListView):
+    """Display recipes that are in the purchase list of the user."""
+
     def get_queryset(self):
         return self.request.user.purchases.select_related('recipe')
 
 
 class PurchaseListDownloadView(LoginRequiredMixin, View):
+    """Download a file with a purchase list."""
+
     @staticmethod
     def get(request):
         content = make_file_content(request.user)
@@ -34,6 +40,8 @@ class PurchaseListDownloadView(LoginRequiredMixin, View):
 
 
 class FavoriteListView(LoginRequiredMixin, ListView):
+    """Display recipes that are in the favorite list of the user."""
+
     template_name = 'users/favorite_list.html'
     paginate_by = 3
 
@@ -49,6 +57,8 @@ class FavoriteListView(LoginRequiredMixin, ListView):
 
 
 class RegistrationView(CreateView):
+    """Register new user."""
+
     template_name = 'registration/registration.html'
     success_url = reverse_lazy('users:registration_success')
     form_class = RegistrationForm
@@ -63,6 +73,8 @@ class RegistrationView(CreateView):
 
 
 class RegistrationSuccessView(TemplateView):
+    """Display registration success page."""
+
     template_name = 'registration/registration_success.html'
 
     def get(self, request, *args, **kwargs):

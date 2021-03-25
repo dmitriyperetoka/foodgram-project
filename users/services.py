@@ -2,6 +2,8 @@ from django.db.models import Sum
 
 
 def make_file_content(user):
+    """Make content of purchase list file."""
+
     ing = ('recipe__ingredients__title', 'Ингредиент')
     qty = ('recipe__ingredientinrecipe__quantity', 'Количество')
     unit = ('recipe__ingredients__dimension', 'Единица')

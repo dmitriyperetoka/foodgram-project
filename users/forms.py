@@ -8,6 +8,8 @@ User = get_user_model()
 
 
 class RegistrationForm(UserCreationForm):
+    """Prompt data for creating users."""
+
     class Meta:
         model = User
         fields = [
@@ -16,6 +18,8 @@ class RegistrationForm(UserCreationForm):
 
 
 class SubscriptionForm(ModelForm):
+    """Prompt data for creating subscription records."""
+
     class Meta:
         model = Subscription
         fields = '__all__'
