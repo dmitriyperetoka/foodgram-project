@@ -7,7 +7,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, ListView, TemplateView, View
 
 from .forms import RegistrationForm
-from .services import make_file_content
+from .services import PurchaseListFileContentMaker
 from recipes.models import Recipe
 
 User = get_user_model()
@@ -33,7 +33,7 @@ class PurchaseListDownloadView(LoginRequiredMixin, View):
 
     @staticmethod
     def get(request):
-        content = make_file_content(request.user)
+        content = PurchaseListFileContentMaker().make(request.user)
         response = HttpResponse(content, content_type='text/plain')
         response['Content-Disposition'] = 'attachment; filename=purchases.txt'
         return response

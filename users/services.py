@@ -1,41 +1,63 @@
 from django.db.models import Sum
 
 
-def make_file_content(user):
+class PurchaseListFileContentMaker:
     """Make content of purchase list file."""
 
-    ing = ('recipe__ingredients__title', 'Ингредиент')
-    qty = ('recipe__ingredientinrecipe__quantity', 'Количество')
-    unit = ('recipe__ingredients__dimension', 'Единица')
+    def __init__(self):
+        self.ingredient = {
+            'orm': 'recipe__ingredients__title',
+            'verbose': 'Ингредиент',
+        }
+        self.quantity = {
+            'orm': 'recipe__ingredientinrecipe__quantity',
+            'verbose': 'Количество',
+        }
+        self.unit = {
+            'orm': 'recipe__ingredients__dimension',
+            'verbose': 'Единица',
+        }
+        self.queryset = None
 
-    items = user.purchases.select_related(
-        'recipe').values(ing[0], unit[0]).annotate(**{qty[0]: Sum(qty[0])})
+    def _get_queryset(self, user):
+        return user.purchases.select_related('recipe').values(
+            self.ingredient['orm'], self.unit['orm']).annotate(
+            **{self.quantity['orm']: Sum(self.quantity['orm'])})
 
-    if not items:
-        return 'Данный список пуст.'
-
-    ing_wid = max(max(len(q[ing[0]]) for q in items), len(ing[1]))
-    qty_wid = max(max(len(str(q[qty[0]])) for q in items), len(qty[1]))
-    unit_wid = max(max(len(q[unit[0]]) for q in items), len(unit[1]))
-    total_wid = (ing_wid + 3) + (qty_wid + 3) + (unit_wid + 3) + 1
-    horiz_div = '-' * total_wid
-
-    table_title = 'Список покупок:'
-    table_header = (
-        f'| {ing[1]:<{ing_wid}} '
-        f'| {qty[1]:<{qty_wid}} '
-        f'| {unit[1]:<{unit_wid}} |'
-    )
-    table_footer = 'Сформировано с помощью Foodgram\n'
-
-    lines = [table_title, horiz_div, table_header, horiz_div]
-    for q in items:
-        line = (
-            f'| {q[ing[0]].capitalize():<{ing_wid}} '
-            f'| {q[qty[0]]:>{qty_wid}} '
-            f'| {q[unit[0]]:<{unit_wid}} |'
+    def _get_column_width(self, column):
+        return max(
+            max(len(str(q[column['orm']])) for q in self.queryset),
+            len(column['verbose'])
         )
-        lines.append(line)
-    lines.extend([horiz_div, table_footer])
 
-    return '\n'.join(str(q) for q in lines)
+    def make(self, user):
+        self.queryset = self._get_queryset(user)
+
+        if not self.queryset:
+            return 'Данный список пуст.'
+
+        ing_width = self._get_column_width(self.ingredient)
+        qty_width = self._get_column_width(self.quantity)
+        unit_width = self._get_column_width(self.unit)
+        total_width = (ing_width + 3) + (qty_width + 3) + (unit_width + 3) + 1
+
+        table_title = 'Список покупок:'
+        horiz_div = '-' * total_width
+        table_header = (
+            f'| {self.ingredient["verbose"]:<{ing_width}} '
+            f'| {self.quantity["verbose"]:<{qty_width}} '
+            f'| {self.unit["verbose"]:<{unit_width}} |'
+        )
+        table_footer = 'Сформировано с помощью Foodgram\n'
+
+        lines = [table_title, horiz_div, table_header, horiz_div]
+        for q in self.queryset:
+            line = (
+                f'| {q[self.ingredient["orm"]].capitalize():<{ing_width}} '
+                f'| {q[self.quantity["orm"]]:>{qty_width}} '
+                f'| {q[self.unit["orm"]]:<{unit_width}} |'
+            )
+            lines.append(line)
+        lines.extend([horiz_div, table_footer])
+
+        return '\n'.join(str(q) for q in lines)
