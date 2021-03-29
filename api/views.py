@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from rest_framework import mixins, permissions, viewsets
 
+from .permissions import IsUserPermission
 from .serializers import (
     FavoriteSerializer, IngredientSerializer,
     PurchaseSerializer, SubscriptionSerializer,
@@ -29,7 +30,7 @@ class CustomCreateDestroyViewSet(
 ):
     """Implement common methods for creating and destroying views."""
 
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, IsUserPermission]
 
     def get_recipe(self):
         return get_object_or_404(Recipe, id=self.request.data.get('recipe'))
@@ -45,8 +46,7 @@ class FavoriteViewSet(CustomCreateDestroyViewSet):
 
     def get_object(self):
         return get_object_or_404(
-            Favorite, user=self.request.user,
-            recipe=self.kwargs.get('pk'))
+            Favorite, user=self.request.user, recipe=self.kwargs.get('pk'))
 
 
 class PurchaseViewSet(CustomCreateDestroyViewSet):
@@ -59,8 +59,7 @@ class PurchaseViewSet(CustomCreateDestroyViewSet):
 
     def get_object(self):
         return get_object_or_404(
-            Purchase, user=self.request.user,
-            recipe=self.kwargs.get('pk'))
+            Purchase, user=self.request.user, recipe=self.kwargs.get('pk'))
 
 
 class SubscriptionViewSet(CustomCreateDestroyViewSet):
@@ -74,5 +73,4 @@ class SubscriptionViewSet(CustomCreateDestroyViewSet):
 
     def get_object(self):
         return get_object_or_404(
-            Subscription, user=self.request.user,
-            author=self.kwargs.get('pk'))
+            Subscription, user=self.request.user, author=self.kwargs.get('pk'))
