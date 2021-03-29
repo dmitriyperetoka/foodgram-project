@@ -26,7 +26,9 @@ jobs:
       run: flake8 --exclude=*migrations/*,venv/*,tests/* --per-file-ignores=settings.py:E501
 
     - name: Test with Django Unittest
-      run: python manage.py test
+      run: |
+        cd foodgram
+        python manage.py test
 
   build_and_push_to_docker_hub:
     name: Push Docker image to Docker Hub
