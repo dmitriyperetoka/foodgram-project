@@ -22,7 +22,7 @@ class PurchaseListFileContentMaker:
     def _get_queryset(self, user):
         return user.purchases.select_related('recipe').values(
             self.ingredient['orm'], self.unit['orm']).annotate(
-            **{self.quantity['orm']: Sum(self.quantity['orm'])})
+            **{self.quantity['orm']: Sum(self.quantity['orm'])}).order_by()
 
     def _get_column_width(self, column):
         return max(
