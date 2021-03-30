@@ -21,6 +21,7 @@ class Purchase(models.Model):
         help_text='Рецепт, представленный в списке покупок пользователя')
 
     class Meta:
+        ordering = ['-recipe__pub_date']
         verbose_name = 'Рецепт в списке покупок'
         verbose_name_plural = 'Рецепты в списках покупок'
         constraints = [
@@ -49,6 +50,7 @@ class Favorite(models.Model):
         help_text='Рецепт, который пользователь добавил в список избранного')
 
     class Meta:
+        ordering = ['-recipe__pub_date']
         verbose_name = 'Рецепт в списке избранного'
         verbose_name_plural = 'Рецепты в списках избранного'
         constraints = [
@@ -74,6 +76,7 @@ class Subscription(models.Model):
         help_text='Автор публикаций, на которого подписан пользователь')
 
     class Meta:
+        ordering = ['author__first_name', 'author__last_name']
         verbose_name = 'Подписка'
         verbose_name_plural = 'Подписки'
         constraints = [
