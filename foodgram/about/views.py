@@ -20,9 +20,9 @@ class AboutTechView(TemplateView):
                 'https://www.django-rest-framework.org/'
             ),
             ('Pillow', '8.1.1', 'https://python-pillow.org/'),
-            ('Gunicorn', None, 'https://gunicorn.org/'),
-            ('PostgreSQL', None, 'https://www.postgresql.org/'),
-            ('Nginx', None, 'https://nginx.org/'),
+            ('Gunicorn', '20.0.4', 'https://gunicorn.org/'),
+            ('PostgreSQL', '12.5', 'https://www.postgresql.org/'),
+            ('Nginx', '1.18', 'https://nginx.org/'),
             ('Docker', None, 'https://www.docker.com/'),
         ]
     }
