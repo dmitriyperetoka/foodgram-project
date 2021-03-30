@@ -4,6 +4,7 @@
 {% block stylesheet %}{% load static %}{% static 'pages/form.css' %}{% endblock %}
 
 {% block main_content %}
+  <style>h1, p {font-family: "Montserrat", sans-serif;}</style>
   <h1>Регистрация прошла успешно</h1>
   <p>Регистрация прошла успешно</p>
   <p><a href="{% url 'main_page' %}">На главную</a></p>
