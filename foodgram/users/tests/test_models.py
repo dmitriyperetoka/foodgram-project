@@ -68,6 +68,7 @@ class PurchaseModelTest(UsersModelsTest):
 
     def test_model_attrs(self):
         model_attr_values = {
+            'ordering': ['-recipe__pub_date'],
             'verbose_name': 'Рецепт в списке покупок',
             'verbose_name_plural': 'Рецепты в списках покупок',
         }
@@ -140,6 +141,7 @@ class FavoriteModelTest(UsersModelsTest):
 
     def test_model_attrs(self):
         model_attr_values = {
+            'ordering': ['-recipe__pub_date'],
             'verbose_name': 'Рецепт в списке избранного',
             'verbose_name_plural': 'Рецепты в списках избранного',
         }
@@ -211,6 +213,7 @@ class SubscriptionModelTest(UsersModelsTest):
 
     def test_model_attrs(self):
         model_attrs = {
+            'ordering': ['author__first_name', 'author__last_name'],
             'verbose_name': 'Подписка',
             'verbose_name_plural': 'Подписки',
         }
