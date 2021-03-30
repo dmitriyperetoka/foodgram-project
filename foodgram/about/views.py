@@ -19,7 +19,6 @@ class AboutTechView(TemplateView):
                 'Django REST Framework', '3.12.2',
                 'https://www.django-rest-framework.org/'
             ),
-            ('Pillow', '8.1.1', 'https://python-pillow.org/'),
             ('Gunicorn', '20.0.4', 'https://gunicorn.org/'),
             ('PostgreSQL', '12.5', 'https://www.postgresql.org/'),
             ('Nginx', '1.18', 'https://nginx.org/'),
