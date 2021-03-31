@@ -12,7 +12,9 @@
         <label for="id_name" class="form__label">Название рецепта</label>
         <div class="form__field-group">
           {{ form.title }}
-          <span class="form__error"></span>
+          {% for error in form.title.errors %}
+            <span class="form__error">{{ error }}</span>
+          {% endfor %}
         </div>
       </div>
       <div class="form__group">
@@ -26,9 +28,9 @@
               </div>
             {% endfor %}
           </div>
-
-            <span class="form__error">{{ form.errors }}</span>
-
+          {% for error in form.tags.errors %}
+            <span class="form__error">{{ error }}</span>
+          {% endfor %}
         </div>
       </div>
       <div class="form__group">
@@ -54,7 +56,11 @@
             {% endfor %}
           </div>
           <span class="form__ingredient-link" id="addIng">Добавить ингредиент</span>
-          <span class="form__error"></span>
+          {% for error in form.non_field_errors %}
+            {% if 'ингредиент' in error|lower %}
+              <span class="form__error">{{ error }}</span>
+            {% endif %}
+          {% endfor %}
         </div>
       </div>
       <div class="form__group">
@@ -62,30 +68,39 @@
         <div class="form__field-group form__field-group_time">
           {{ form.cooking_time_minutes }}
           <label for="id_cooking_time_minutes" class="form__label">минут</label>
-          <span class="form__error"></span>
+          {% for error in form.cooking_time_minutes.errors %}
+            <span class="form__error">{{ error }}</span>
+          {% endfor %}
         </div>
       </div>
       <div class="form__group">
         <label for="id_description" class="form__label">Описание</label>
         <div class="form__field-group">
           {{ form.description }}
-          <span class="form__error"></span>
+          {% for error in form.description.errors %}
+            <span class="form__error">{{ error }}</span>
+          {% endfor %}
         </div>
       </div>
       <div class="form__group">
-            <div class="form__group">
-                <span class="form__label">Загрузить фото</span>
-                <div class="form__field-group">
-                    <label for="id_image" class="form__file-button">Выбрать файл</label>
-                    {{ form.image }}
-                    <span class="form__error">{{ form.errors }}</span>
-                </div>
-            </div>
+        <div class="form__group">
+          <span class="form__label">Загрузить фото</span>
+          <div class="form__field-group">
+            {{ form.image }}
+            {% if request.resolver_match.url_name == 'recipe_update' %}
+              <span class="form__label">В настоящее время: </span>
+              <img src="{{ form.instance.image.url }}" style="width: 170px; height: 170px; object-fit: cover; border-radius: 20px">
+            {% endif %}
+            {% for error in form.image.errors %}
+              <span class="form__error">{{ error }}</span>
+            {% endfor %}
+         </div>
+        </div>
       </div>
       <div class="form__footer">
         {% if request.resolver_match.url_name == 'recipe_create' %}
           <button class="button button_style_blue">Создать рецепт</button>
-        {% elif request.resolver_match.url_name == 'recipe_update' or request.resolver_match.url_name == 'recipe_delete' %}
+        {% elif request.resolver_match.url_name == 'recipe_update' %}
           <button class="button button_style_blue">Сохранить</button><a style="margin-left: 2.5em" href="{% url 'recipes:recipe_delete' recipe.id %}" class="form__ingredient-link">Удалить</a>
         {% endif %}
       </div>
@@ -94,9 +109,9 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="{% static 'js/config/config.js' %}"></script>
-    <script src="{% static 'js/components/Header.js' %}"></script>
-    <script src="{% static 'js/utils/debouncing.js' %}"></script>
-    <script src="{% static 'js/api/Api.js' %}"></script>
-    <script src="{% static 'js/formRecipe.js' %}"></script>
+  <script src="{% static 'js/config/config.js' %}"></script>
+  <script src="{% static 'js/components/Header.js' %}"></script>
+  <script src="{% static 'js/utils/debouncing.js' %}"></script>
+  <script src="{% static 'js/api/Api.js' %}"></script>
+  <script src="{% static 'js/formRecipe.js' %}"></script>
 {% endblock %}
