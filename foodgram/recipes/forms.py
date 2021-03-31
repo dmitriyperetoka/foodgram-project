@@ -19,7 +19,7 @@ class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
         fields = [
-            'title', 'tags', 'cooking_time_minutes', 'description', 'image'
+            'title', 'tags', 'cooking_time_minutes', 'description', 'image',
         ]
         widgets = {
             'title': forms.TextInput(
@@ -28,7 +28,9 @@ class RecipeForm(forms.ModelForm):
             'description': forms.Textarea(
                 attrs={'class': 'form__textarea', 'rows': 8}
             ),
-            'image': forms.FileInput(attrs={'class': 'form__file'}),
+            'image': forms.FileInput(
+                attrs={'style': 'font-family: "Montserrat", sans-serif;'}
+            ),
         }
 
     def __init__(self, data=None, **kwargs):
@@ -43,12 +45,12 @@ class RecipeForm(forms.ModelForm):
 
     def clean(self):
         if not self.ingredientes:
-            raise ValidationError('Не выбраны ингредиенты')
+            raise ValidationError('Нужно выбрать минимум один ингредиент.')
 
         unique_titles = set()
         for title, quantity in self.ingredientes:
             if title in unique_titles:
-                raise ValidationError('Ингредиенты не должны повторяться')
+                raise ValidationError('Ингредиенты не должны повторяться.')
             unique_titles.add(title)
 
         return super().clean()
