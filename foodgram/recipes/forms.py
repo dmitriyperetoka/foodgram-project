@@ -51,7 +51,8 @@ class RecipeForm(forms.ModelForm):
         unique_titles = set()
         for title, quantity in self.ingredientes:
             if not all_ingredients.filter(title=title):
-                raise ValidationError(f'В базе данных нет ингредиента "{title}".')
+                raise ValidationError(
+                    f'В базе данных нет ингредиента "{title}".')
             if title in unique_titles:
                 raise ValidationError('Ингредиенты не должны повторяться.')
             unique_titles.add(title)
