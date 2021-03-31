@@ -68,7 +68,11 @@ function Ingredients() {
     };
     // очистка инпута
     const clearValue = (input) => {
-        input.value = '';
+        if(input.type === 'number') {
+            input.value = 1;
+        } else {
+            input.value = '';
+        }
     };
     return {
         clearValue,
