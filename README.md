@@ -78,6 +78,7 @@
 * [Python](https://www.python.org) версия 3.9.2
 * [Django Framework](https://www.djangoproject.com) версия 3.1.6
 * [Django REST Framework](https://www.django-rest-framework.org) версия 3.12.2
+* [Pillow](https://python-pillow.org) версия 8.1.1
 * [Gunicorn](https://gunicorn.org) версия 20.0.4
 * [PostgreSQL](https://www.postgresql.org) версия 12.5
 * [Nginx](https://nginx.org) версия 1.18
