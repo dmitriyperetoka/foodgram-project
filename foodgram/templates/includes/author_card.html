@@ -13,6 +13,8 @@
             <p class="recipe__text"><span class="icon-time"></span> {{ recipe.cooking_time_minutes }} мин.</p>
           </div>
         </li>
+      {% empty %}
+        <p style="font-family: 'Montserrat', sans-serif;">Данный список пуст.</p>
       {% endfor %}
         <li class="card-user__item">
           {% if subscription.author.recipes.count > 3 %}
