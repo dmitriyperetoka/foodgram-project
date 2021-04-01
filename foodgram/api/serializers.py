@@ -7,7 +7,7 @@ from users.models import Favorite, Purchase, Subscription
 class IngredientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ingredient
-        fields = '__all__'
+        fields = ['title', 'dimension']
 
 
 class FavoriteSerializer(serializers.ModelSerializer):
