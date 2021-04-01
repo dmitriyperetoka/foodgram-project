@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from PIL import Image
 
 from ..models import Recipe
-from .base_classes import UrlsTestBase
+from foodgram.tests.base_classes import UrlsTestBase
 
 User = get_user_model()
 

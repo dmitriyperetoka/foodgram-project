@@ -1,4 +1,4 @@
-from recipes.tests.base_classes import UrlsTestBase
+from foodgram.tests.base_classes import UrlsTestBase
 
 
 class ApiUrlsTest(UrlsTestBase):

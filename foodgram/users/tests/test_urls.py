@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
 
-from recipes.tests.base_classes import UrlsTestBase
+from foodgram.tests.base_classes import UrlsTestBase
 
 User = get_user_model()
 

@@ -3,7 +3,7 @@ from django.core import validators
 from django.db import models, utils
 
 from ..models import Ingredient, IngredientInRecipe, Recipe, Tag
-from .base_classes import ModelsTestBase
+from foodgram.tests.base_classes import ModelsTestBase
 
 User = get_user_model()
 

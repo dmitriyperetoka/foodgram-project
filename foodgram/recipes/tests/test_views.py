@@ -6,7 +6,7 @@ from django.shortcuts import reverse
 from PIL import Image
 
 from ..models import Recipe
-from .base_classes import ViewsTestBase
+from foodgram.tests.base_classes import ViewsTestBase
 
 User = get_user_model()
 
