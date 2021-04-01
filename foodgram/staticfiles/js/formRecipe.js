@@ -97,8 +97,10 @@ const cbEventInput = (elem) => {
     })
 };
 
+const eventInput = debouncing(cbEventInput, 1000);
+
 // вешаем апи
-nameIngredient.addEventListener('input', cbEventInput);
+nameIngredient.addEventListener('input', eventInput);
 const ingredients = Ingredients();
 // вешаем слушатель на элементы с апи
 formDropdownItems.addEventListener('click', ingredients.dropdown);
