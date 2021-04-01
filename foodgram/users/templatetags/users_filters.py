@@ -15,8 +15,7 @@ def favorites(user, recipe):
 
 @register.filter
 def purchases(user, recipe):
-    return recipe in Recipe.objects.filter(
-        purchase_lists__user=user)
+    return recipe in Recipe.objects.filter(purchase_lists__user=user)
 
 
 @register.filter
