@@ -1,6 +1,6 @@
 from django.shortcuts import reverse
 
-from recipes.tests.base_classes import ViewsTestBase
+from foodgram.tests.base_classes import ViewsTestBase
 
 
 class AboutViewsTest(ViewsTestBase):

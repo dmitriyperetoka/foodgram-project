@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 
 from ..models import Favorite, Purchase, Subscription
 from recipes.models import Recipe
-from recipes.tests.base_classes import ModelsTestBase
+from foodgram.tests.base_classes import ModelsTestBase
 
 User = get_user_model()
 
