@@ -73,6 +73,18 @@ class UrlsTestBase(TestCase):
                 response = self.client.get(url, follow=True)
                 self.assertEqual(response.redirect_chain, chain)
 
+    def check_unauthorized_forbidden(self, urls):
+        for url in urls:
+            with self.subTest():
+                response = self.client.get(url)
+                self.assertEqual(response.status_code, 403)
+
+    def check_get_method_not_allowed(self, urls):
+        for url in urls:
+            with self.subTest():
+                response = self.client.get(url)
+                self.assertEqual(response.status_code, 405)
+
 
 class ViewsTestBase(TestCase):
     def setUp(self):
