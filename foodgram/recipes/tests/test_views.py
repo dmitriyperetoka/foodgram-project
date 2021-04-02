@@ -43,6 +43,5 @@ class RecipesViewsTest(ViewsTestBase):
         ]
         self.check_template_used(reverse_names_templates)
 
-        recipe.delete()
         os.close(fd)
         os.remove(path)
