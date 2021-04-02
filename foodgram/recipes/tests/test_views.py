@@ -12,13 +12,19 @@ User = get_user_model()
 
 
 class RecipesViewsTest(ViewsTestBase):
-    def test_template_used(self):
-        fd, path = tempfile.mkstemp(suffix='.jpg')
+    def setUp(self):
+        super().setUp()
+        self.fd, self.path = tempfile.mkstemp(suffix='.jpg')
         image = Image.new("RGB", (1, 1), "#000")
-        image.save(path)
-        recipe = Recipe.objects.create(
-            author=self.user, image=path, cooking_time_minutes=60)
+        image.save(self.path)
+        self.recipe = Recipe.objects.create(
+            author=self.user, image=self.path, cooking_time_minutes=60)
 
+    def tearDown(self):
+        os.close(self.fd)
+        os.remove(self.path)
+
+    def test_template_used(self):
         reverse_names_templates = [
             (reverse('recipes:recipe_create'), 'recipes/recipe_form.html'),
             (reverse('recipes:recipe_list'), 'recipes/recipe_list.html'),
@@ -29,19 +35,19 @@ class RecipesViewsTest(ViewsTestBase):
                 'recipes/recipe_list.html',
             ),
             (
-                reverse('recipes:recipe_detail', kwargs={'pk': recipe.id}),
+                reverse(
+                    'recipes:recipe_detail', kwargs={'pk': self.recipe.id}),
                 'recipes/recipe_detail.html',
             ),
             (
-                reverse('recipes:recipe_update', kwargs={'pk': recipe.id}),
+                reverse(
+                    'recipes:recipe_update', kwargs={'pk': self.recipe.id}),
                 'recipes/recipe_form.html'
             ),
             (
-                reverse('recipes:recipe_delete', kwargs={'pk': recipe.id}),
+                reverse(
+                    'recipes:recipe_delete', kwargs={'pk': self.recipe.id}),
                 'recipes/recipe_confirm_delete.html'
             ),
         ]
         self.check_template_used(reverse_names_templates)
-
-        os.close(fd)
-        os.remove(path)
