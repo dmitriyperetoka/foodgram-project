@@ -18,7 +18,7 @@
           <a href="{% url 'users:purchase_list' %}" class="nav__link link">Список покупок</a>
             <span
                 class="badge badge_style_blue nav__badge" id="counter"
-            >{% if user.purchases.count %}{{ user.purchases.count }}{% endif %}</span>
+            >{% if user_purchases_count %}{{ user_purchases_count }}{% endif %}</span>
         </li>
       </ul>
       <ul class="nav__items list">
