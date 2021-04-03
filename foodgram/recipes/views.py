@@ -10,8 +10,13 @@ from django.views.generic import (
 from .forms import RecipeForm
 from .mixins import IsAuthorPermissionMixin
 from .models import Recipe
+from foodgram import settings
 
 User = get_user_model()
+
+RECIPE_LIST_QUERYSET = Recipe.objects.select_related(
+    'author').prefetch_related(
+    'favorite_lists__user', 'purchase_lists__user', 'tags')
 
 
 class RecipeCreateView(LoginRequiredMixin, CreateView):
@@ -29,15 +34,15 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
 class RecipeListView(ListView):
     """Display recipe list."""
 
-    model = Recipe
-    paginate_by = 3
+    queryset = RECIPE_LIST_QUERYSET
+    paginate_by = settings.PAGINATE_BY
 
     def get_queryset(self):
         queryset = super().get_queryset()
 
         tags = self.request.GET.getlist('tags')
         if tags:
-            return queryset.filter(tags__slug__in=tags)
+            queryset.filter(tags__slug__in=tags)
 
         return queryset
 
@@ -45,8 +50,8 @@ class RecipeListView(ListView):
 class AuthorRecipeListView(ListView):
     """Display recipe list of a particular author."""
 
-    model = Recipe
-    paginate_by = 3
+    queryset = RECIPE_LIST_QUERYSET
+    paginate_by = settings.PAGINATE_BY
     author = None
 
     def get_queryset(self):
@@ -59,7 +64,7 @@ class AuthorRecipeListView(ListView):
 
         return queryset
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['author'] = self.author
         return context
