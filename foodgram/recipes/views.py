@@ -26,6 +26,50 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
+class RecipeListView(ListView):
+    """Display recipe list."""
+
+    model = Recipe
+    paginate_by = 3
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        tags = self.request.GET.getlist('tags')
+        if tags:
+            return queryset.filter(tags__slug__in=tags)
+
+        return queryset
+
+
+class AuthorRecipeListView(ListView):
+    """Display recipe list of a particular author."""
+
+    model = Recipe
+    paginate_by = 3
+    author = None
+
+    def get_queryset(self):
+        self.author = get_object_or_404(User, username=self.kwargs['username'])
+        queryset = super().get_queryset().filter(author=self.author)
+
+        tags = self.request.GET.getlist('tags')
+        if tags:
+            queryset.filter(tags__slug__in=tags)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['author'] = self.author
+        return context
+
+
+class RecipeDetailView(DetailView):
+    """Display a single recipe."""
+    model = Recipe
+
+
 class RecipeUpdateView(IsAuthorPermissionMixin, UpdateView):
     """Update a single recipe."""
     form_class = RecipeForm
@@ -35,44 +79,4 @@ class RecipeUpdateView(IsAuthorPermissionMixin, UpdateView):
 class RecipeDeleteView(IsAuthorPermissionMixin, DeleteView):
     """Delete a single recipe."""
     success_url = reverse_lazy('recipes:recipe_list')
-    model = Recipe
-
-
-class RecipeListView(ListView):
-    """Display recipe list."""
-
-    model = Recipe
-    paginate_by = 3
-
-    def get_queryset(self):
-        tags = self.request.GET.getlist('tags')
-        if tags:
-            return Recipe.objects.filter(tags__slug__in=tags)
-        return super().get_queryset()
-
-
-class AuthorRecipeListView(ListView):
-    """Display recipe list of a particular author."""
-
-    paginate_by = 3
-    author = None
-
-    def get_queryset(self):
-        self.author = get_object_or_404(User, username=self.kwargs['username'])
-        queryset = Recipe.objects.filter(author=self.author)
-        tags = self.request.GET.getlist('tags')
-
-        if tags:
-            return queryset.filter(tags__slug__in=tags)
-
-        return queryset
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['author'] = self.author
-        return context
-
-
-class RecipeDetailView(DetailView):
-    """Display a single recipe."""
     model = Recipe
