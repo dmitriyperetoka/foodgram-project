@@ -99,6 +99,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+PAGINATE_BY = 3
+
 STATIC_URL = '/static/'
 STATIC_ROOT = '/var/www/foodgram/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]
