@@ -7,7 +7,7 @@ from .serializers import (
     FavoriteSerializer, IngredientSerializer,
     PurchaseSerializer, SubscriptionSerializer,
 )
-from recipes.models import Recipe, Ingredient
+from recipes.models import Ingredient
 from users.models import Favorite, Purchase, Subscription
 
 User = get_user_model()
@@ -29,11 +29,7 @@ class CustomCreateDestroyViewSet(
     viewsets.GenericViewSet,
 ):
     """Implement common methods for creating and destroying views."""
-
     permission_classes = [permissions.IsAuthenticated, IsOwnerPermission]
-
-    def get_recipe(self):
-        return get_object_or_404(Recipe, id=self.request.data.get('recipe'))
 
 
 class FavoriteViewSet(CustomCreateDestroyViewSet):
