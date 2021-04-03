@@ -15,8 +15,7 @@ class RecipesViewsTest(ViewsTestBase):
     def setUp(self):
         super().setUp()
         self.fd, self.path = tempfile.mkstemp(suffix='.jpg')
-        image = Image.new("RGB", (1, 1), "#000")
-        image.save(self.path)
+        Image.new("RGB", (1, 1), "#000").save(self.path)
         self.recipe = Recipe.objects.create(
             author=self.user, image=self.path, cooking_time_minutes=60)
 
