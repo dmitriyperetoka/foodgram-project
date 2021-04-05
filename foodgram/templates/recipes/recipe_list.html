@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 
-{% block title %}{% if request.resolver_match.url_name == 'author_recipe_list' %}{{ author.get_full_name }} | {% endif %}Рецепты{% endblock %}
+{% block title %}
+  {% if request.resolver_match.url_name == 'author_recipe_list' %}{{ author.get_full_name }} | {% endif %}Рецепты
+{% endblock %}
 {% block stylesheet %}{% load static %}{% static 'pages/index.css' %}{% endblock %}
-{% block main_title %}{% if request.resolver_match.url_name == 'author_recipe_list' %}{{ author.get_full_name }}{% else %}Рецепты{% endif %}{% endblock %}
+{% block main_title %}
+  {% if request.resolver_match.url_name == 'author_recipe_list' %}{{ author.get_full_name }}{% else %}Рецепты{% endif %}
+{% endblock %}
 {% block main_header %}{% include 'includes/tags.html' %}{% endblock %}
 
 {% block main_content %}

@@ -5,7 +5,9 @@
 
 {% block main_content %}
   <div class="custom-center-block">
-      <p class="custom-text-block">У пользователя&nbsp;<span style="color: #4A61DD">{{ user }}</span>&nbsp;недостаточно прав для выполнения данного запроса.</p>
+    <p class="custom-text-block">
+      У пользователя&nbsp;<span style="color: #4A61DD">{{ user }}</span>&nbsp;недостаточно прав для выполнения данного запроса.
+    </p>
     <div class="custom-button-block">
       <a href="{% url 'main_page' %}" class="button button_style_blue">Перейти на главную</a>
     </div>

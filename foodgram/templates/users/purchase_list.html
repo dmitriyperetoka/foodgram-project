@@ -10,8 +10,17 @@
       {% for purchase in object_list %}
         <li class="shopping-list__item" data-id="{{ purchase.recipe.id }}">
           <div class="recipe recipe_reverse">
-            <a href="{% url 'recipes:recipe_detail' purchase.recipe.id %}" style="grid-area: image"><img src="{{ purchase.recipe.image.url }}" alt="{{ purchase.recipe.title }}" class="recipe__image recipe__image_big"></a>
-            <h3 class="recipe__title"><a href="{% url 'recipes:recipe_detail' purchase.recipe.id %}" class="nav__link link">{{ purchase.recipe.title }}</a></h3>
+            <a href="{% url 'recipes:recipe_detail' purchase.recipe.id %}" style="grid-area: image">
+              <img
+                  src="{{ purchase.recipe.image.url }}" alt="{{ purchase.recipe.title }}"
+                  class="recipe__image recipe__image_big"
+              >
+            </a>
+            <h3 class="recipe__title">
+              <a href="{% url 'recipes:recipe_detail' purchase.recipe.id %}" class="nav__link link">
+                {{ purchase.recipe.title }}
+              </a>
+            </h3>
             <p class="recipe__text"><span class="icon-time"></span> {{ purchase.recipe.cooking_time_minutes }} мин.</p>
           </div>
           <a href="#" class="shopping-list__button link">Удалить</a>
@@ -20,14 +29,16 @@
         <p style="font-family: 'Montserrat', sans-serif;">Данный список пуст.</p>
       {% endfor %}
     </ul>
-    <a href="{% url 'users:purchase_list_download' %}"><button class="button button_style_blue">Скачать список</button></a>
+    <a href="{% url 'users:purchase_list_download' %}">
+      <button class="button button_style_blue">Скачать список</button>
+    </a>
   </div>
 {% endblock %}
 
 {% block scripts %}
-<script src="{% static 'js/config/config.js' %}"></script>
-<script src="{% static 'js/components/Header.js' %}"></script>
-<script src="{% static 'js/components/ShopList.js' %}"></script>
-<script src="{% static 'js/api/Api.js' %}"></script>
-<script src="{% static 'js/shopList.js' %}"></script>
+  <script src="{% static 'js/config/config.js' %}"></script>
+  <script src="{% static 'js/components/Header.js' %}"></script>
+  <script src="{% static 'js/components/ShopList.js' %}"></script>
+  <script src="{% static 'js/api/Api.js' %}"></script>
+  <script src="{% static 'js/shopList.js' %}"></script>
 {% endblock %}

@@ -5,7 +5,10 @@
   {% else %}
     <li class="pagination__item">
       <a class="pagination__link link"
-         href="?{% if request.GET.tags %}{% for slug in request|parse_url_tags_query %}tags={{ slug }}&{% endfor %}{% endif %}page={{ q }}">{{ q }}
+          href="?{% if request.GET.tags %}{% for slug in request|parse_url_tags_query %}
+          tags={{ slug }}&{% endfor %}{% endif %}page={{ q }}"
+      >
+        {{ q }}
       </a>
     </li>
   {% endif %}

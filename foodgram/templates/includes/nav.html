@@ -5,7 +5,10 @@
         <li class="nav__item {% if request.resolver_match.url_name == 'recipe_list' %} nav__item_active{% endif %}">
           <a href="{% url 'recipes:recipe_list' %}" class="nav__link link">Рецепты</a>
         </li>
-        <li class="nav__item {% if request.resolver_match.url_name == 'subscription_list' %} nav__item_active{% endif %}">
+        <li
+            class="nav__item {% if request.resolver_match.url_name == 'subscription_list' %}
+            nav__item_active{% endif %}"
+        >
           <a href="{% url 'users:subscription_list' %}" class="nav__link link">Мои подписки</a>
         </li>
         <li class="nav__item {% if request.resolver_match.url_name == 'recipe_create' %} nav__item_active{% endif %}">
@@ -22,7 +25,11 @@
         </li>
       </ul>
       <ul class="nav__items list">
-        <li class="nav__item"><a href="{% url 'recipes:author_recipe_list' user.username %}" class="nav__link link" style="color: #4A61DD">{{ user.get_full_name }}</a></li>
+        <li class="nav__item">
+          <a href="{% url 'recipes:author_recipe_list' user.username %}" class="nav__link link" style="color: #4A61DD">
+            {{ user.get_full_name }}
+          </a>
+        </li>
         <li class="nav__item"><a href="{% url 'password_change' %}" class="nav__link link">Изменить пароль</a></li>
         <li class="nav__item"><a href="{% url 'logout' %}" class="nav__link link">Выход</a></li>
       </ul>
@@ -31,11 +38,15 @@
         <li class="nav__item {% if request.resolver_match.url_name == 'recipe_list' %} nav__item_active{% endif %}">
           <a href="{% url 'recipes:recipe_list' %}" class="nav__link link">Рецепты</a>
         </li>
-        <li class="nav__item nav__item_disabled"><a href="{% url 'users:purchase_list' %}" class="nav__link link">Список покупок</a></li>
+        <li class="nav__item nav__item_disabled">
+          <a href="{% url 'users:purchase_list' %}" class="nav__link link">Список покупок</a>
+        </li>
       </ul>
       <ul class="nav__items list">
         <li class="nav__item"><a href="{% url 'login' %}" class="nav__link link">Войти</a></li>
-        <li class="nav__item"><a href="{% url 'users:registration' %}" class="button button_style_blue">Создать аккаунт</a></li>
+        <li class="nav__item">
+          <a href="{% url 'users:registration' %}" class="button button_style_blue">Создать аккаунт</a>
+        </li>
       </ul>
     {% endif %}
   </div>
