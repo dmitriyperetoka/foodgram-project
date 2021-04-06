@@ -82,7 +82,7 @@
 * [Gunicorn](https://gunicorn.org) версия 20.0.4
 * [PostgreSQL](https://www.postgresql.org) версия 12.5
 * [Nginx](https://nginx.org) версия 1.18
-* [Docker](https://www.docker.com)
+* [Docker](https://www.docker.com) версия 20.10.5
 
 ## Автор
 [Dmitriy Peretoka](https://github.com/dmitriyperetoka)
