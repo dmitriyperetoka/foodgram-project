@@ -1,5 +1,7 @@
 ![foodgram_workflow](https://github.com/dmitriyperetoka/foodgram-project/workflows/foodgram_workflow/badge.svg)
 
+[README in English](https://github.com/dmitriyperetoka/foodgram-project/blob/master/README_EN.md)
+
 # Foodgram project
 Продуктовый помощник. Онлайн-сервис, где пользователи могут публиковать рецепты, подписываться на публикации других пользователей, добавлять понравившиеся рецепты в список избранного, а перед походом в магазин скачивать сводный список продуктов, необходимых для приготовления одного или нескольких выбранных блюд.
 
