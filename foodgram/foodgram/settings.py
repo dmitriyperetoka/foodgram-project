@@ -49,7 +49,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'foodgram.context_processors.user_purchases_count',
+                'users.context_processors.user_purchases_count',
             ],
         },
     },
