@@ -9,7 +9,7 @@
     {% for title, version, href in tech %}
       <li>
         <a href="{{ href }}" target="_blank" class="nav__link link">{{ title }}</a>
-        {% if version %}<span style="color: lightgrey"> версия {{ version }}</span>{% endif %}
+        <span style="color: lightgrey"> версия {{ version }}</span>
       </li>
     {% endfor %}
   </ul>
