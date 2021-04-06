@@ -11,7 +11,7 @@ class AboutTechView(TemplateView):
     """Display about technologies page."""
 
     template_name = 'about/tech.html'
-    extra_context = {
+    extra_context: dict[str, list[tuple[str, str, str]]] = {
         'tech': [
             ('Python', '3.9.2', 'https://www.python.org/'),
             ('Django Framework', '3.1.6', 'https://www.djangoproject.com/'),
@@ -23,6 +23,6 @@ class AboutTechView(TemplateView):
             ('Gunicorn', '20.0.4', 'https://gunicorn.org/'),
             ('PostgreSQL', '12.5', 'https://www.postgresql.org/'),
             ('Nginx', '1.18', 'https://nginx.org/'),
-            ('Docker', None, 'https://www.docker.com/'),
+            ('Docker', '20.10.5', 'https://www.docker.com/'),
         ]
     }
