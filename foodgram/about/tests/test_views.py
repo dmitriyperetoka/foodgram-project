@@ -15,7 +15,10 @@ class AboutViewsTest(ViewsTestBase):
         about_tech_extra_context = {
             'tech': [
                 ('Python', '3.9.2', 'https://www.python.org/'),
-                ('Django Framework', '3.1.6', 'https://www.djangoproject.com/'),
+                (
+                    'Django Framework', '3.1.6',
+                    'https://www.djangoproject.com/',
+                ),
                 (
                     'Django REST Framework', '3.12.2',
                     'https://www.django-rest-framework.org/'
