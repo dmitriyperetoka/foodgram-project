@@ -87,12 +87,23 @@ class UrlsTestBase(TestCase):
 
 
 class ViewsTestBase(TestCase):
-    def setUp(self):
-        self.user = User.objects.create(username='someuser')
-        self.client.force_login(self.user)
-
     def check_template_used(self, reverse_names_templates):
         for reverse_name, template in reverse_names_templates:
             with self.subTest():
                 response = self.client.get(reverse_name)
                 self.assertTemplateUsed(response, template)
+
+    def check_extra_context_passed(self, pages):
+        for path, extra_context in pages:
+            response = self.client.get(path)
+            for key, value in extra_context.items():
+                with self.subTest():
+                    self.assertEqual(response.context[key], value)
+
+    def check_object_list_in_context(self, pages):
+        for path, queryset, indexes in pages:
+            response = self.client.get(path)
+            with self.subTest():
+                self.assertQuerysetEqual(
+                    response.context['object_list'],
+                    map(repr, queryset[indexes[0]:indexes[1]]))

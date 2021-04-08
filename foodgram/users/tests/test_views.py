@@ -1,9 +1,16 @@
+from django.contrib.auth import get_user_model
 from django.shortcuts import reverse
 
 from foodgram.tests.base_classes import ViewsTestBase
 
+User = get_user_model()
+
 
 class UsersViewsTest(ViewsTestBase):
+    def setUp(self):
+        self.user = User.objects.create(username='someuser')
+        self.client.force_login(self.user)
+
     def test_template_used(self):
         reverse_names_templates = [
             (reverse('users:favorite_list'), 'users/favorite_list.html'),
