@@ -2,19 +2,6 @@ class Api {
   constructor(apiUrl) {
     this.apiUrl =  apiUrl;
   }
-  getPurchases () {
-    return fetch(`${this.apiUrl}/purchases/`, {
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    })
-      .then( e => {
-          if(e.ok) {
-              return e.json()
-          }
-          return Promise.reject(e.statusText)
-      })
-  }
   addPurchases (id) {
     return fetch(`${this.apiUrl}/purchases/`, {
       method: 'POST',

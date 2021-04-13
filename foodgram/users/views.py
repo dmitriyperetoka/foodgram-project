@@ -8,7 +8,7 @@ from django.views.generic import CreateView, ListView, TemplateView, View
 
 from .forms import RegistrationForm
 from .services import PurchaseListFileContentMaker
-from recipes.models import Recipe
+from foodgram import settings
 
 User = get_user_model()
 
@@ -42,16 +42,15 @@ class PurchaseListDownloadView(LoginRequiredMixin, View):
 class FavoriteListView(LoginRequiredMixin, ListView):
     """Display recipes that are in the favorite list of the user."""
 
-    template_name = 'users/favorite_list.html'
-    paginate_by = 3
+    paginate_by = settings.PAGINATE_BY
 
     def get_queryset(self):
-        queryset = Recipe.objects.filter(
-            favorite_lists__user=self.request.user).select_related('author')
-        tags = self.request.GET.getlist('tags')
+        queryset = self.request.user.favorites.select_related(
+            'recipe__author').prefetch_related('recipe__tags')
 
+        tags = self.request.GET.getlist('tags')
         if tags:
-            return queryset.filter(tags__slug__in=tags)
+            queryset.filter(recipe__tags__slug__in=tags)
 
         return queryset
 

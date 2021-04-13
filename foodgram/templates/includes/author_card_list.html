@@ -1,7 +1,0 @@
-<div class="card-list">
-  {% for subscription in object_list %}
-      {% include 'includes/author_card.html' with author=subscription.author %}
-  {% empty %}
-    <p style="font-family: 'Montserrat', sans-serif;">Данный список пуст.</p>
-  {% endfor %}
-</div>

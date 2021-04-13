@@ -6,7 +6,13 @@
 {% block main_header %}{% include 'includes/tags.html' %}{% endblock %}
 
 {% block main_content %}
-  {% include 'includes/recipe_card_list.html' %}
+  <div class="card-list">
+    {% for favorite in page_obj %}
+      {% include 'includes/recipe_card.html' with recipe=favorite.recipe %}
+    {% empty %}
+      <p style="font-family: 'Montserrat', sans-serif;">Данный список пуст.</p>
+    {% endfor %}
+  </div>
   {% include 'includes/paginator.html' %}
 {% endblock %}
 

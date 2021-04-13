@@ -15,7 +15,13 @@
       <p style="padding: 0 0 2em 0;">{% include 'includes/subscription_button.html' %}</p>
     </div>
   {% endif %}
-  {% include 'includes/recipe_card_list.html' %}
+  <div class="card-list">
+    {% for recipe in page_obj %}
+      {% include 'includes/recipe_card.html' %}
+    {% empty %}
+      <p style="font-family: 'Montserrat', sans-serif;">Данный список пуст.</p>
+    {% endfor %}
+  </div>
   {% include 'includes/paginator.html' %}
 {% endblock %}
 

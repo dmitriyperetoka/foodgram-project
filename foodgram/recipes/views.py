@@ -14,10 +14,6 @@ from foodgram import settings
 
 User = get_user_model()
 
-RECIPE_LIST_QUERYSET = Recipe.objects.select_related(
-    'author').prefetch_related(
-    'favorite_lists__user', 'purchase_lists__user', 'tags')
-
 
 class RecipeCreateView(LoginRequiredMixin, CreateView):
     """Create a single recipe."""
@@ -34,11 +30,11 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
 class RecipeListView(ListView):
     """Display recipe list."""
 
-    queryset = RECIPE_LIST_QUERYSET
     paginate_by = settings.PAGINATE_BY
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = Recipe.objects.select_related(
+            'author').prefetch_related('tags')
 
         tags = self.request.GET.getlist('tags')
         if tags:
@@ -50,13 +46,13 @@ class RecipeListView(ListView):
 class AuthorRecipeListView(ListView):
     """Display recipe list of a particular author."""
 
-    queryset = RECIPE_LIST_QUERYSET
     paginate_by = settings.PAGINATE_BY
     author = None
 
     def get_queryset(self):
         self.author = get_object_or_404(User, username=self.kwargs['username'])
-        queryset = super().get_queryset().filter(author=self.author)
+        queryset = Recipe.objects.select_related(
+            'author').prefetch_related('tags').filter(author=self.author)
 
         tags = self.request.GET.getlist('tags')
         if tags:
