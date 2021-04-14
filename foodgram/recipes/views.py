@@ -38,7 +38,7 @@ class RecipeListView(ListView):
 
         tags = self.request.GET.getlist('tags')
         if tags:
-            queryset.filter(tags__slug__in=tags)
+            return queryset.filter(tags__slug__in=tags)
 
         return queryset
 
@@ -56,7 +56,7 @@ class AuthorRecipeListView(ListView):
 
         tags = self.request.GET.getlist('tags')
         if tags:
-            queryset.filter(tags__slug__in=tags)
+            return queryset.filter(tags__slug__in=tags)
 
         return queryset
 

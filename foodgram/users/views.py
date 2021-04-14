@@ -50,13 +50,13 @@ class FavoriteListView(LoginRequiredMixin, ListView):
 
         tags = self.request.GET.getlist('tags')
         if tags:
-            queryset.filter(recipe__tags__slug__in=tags)
+            return queryset.filter(recipe__tags__slug__in=tags)
 
         return queryset
 
 
 class RegistrationView(CreateView):
-    """Register new user."""
+    """Register new users."""
 
     template_name = 'registration/registration.html'
     success_url = reverse_lazy('users:registration_success')
