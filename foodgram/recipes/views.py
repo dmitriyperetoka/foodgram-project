@@ -47,23 +47,19 @@ class AuthorRecipeListView(ListView):
     """Display recipe list of a particular author."""
 
     paginate_by = settings.PAGINATE_BY
-    author = None
 
     def get_queryset(self):
-        self.author = get_object_or_404(User, username=self.kwargs['username'])
+        author = get_object_or_404(User, username=self.kwargs['username'])
+        self.extra_context = {'author': author}
+
         queryset = Recipe.objects.select_related(
-            'author').prefetch_related('tags').filter(author=self.author)
+            'author').prefetch_related('tags').filter(author=author)
 
         tags = self.request.GET.getlist('tags')
         if tags:
             return queryset.filter(tags__slug__in=tags)
 
         return queryset
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['author'] = self.author
-        return context
 
 
 class RecipeDetailView(DetailView):
