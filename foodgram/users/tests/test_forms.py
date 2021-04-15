@@ -1,11 +1,15 @@
+import os
+
 from django.contrib.auth import get_user_model
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from ..models import Subscription
+from foodgram.settings import BASE_DIR
 
 User = get_user_model()
 
 
+@override_settings(STATIC_ROOT=os.path.join(BASE_DIR, 'static'))
 class SubscriptionFormTest(TestCase):
     def setUp(self):
         self.superuser = User.objects.create_superuser(username='superuser')
