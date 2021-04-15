@@ -42,7 +42,8 @@ class UsersUrlsTest(UrlsTestBase):
 
     def test_redirect_chains(self):
         redirect_chains = {
-            '/personal/registration/success/': [('/', 302), ('/recipes/', 302)],
+            '/personal/registration/success/': [('/', 302),
+                                                ('/recipes/', 302)],
             '/personal/auth/logout/': [('/', 302), ('/recipes/', 302)],
         }
         self.check_redirect_chains(redirect_chains)

@@ -57,7 +57,7 @@ class RecipeForm(forms.ModelForm):
         all_ingredients = Ingredient.objects.all()
         unique_titles = set()
         for title, quantity in self.ingredients:
-            if (quantity.isdigit() and int(quantity) > 0) is not True:
+            if not (quantity.isdigit() and int(quantity) > 0):
                 raise ValidationError(
                     'Количество ингредиента должно быть '
                     'целым положительным числом.')
