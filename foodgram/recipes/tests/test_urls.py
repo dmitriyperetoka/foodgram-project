@@ -22,8 +22,8 @@ class RecipesUrlsTest(UrlsTestBase):
 
         urls = [
             '/recipes/',
-            f'/recipes/author/{author.username}',
-            f'/recipes/id/{recipe.id}',
+            f'/recipes/author/{author.username}/',
+            f'/recipes/id/{recipe.id}/',
         ]
 
         self.check_exists(urls)
@@ -32,12 +32,12 @@ class RecipesUrlsTest(UrlsTestBase):
         os.remove(path)
 
         self.client.force_login(author)
-        urls = ['/recipes/new']
+        urls = ['/recipes/new/']
         self.check_exists(urls)
 
     def test_redirects(self):
         redirects = {
             '/': '/recipes/',
-            '/recipes/new': f'{settings.LOGIN_URL}?next=/recipes/new',
+            '/recipes/new/': f'{settings.LOGIN_URL}?next=/recipes/new/',
         }
         self.check_redirects(redirects)

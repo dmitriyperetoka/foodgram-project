@@ -5,14 +5,14 @@ from . import views
 app_name = 'recipes'
 
 urlpatterns = [
-    path('author/<str:username>', views.AuthorRecipeListView.as_view(),
+    path('author/<str:username>/', views.AuthorRecipeListView.as_view(),
          name='author_recipe_list'),
-    path('id/<int:pk>/edit', views.RecipeUpdateView.as_view(),
+    path('id/<int:pk>/edit/', views.RecipeUpdateView.as_view(),
          name='recipe_update'),
-    path('id/<int:pk>/delete', views.RecipeDeleteView.as_view(),
+    path('id/<int:pk>/delete/', views.RecipeDeleteView.as_view(),
          name='recipe_delete'),
-    path('id/<int:pk>', views.RecipeDetailView.as_view(),
+    path('id/<int:pk>/', views.RecipeDetailView.as_view(),
          name='recipe_detail'),
-    path('new', views.RecipeCreateView.as_view(), name='recipe_create'),
+    path('new/', views.RecipeCreateView.as_view(), name='recipe_create'),
     path('', views.RecipeListView.as_view(), name='recipe_list'),
 ]
