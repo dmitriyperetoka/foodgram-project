@@ -4,14 +4,16 @@ import tempfile
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.shortcuts import reverse
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from PIL import Image
 
 from ..models import Ingredient, IngredientInRecipe, Recipe, Tag
+from foodgram.settings import BASE_DIR
 
 User = get_user_model()
 
 
+@override_settings(MEDIA_ROOT=os.path.join(BASE_DIR, 'media'))
 class RecipeFormTest(TestCase):
     def setUp(self):
         self.user = User.objects.create(username='someuser')
