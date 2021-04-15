@@ -36,10 +36,10 @@ function Ingredients() {
             const elem = document.createElement('div');
             elem.classList.add('form__field-item-ingredient');
             elem.id = `ing_${cur}`;
-            elem.innerHTML = `<span> ${data.name} ${data.value}${data.units}</span> <span class="form__field-item-delete"></span>
+            elem.innerHTML = `<span> ${data.name} ${data.value}${data.unit}</span> <span class="form__field-item-delete"></span>
                              <input id="nameIngredient_${cur}" name="nameIngredient" type="hidden" value="${data.name}">
                              <input id="valueIngredient_${cur}" name="valueIngredient" type="hidden" value="${data.value}">
-                             <input id="unitsIngredient_${cur}" name="unitsIngredient" type="hidden" value="${data.units}">`;
+                             <input id="unitIngredient_${cur}" name="unitIngredient" type="hidden" value="${data.unit}">`;
             cur++;
 
             ingredientsContainer.appendChild(elem);
@@ -60,7 +60,7 @@ function Ingredients() {
         const data = {
             name: nameIngredient.value,
             value: cantidad.value,
-            units: cantidadVal.textContent
+            unit: cantidadVal.textContent
         };
         clearValue(nameIngredient);
         clearValue(cantidad);

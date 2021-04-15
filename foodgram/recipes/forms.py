@@ -34,28 +34,41 @@ class RecipeForm(forms.ModelForm):
         }
 
     def __init__(self, data=None, **kwargs):
-        self.ingredientes = None
+        self.ingredient_titles = None
+        self.ingredient_quantities = None
+        self.ingredients = None
 
         if data is not None:
-            titles = data.getlist('nameIngredient')
-            quantities = data.getlist('valueIngredient')
-            self.ingredientes = list(zip(titles, quantities))
+            self.ingredient_titles = data.getlist('nameIngredient')
+            self.ingredient_quantities = data.getlist('valueIngredient')
 
         super().__init__(data=data, **kwargs)
 
     def clean(self):
-        if not self.ingredientes:
+        if len(self.ingredient_titles) != len(self.ingredient_quantities):
+            raise ValidationError(
+                'У каждого ингредиента должны быть и название, и количество.')
+
+        self.ingredients = list(
+            zip(self.ingredient_titles, self.ingredient_quantities))
+        if not self.ingredients:
             raise ValidationError('Нужно выбрать минимум один ингредиент.')
 
         all_ingredients = Ingredient.objects.all()
         unique_titles = set()
-        for title, quantity in self.ingredientes:
-            if not all_ingredients.filter(title=title):
+        for title, quantity in self.ingredients:
+            if (quantity.isdigit() and int(quantity) > 0) is not True:
                 raise ValidationError(
-                    f'В базе данных нет ингредиента "{title}".')
+                    'Количество ингредиента должно быть '
+                    'целым положительным числом.')
+
             if title in unique_titles:
                 raise ValidationError('Ингредиенты не должны повторяться.')
             unique_titles.add(title)
+
+            if not all_ingredients.filter(title=title):
+                raise ValidationError(
+                    f'В базе данных нет ингредиента "{title}".')
 
         return super().clean()
 
@@ -65,7 +78,7 @@ class RecipeForm(forms.ModelForm):
         recipe.save()
 
         ingredients_in_recipes = []
-        for title, quantity in self.ingredientes:
+        for title, quantity in self.ingredients:
             ingredient = get_object_or_404(Ingredient, title=title)
             ingredients_in_recipes.append(
                 IngredientInRecipe(

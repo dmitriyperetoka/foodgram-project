@@ -29,6 +29,6 @@ class SubscriptionForm(ModelForm):
         author = self.cleaned_data.get('author')
 
         if user and author and user == author:
-            raise ValidationError('Нельзя подписываться на себя')
+            raise ValidationError('Нельзя подписываться на себя.')
 
         return super().clean()
