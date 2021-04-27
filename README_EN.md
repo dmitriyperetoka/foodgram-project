@@ -3,8 +3,6 @@
 # Foodgram project
 Grocery assistant website. An online service where users can publish recipes, subscribe to other users' publications, add recipes that they like to favorite list, and download a summary purchase list of products needed to prepare one or more selected dishes before they go shopping.
 
-The project is deployed on the server at http://178.154.194.166
-
 ## Technologies:
 * [Python](https://www.python.org) version 3.9.2
 * [Django Framework](https://www.djangoproject.com) version 3.1.6
