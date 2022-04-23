@@ -1,7 +1,7 @@
 ![foodgram_workflow](https://github.com/dmitriyperetoka/foodgram-project/workflows/foodgram_workflow/badge.svg)
 
 # Foodgram project
-Graduate priject of the course https://practicum.yandex.ru/backend-developer
+Graduate project of the course https://practicum.yandex.ru/backend-developer
 
 Grocery assistant website. An online service where users can publish recipes, subscribe to other users' publications, add recipes that they like to favorite list, and download a summary purchase list of products needed to prepare one or more selected dishes before they go shopping.
 
